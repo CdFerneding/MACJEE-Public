@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>MACJEE</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>MACJEE</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MACJEE</name>
 	<description>Job Portal which will find the perfect job and applicants</description>
