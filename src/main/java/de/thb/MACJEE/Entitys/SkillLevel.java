@@ -1,4 +1,4 @@
 package de.thb.MACJEE.Entitys;
 
-public class Customer {
+public class SkillLevel {
 }
