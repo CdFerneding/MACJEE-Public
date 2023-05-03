@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<!Doctype html>
+<html lang="en"
+      xml:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>login</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <!--<link href="../static/styles/style.css" type="text/css" rel="stylesheet">-->
+
+    <title>
+        Log in
+    </title>
+
+</head>
+<body class="text-center" style="padding-left:25%; padding-right:25%; margin-top:20vh;">
+<div style="align-content: center; width:100%;">
+    <form class="form-signin">
+        <div class="text-center mb-4">
+            <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
+        </div>
+
+        <div class="form-label-group" style="margin-bottom: 10px;">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <!--<label for="inputEmail">Email address</label>-->
+        </div>
+
+        <div class="form-label-group" style="margin-bottom: 10px;">
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <!--<label for="inputPassword">Password</label>-->
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2023 MACJEE</p>
+    </form>
+</div>
 </body>
 </html>
