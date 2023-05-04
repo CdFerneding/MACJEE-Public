@@ -8,7 +8,7 @@ import java.util.List;
 public class CustomerVO {
     private long id;
     private String mail;
-    private List<Characteristics> cahracteristics;
+    private List<Characteristics> characteristics;
     private UserRole userRole;
 
     public void applyForJob(JobVO job){
