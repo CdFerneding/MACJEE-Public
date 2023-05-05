@@ -1,6 +1,6 @@
 package de.thb.MACJEE.Entitys;
 
-import de.thb.MACJEE.Enumerations.UserRole;
+import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

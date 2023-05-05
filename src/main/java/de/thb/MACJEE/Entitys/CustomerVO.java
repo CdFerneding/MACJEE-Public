@@ -1,7 +1,7 @@
 package de.thb.MACJEE.Entitys;
 
-import de.thb.MACJEE.Enumerations.Characteristics;
-import de.thb.MACJEE.Enumerations.UserRole;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
+import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 
 import java.util.List;
 
