@@ -1,4 +1,4 @@
-package de.thb.MACJEE.Enumerations;
+package de.thb.MACJEE.Entitys.Enumerations;
 
 public enum Characteristics {
     MATH, BIOLOGY, PHYSICS, GERMAN, CHEMISTRY, ENGLISH, PE, CS
