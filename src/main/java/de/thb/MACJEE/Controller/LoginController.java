@@ -29,6 +29,13 @@ public class LoginController {
         //return "index";
     }
 
+    @GetMapping("/index_2")
+    public void showIndex2(Model model){
+        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
+        model.addAttribute("formNotebook", new Notebook());*/
+        //return "index_2";
+    }
+
     /**
      * Registrierungsformular Arbeitnehmer
      * @param model
@@ -71,8 +78,10 @@ public class LoginController {
      */
     @PostMapping("/registration_zero")
     public String getRegistrationZero(@ModelAttribute Role role){
-        if(role.role == 2) return "redirect:/registration_ag";
-            //System.out.print
+        if(role.role == 2){
+            //System.out.println("Test");
+            return "redirect:/registration_ag";
+        }
         else if(role.role == 1) return "registration_an";
         return "redirect:/registration_zero";
     }
