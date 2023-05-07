@@ -17,7 +17,27 @@ public class MainController extends HttpServlet {
         super();
     }
 
+    /**
+     * Startseite mit mgl. zur Anmeldung und Registrierung
+     * @param model
+     */
+    @GetMapping("/index")
+    public void showIndex(Model model){
+        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
+        model.addAttribute("formNotebook", new Notebook());*/
+        //return "index";
+    }
 
+    /**
+     * Main Startseite mit mgl. zur Anmeldung und Registrierung
+     * @param model
+     */
+    @GetMapping("/index_2")
+    public void showIndex2(Model model){
+        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
+        model.addAttribute("formNotebook", new Notebook());*/
+        //return "index_2";
+    }
 
 
 }

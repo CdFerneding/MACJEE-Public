@@ -2,11 +2,17 @@ package de.thb.MACJEE.Entitys;
 
 import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Enumerations.UserRole;
+import lombok.*;
 
 import java.util.List;
 
+@Data
+
 public class CustomerVO {
     private long id;
+    private String firstName;
+    private String lastName;
+    private String userName;
     private String mail;
     private List<Characteristics> characteristics;
     private UserRole userRole;
