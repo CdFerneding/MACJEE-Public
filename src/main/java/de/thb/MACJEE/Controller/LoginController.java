@@ -1,5 +1,6 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Entitys.CustomerVO;
 import de.thb.MACJEE.Entitys.Role;
 import jakarta.servlet.http.HttpServlet;
 import org.springframework.stereotype.Controller;
@@ -17,24 +18,6 @@ public class LoginController {
         super();
     }
 
-
-    /**
-     * Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
-    @GetMapping("/index")
-    public void showIndex(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index";
-    }
-
-    @GetMapping("/index_2")
-    public void showIndex2(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index_2";
-    }
 
     /**
      * Registrierungsformular Arbeitnehmer
@@ -55,9 +38,14 @@ public class LoginController {
      */
     @GetMapping("/registration_ag")
     public String showRegistrationAg(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
+        model.addAttribute("customer", new CustomerVO());
         return "registration_ag";
+    }
+
+    @PostMapping("/registration_ag")
+    public String getRegistrationAg(@ModelAttribute CustomerVO customer){
+        System.out.println(customer.toString());
+        return "redirect:/index_2";
     }
 
     /**

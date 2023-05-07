@@ -1,20 +1,27 @@
 package de.thb.MACJEE.Entitys;
 
 import de.thb.MACJEE.Entitys.Enumerations.UserRole;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class CompanyVO {
     private long id;
-    private String name;
-    private String description;
-    private String location;
+    private String firstName;
+    private String lastName;
+    private String userName;
     private String mail;
-    private long phoneNumber;
+    private String password;
+    private String description;
+    private String address;
+    private String address2;
+    private String country;
+    private String state;
+    private int zip;
+    //private String phoneNumber;
+    // Fehler beim Template - erstmal weglassen
     private String website;
     private UserRole userRole;
 
