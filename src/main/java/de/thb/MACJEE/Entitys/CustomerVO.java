@@ -6,6 +6,13 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
+
+import lombok.*;
+
+import java.util.List;
+
+@Data
 @Entity
 @Table(name="Customer")
 public class CustomerVO {
@@ -13,6 +20,11 @@ public class CustomerVO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+    
+    private String firstName;
+    private String lastName;
+    private String userName;
+
     @Column(name = "mail")
     private String mail;
     private List<Characteristics> characteristics;

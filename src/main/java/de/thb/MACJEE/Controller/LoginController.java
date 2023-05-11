@@ -1,5 +1,6 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Entitys.CustomerVO;
 import de.thb.MACJEE.Entitys.Role;
 import jakarta.servlet.http.HttpServlet;
 import org.springframework.stereotype.Controller;
@@ -17,17 +18,6 @@ public class LoginController {
         super();
     }
 
-
-    /**
-     * Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
-    @GetMapping("/index")
-    public void showIndex(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index";
-    }
 
     /**
      * Registrierungsformular Arbeitnehmer
@@ -48,9 +38,14 @@ public class LoginController {
      */
     @GetMapping("/registration_ag")
     public String showRegistrationAg(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
+        model.addAttribute("customer", new CustomerVO());
         return "registration_ag";
+    }
+
+    @PostMapping("/registration_ag")
+    public String getRegistrationAg(@ModelAttribute CustomerVO customer){
+        System.out.println(customer.toString());
+        return "redirect:/index_2";
     }
 
     /**
@@ -71,8 +66,10 @@ public class LoginController {
      */
     @PostMapping("/registration_zero")
     public String getRegistrationZero(@ModelAttribute Role role){
-        if(role.role == 2) return "redirect:/registration_ag";
-            //System.out.print
+        if(role.role == 2){
+            //System.out.println("Test");
+            return "redirect:/registration_ag";
+        }
         else if(role.role == 1) return "registration_an";
         return "redirect:/registration_zero";
     }
