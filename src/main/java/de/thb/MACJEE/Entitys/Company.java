@@ -51,7 +51,7 @@ public class Company {
     private UserRole userRole;
 
     // bidirectional --> no according column in the database needed, just visible in JPA
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "byCompany")
     private List<Job> jobs;
 
     public Job uploadJob(Skill characteristicsLevel) {
