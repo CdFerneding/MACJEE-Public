@@ -12,11 +12,11 @@ import java.util.Set;
 @Setter
 @Data
 @Entity
-@Table(name = "Characteristic")
+@Table(name = "skill")
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     private String name;
