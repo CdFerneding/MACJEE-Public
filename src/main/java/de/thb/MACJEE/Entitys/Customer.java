@@ -33,7 +33,7 @@ public class Customer {
 
     // HashSet: unordered List of *unique* elements
     @OneToMany(mappedBy = "customer")
-    private Set<Skill> skills = new HashSet<>();
+    private Set<CustomerSkill> skills = new HashSet<>();
 
     @Column(name = "user_role")
     private UserRole userRole;
