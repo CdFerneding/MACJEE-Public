@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
 @RepositoryDefinition(domainClass = Skill.class, idClass = Long.class)
-public interface skillRepository extends CrudRepository<Skill, Long> {
+public interface SkillRepository extends CrudRepository<Skill, Long> {
 }

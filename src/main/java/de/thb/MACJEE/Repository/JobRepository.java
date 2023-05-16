@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
 @RepositoryDefinition(domainClass = Job.class, idClass = Long.class)
-public interface jobRepository extends CrudRepository<Job, Long> {
+public interface JobRepository extends CrudRepository<Job, Long> {
 }
