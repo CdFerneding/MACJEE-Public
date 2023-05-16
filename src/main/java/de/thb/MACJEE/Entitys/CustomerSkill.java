@@ -4,9 +4,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customer_skill")
-public class customerSkills {
+public class CustomerSkill {
     @EmbeddedId
-    private customerSkillsId id;
+    private CustomerSkillId id;
 
     @ManyToOne
     @MapsId("customer_id")
