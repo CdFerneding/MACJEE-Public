@@ -32,11 +32,8 @@ public class Customer {
     private String password;
 
     // HashSet: unordered List of *unique* elements
-    @ManyToMany
-    @JoinTable(name = "customer_skill",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills = new HashSet<>();
+    @OneToMany(mappedBy = "customer")
+    private Set<CustomerSkill> skills = new HashSet<>();
 
     @Column(name = "user_role")
     private UserRole userRole;
