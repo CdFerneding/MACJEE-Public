@@ -22,7 +22,7 @@ public class Skill {
     private String name;
     private int ability;
 
-    @ManyToMany(mappedBy = "skills")
+    @OneToMany(mappedBy = "skill")
     private Set<Customer> customers = new HashSet<>();
 
     @ManyToMany(mappedBy = "requiredSkills")
