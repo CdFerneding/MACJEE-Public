@@ -12,18 +12,18 @@ import java.util.Set;
 @Setter
 @Data
 @Entity
-@Table(name = "Characteristic")
+@Table(name = "skill")
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "id")
     private Long id;
 
     private String name;
     private int ability;
 
-    @ManyToMany(mappedBy = "skills")
-    private Set<Customer> customers = new HashSet<>();
+    @OneToMany(mappedBy = "skill")
+    private Set<CustomerSkill> customers = new HashSet<>();
 
     @ManyToMany(mappedBy = "requiredSkills")
     private Set<Job> jobs = new HashSet<>();
