@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 @Data
 public class Role {
-    public UserRole role;
+    public int role;
 }
