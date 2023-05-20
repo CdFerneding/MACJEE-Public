@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class MainController extends HttpServlet {
+public class MainController {
 
 
     public MainController(){
         super();
+    }
+
+    @GetMapping("/")
+    public String showHome(Model model) {
+        return "index_2";
     }
 
     /**
@@ -38,7 +43,4 @@ public class MainController extends HttpServlet {
         model.addAttribute("formNotebook", new Notebook());*/
         //return "index_2";
     }
-
-
 }
-

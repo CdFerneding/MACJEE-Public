@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.*;
 
 import lombok.*;
+import org.springframework.security.core.userdetails.User;
 
 @Getter
 @Setter
@@ -26,17 +27,15 @@ public class Customer {
     @Column(name = "user_name", unique = true, nullable = false)
     private String userName;
 
-    @Column(name = "mail", unique = true, nullable = false)
-    private String mail;
-
-    private String password;
-
     // HashSet: unordered List of *unique* elements
     @OneToMany(mappedBy = "customer")
     private Set<CustomerSkill> skills = new HashSet<>();
 
-    @Column(name = "user_role")
-    private UserRole userRole;
+    @ManyToMany
+    @JoinTable(name = "customer_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     private Date doB;
