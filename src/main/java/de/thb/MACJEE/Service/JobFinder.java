@@ -29,7 +29,7 @@ public class JobFinder {
         // 3. Durchsuche die Datenbank nach passenden Jobs
         List<Job> matchingJobs = jobRepository.findBySkillsIn(customerSkills);
 
-        return null;
+        return matchingJobs;
     }
 }
 
