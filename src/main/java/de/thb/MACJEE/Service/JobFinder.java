@@ -27,7 +27,7 @@ public class JobFinder {
         Set<CustomerSkill> customerSkills = customer.getSkills();
 
         // 3. Durchsuche die Datenbank nach passenden Jobs
-        //List<Job> matchingJobs = jobRepository.findBySkillsIn(customerSkills);
+        List<Job> matchingJobs = jobRepository.findBySkillsIn(customerSkills);
 
         return null;
     }
