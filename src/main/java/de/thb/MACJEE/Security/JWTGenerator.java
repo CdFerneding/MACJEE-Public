@@ -13,6 +13,10 @@ import java.util.Date;
 @Component
 public class JWTGenerator {
 
+    /*
+     * token is generated in the login process
+     * token key and duration are specified in the SecurityConstants file
+     */
     public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();

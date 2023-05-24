@@ -1,4 +1,4 @@
-package de.thb.MACJEE.Security;
+package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Entitys.Role;
 import de.thb.MACJEE.Entitys.UserEntity;

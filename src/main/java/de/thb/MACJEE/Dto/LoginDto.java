@@ -1,4 +1,4 @@
-package de.thb.MACJEE.Service;
+package de.thb.MACJEE.Dto;
 
 import lombok.Data;
 
