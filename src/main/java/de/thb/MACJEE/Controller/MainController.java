@@ -1,7 +1,9 @@
 package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Entitys.Role;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,19 @@ public class MainController {
     @GetMapping("/")
     public String showHome(Model model) {
         return "index_2";
+    }
+
+    @GetMapping("/dashboard")
+    public String showDashboard() {
+        return "dashboardTest";
+    }
+
+    @GetMapping("/error")
+    public String showErrorPage(HttpServletRequest request, Model model) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        model.addAttribute("status", status);
+        return "/error";
+
     }
 
     /**
