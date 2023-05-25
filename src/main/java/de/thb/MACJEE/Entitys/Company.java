@@ -27,9 +27,6 @@ public class Company {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "company_name", nullable = false)
-    private String companyName;
-
     @Column(name = "user_name", nullable = false)
     private String userName;
 

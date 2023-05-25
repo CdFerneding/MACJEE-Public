@@ -2,21 +2,18 @@ package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Repository.*;
 import de.thb.MACJEE.Entitys.*;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Data
 public class JobFinder {
 
     private final CustomerRepository customerRepository;
     private final JobRepository jobRepository;
-
-    public JobFinder(CustomerRepository customerRepository, JobRepository jobRepository) {
-        this.customerRepository = customerRepository;
-        this.jobRepository = jobRepository;
-    }
 
     public List<Job> findPerfectJobs(Long customerId) {
 

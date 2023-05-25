@@ -27,23 +27,17 @@ public class MainController {
     @GetMapping("/dashboard")
     public String showDashboard() {
         return "dashboardTest";
-    /**
-     * Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
+    }
+
     @GetMapping("/index")
-    public void showIndex(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
+    public void showIndex(Model model) {
+        /* model.addAttribute("notebooks", deskService.getAllNotebooks());
         model.addAttribute("formNotebook", new Notebook());*/
         //return "index";
     }
 
-    /**
-     * Main Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
     @GetMapping("/index_2")
-    public void showIndex2(Model model){
+    public void showIndex2(Model model) {
         /*model.addAttribute("notebooks", deskService.getAllNotebooks());
         model.addAttribute("formNotebook", new Notebook());*/
         //return "index_2";
@@ -54,28 +48,5 @@ public class MainController {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         model.addAttribute("status", status);
         return "/error";
-
-    }
-
-    /**
-     * Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
-    @GetMapping("/index")
-    public void showIndex(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index";
-    }
-
-    /**
-     * Main Startseite mit mgl. zur Anmeldung und Registrierung
-     * @param model
-     */
-    @GetMapping("/index_2")
-    public void showIndex2(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index_2";
     }
 }

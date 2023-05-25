@@ -12,7 +12,7 @@ import java.util.Set;
 @RepositoryDefinition(domainClass = Job.class, idClass = Long.class)
 public interface JobRepository extends CrudRepository<Job, Long> {
 
-    @Query("SELECT j FROM Job j WHERE j.requiredSkills IN :skills")
+    @Query("SELECT j FROM Job j WHERE j.requiredSkills IN :requiredSkills")
     List<Job> findBySkillsIn(@Param("requiredSkills") Set<CustomerSkill> requiredSkills);
 
 }
