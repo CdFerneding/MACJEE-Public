@@ -4,6 +4,7 @@ import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "neubauem_db.company")
+@Table(name = "company")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,9 @@ public class Company {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -47,6 +51,11 @@ public class Company {
     @Column(unique = true)
     private String website;
 
+    @ManyToMany
+    @JoinTable(name = "company_roles",
+            joinColumns = @JoinColumn(name = "company_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
     @Column(name = "user_role")
     private UserRole userRole;
 
