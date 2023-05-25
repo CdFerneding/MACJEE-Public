@@ -69,6 +69,11 @@ public class LoginController {
             return "redirect:/registration_ag";
         }
         else if(role.getName() == "CUSTOMER") return "registration_an";
+        if(role.role == 2){
+            //System.out.println("Test");
+            return "redirect:/registration_ag";
+        }
+        else if(role.role == 1) return "registration_an";
         return "redirect:/registration_zero";
     }
 

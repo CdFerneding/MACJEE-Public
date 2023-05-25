@@ -18,6 +18,9 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_name", nullable = false)
+    private String companyName;
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -27,9 +30,13 @@ public class Company {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
+    @Column(name = "user_name", nullable = false)
+    private String userName;
+
     @Column(unique = true, nullable = false)
     private String mail;
 
+    private String password;
     private String description;
     private String address1;
     private String address2;
@@ -44,13 +51,13 @@ public class Company {
     @Column(unique = true)
     private String website;
 
-    private String password;
-
     @ManyToMany
     @JoinTable(name = "company_roles",
             joinColumns = @JoinColumn(name = "company_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+    @Column(name = "user_role")
+    private UserRole userRole;
 
     // bidirectional --> no according column in the database needed, just visible in JPA
     @OneToMany(mappedBy = "byCompany")
