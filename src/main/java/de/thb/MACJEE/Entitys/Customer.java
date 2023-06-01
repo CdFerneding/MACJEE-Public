@@ -35,7 +35,13 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private Set<CustomerSkill> skills = new HashSet<>();
 
-    @Column(name = "user_role")
+    @ManyToMany
+    @JoinTable(name = "customer_roles",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+  @Column(name = "user_role")
     private UserRole userRole;
 
     @Temporal(TemporalType.DATE)
