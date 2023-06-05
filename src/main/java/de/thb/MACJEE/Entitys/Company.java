@@ -53,11 +53,9 @@ public class Company {
             joinColumns = @JoinColumn(name = "company_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
-    @Column(name = "user_role")
-    private UserRole userRole;
 
     // bidirectional --> no according column in the database needed, just visible in JPA
-    @OneToMany(mappedBy = "byCompany")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Job> jobs;
 
     public Job uploadJob(Skill characteristicsLevel) {
