@@ -33,7 +33,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Company byCompany;
+    private Company company;
 
     private boolean is_open;
 
