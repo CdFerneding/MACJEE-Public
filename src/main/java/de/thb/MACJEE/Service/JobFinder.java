@@ -15,7 +15,7 @@ public class JobFinder {
     private final CustomerRepository customerRepository;
     private final JobRepository jobRepository;
 
-    public List<Job> findPerfectJobs(Long customerId) {
+    public List<Job> findPerfectJobs(Long customerId) throws Exception{
 
         // 1. Lese den Customer aus der Datenbank
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new IllegalArgumentException("Customer not found: " + customerId));

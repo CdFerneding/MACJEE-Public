@@ -54,6 +54,7 @@ public class Company {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
     @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
     // bidirectional --> no according column in the database needed, just visible in JPA

@@ -11,6 +11,6 @@ import java.util.Optional;
 
 @RepositoryDefinition(domainClass = Customer.class, idClass = Long.class)
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
-    Optional<Customer> findCompanyByUserName(String userName);
+    Optional<Customer> findCustomerByUserName(String userName);
     boolean existsByUserName(String userName);
 }
