@@ -32,7 +32,8 @@ public class Customer {
     private String password;
 
     // HashSet: unordered List of *unique* elements
-    @OneToMany(mappedBy = "customer")
+    // One to many because we have a CustomerSkill class as an Entity
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private Set<CustomerSkill> skills = new HashSet<>();
 
     @ManyToMany
@@ -44,11 +45,7 @@ public class Customer {
     @Temporal(TemporalType.DATE)
     private Date doB;
 
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "applicants")
     private Set<Job> jobs = new HashSet<>();
-
-    public void applyForJob(Job job){
-
-    }
 
 }
