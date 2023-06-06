@@ -3,6 +3,7 @@ package de.thb.MACJEE.Service;
 import de.thb.MACJEE.Repository.*;
 import de.thb.MACJEE.Entitys.*;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.Set;
 @Service
 @Data
 public class JobFinder {
-
+    @Autowired
     private final CustomerRepository customerRepository;
+    @Autowired
     private final JobRepository jobRepository;
 
     public List<Job> findPerfectJobs(Long customerId) throws Exception{

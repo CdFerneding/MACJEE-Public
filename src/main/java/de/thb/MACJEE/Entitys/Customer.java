@@ -41,9 +41,6 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
-  @Column(name = "user_role")
-    private UserRole userRole;
-
     @Temporal(TemporalType.DATE)
     private Date doB;
 
