@@ -39,9 +39,7 @@ public class Job {
 
     @ManyToMany
     @JoinTable(name = "customer_job",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "job_id"))
-    private Set<Customer> employees = new HashSet<>();
-
-
+            joinColumns = @JoinColumn(name = "job_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    private Set<Customer> applicants = new HashSet<>();
 }
