@@ -8,6 +8,7 @@ import de.thb.MACJEE.Security.JWTGenerator;
 import de.thb.MACJEE.Dto.LoginDto;
 import de.thb.MACJEE.Dto.RegisterDto;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,10 +29,15 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AuthController {
 
+    @Autowired
     private final AuthenticationManager authenticationManager;
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
     private final RoleRepository roleRepository;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
     private final JWTGenerator jwtGenerator;
 
     @GetMapping("/login")
