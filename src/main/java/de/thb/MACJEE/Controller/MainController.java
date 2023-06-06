@@ -21,26 +21,12 @@ public class MainController {
 
     @GetMapping("/")
     public String showHome(Model model) {
-        return "index_2";
+        return "index";
     }
 
     @GetMapping("/dashboard")
     public String showDashboard() {
         return "dashboardTest";
-    }
-
-    @GetMapping("/index")
-    public void showIndex(Model model) {
-        /* model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index";
-    }
-
-    @GetMapping("/index_2")
-    public void showIndex2(Model model) {
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index_2";
     }
 
     @GetMapping("/error")
