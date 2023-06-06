@@ -34,6 +34,11 @@ public class Company {
     private String mail;
 
     private String password;
+
+    // ist für die Bestätigung
+    // geht nicht in die DB
+    @Transient
+    private String pw_conf;
     private String description;
     private String address1;
     private String address2;
@@ -43,8 +48,8 @@ public class Company {
     @Column(name = "postal_code")
     private int zip;
 
-    //private String phoneNumber;
-    // Fehler beim Template - erstmal weglassen
+    private String phoneNumber;
+
     @Column(unique = true)
     private String website;
 

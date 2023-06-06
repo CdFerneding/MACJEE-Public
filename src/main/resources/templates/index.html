@@ -1,438 +1,765 @@
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en"
       xml:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MACJEE</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-  <link th:href="@{/styles/style.css}" rel="stylesheet" />
-  <!--<link href="../static/styles/style.css" type="text/css" rel="stylesheet">-->
+  <!-- Favicons -->
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
-  <title>
-    MACJEE
-  </title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+  <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+  <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+
+  <!-- Main Stylesheet File -->
+  <link th:href="@{/styles/style_2.css}" rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="container top-bar">
-  <div class="row">
-    <div class="col-lg-4 my-lg-auto">
-      <div class="d-grid d-md-flex justify-content-md-start">
-        macjee@th-brandenburg.de
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <!--<h1><a href="#intro" class="scrollto">MACJEE</a></h1>-->
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <a href="#intro"><img src="img/MACJEE_logo.png" alt="" title="" style="width:auto;height:70px;"/></img></a>
       </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#intro">Home</a></li>
+          <li><a href="#about">Über uns</a></li>
+          <li><a href="#features">Leistungen</a></li>
+          <li class="menu-has-children"><a href="">Anmeldung</a>
+            <ul>
+              <li><a th:href="@{/login}" class = "nav-link">Anmelden</a></li>
+              <li><a th:href="@{/registration_zero}" class = "nav-link">Registrieren</a></li>
+              <li class="menu-has-children"><a href="#">Drop Down</a>
+                <ul>
+                  <li><a th:href="@{/login}" class = "nav-link">Anmelden</a></li>
+                  <li><a th:href="@{/registration_zero}" class = "nav-link">Registrieren</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#pricing">Preise</a></li>
+          <li><a href="#gallery">Gallerie</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
     </div>
-  </div>
-</div>
+  </header><!-- #header -->
 
-<!-- Nav Bar -->
-<div class="navbar bg-dark navbar-dark navbar-expand-lg sticky-top">
-  <div class="container">
-    <a href = "index.html" class="navbar-brand">
-      <!--<img src = "img/logo.jpg" alt = "Logo" title = "Logo">-->
-      MACJEE
-    </a>
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
 
-    <button class="navbar-toggler" type ="button" data-toggle ="collapse" data-target ="#navbarResponsive">
-          <span class="navbar-toggler-icon">
-          </span>
-    </button>
+    <div class="intro-text">
+      <h2>Wilkommen bei MACJEE</h2>
+      <p>Hier finden sie den perfekten Job oder den perfekten Mitabeiter
+      </p>
+      <a href="#call-to-action" class="btn-get-started scrollto">Get Started</a>
+      <!--<div class="container">
+        <div class="row">
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" th:href="@{/login}">Anmelden</a>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" th:href="@{/registration_zero}">Registrieren</a>
+          </div>
+        </div>
 
-    <div class="collapse navbar-collapse" id = "navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a href="#about" class = "nav-link">About</a></li>
-        <li class="nav-item"><a href="#leistungen" class = "nav-link">Leistungen</a></li>
-        <li class="nav-item"><a href="#kontakt" class = "nav-link">Kontakt</a></li>
-        <li class="nav-item"><a th:href="@{/login}" class = "nav-link">Anmeldung</a></li>
-        <li class="nav-item"><a th:href="@{/registration_zero}" class = "nav-link">Registrierung</a></li>
-      </ul>
+      </div>-->
     </div>
 
-  </div>
-</div>
+    <div class="product-screens">
 
-<!-- Inage Carousel -->
-<div id="carousel" class="carousel slide" data-ride = "carousel" data-interval="5000">
+      <div class="product-screen-1" data-aos="fade-up" data-aos-delay="400">
+        <img src="img/product-screen-1.png" alt="">
+      </div>
 
-  <div class="carousel-inner ">
+      <div class="product-screen-2" data-aos="fade-up" data-aos-delay="200">
+        <img src="img/product-screen-2.png" alt="">
+      </div>
 
-    <div class="carousel-item active">
-      <img src="img/carousel/img_1.jpg" class="w-100">
-      <div class="carousel-caption carousel-caption-2">
+      <div class="product-screen-3" data-aos="fade-up">
+        <img src="img/product-screen-3.png" alt="">
+      </div>
+
+    </div>
+
+  </section><!-- #intro -->
+
+  <main id="main">
+
+    <!--==========================
+      About Us Section
+    ============================-->
+    <section id="about" class="section-bg">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title">Über uns</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">
+            Finde deine Berufung, nur mit MACJEE
+          </p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 about-img" data-aos="fade-right">
+            <img src="img/about-img.jpg" alt="">
+          </div>
+
+          <div class="col-lg-6 content" data-aos="fade-left">
+            <h2>100% Remote, Karriere, Work-Life-Balance! Hier findest du, was du brauchst!</h2>
+            <h3>Exklusive Jobs, namenhafte Arbeitgeber, maximale Reichweite und viele Tipps und Vorlagen. Der Stellenmarkt für Arbeitgeber und Bewerber.</h3>
+            <p>
+              MACJEE ermöglicht dir, mit wenigen Clicks den passenden Job zu finden
+            </p>
+
+            <ul>
+              <li><i class="ion-android-checkmark-circle"></i> Mehr verdienen</li>
+              <li><i class="ion-android-checkmark-circle"></i> Schneller Bewerben</li>
+              <li><i class="ion-android-checkmark-circle"></i> Entdeckt werden</li>
+            </ul>
+
+            <p>
+              Wir bei MACJEE haben eine einfache, aber sehr wichtige Mission: Den richtigen Job für Jedermann.
+              Erst wenn jeder Mensch und jedes Unternehmen dieselben Möglichkeiten hat, schaffen wir den Schritt zu einer 
+              faireren Arbeitswelt.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #about -->
+
+    <!--==========================
+      Product Featuress Section
+    ============================-->
+    <section id="features">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-8 offset-lg-4">
+            <div class="section-header" data-aos="fade" data-aos-duration="1000">
+              <h3 class="section-title">Leistungen</h3>
+              <span class="section-divider"></span>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-5 features-img">
+            <img src="img/product-features.png" alt="" data-aos="fade-right" data-aos-easing="ease-out-back">
+          </div>
+
+          <div class="col-lg-8 col-md-7 ">
+
+            <div class="row">
+
+              <div class="col-lg-6 col-md-6 box" data-aos="fade-left">
+                <div class="icon"><i class="ion-ios-speedometer-outline"></i></div>
+                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                <p class="description">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+              </div>
+              <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="100">
+                <div class="icon"><i class="ion-ios-flask-outline"></i></div>
+                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                <p class="description">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+              </div>
+              <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="200">
+                <div class="icon"><i class="ion-social-buffer-outline"></i></div>
+                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                <p class="description">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+              </div>
+              <div class="col-lg-6 col-md-6 box" data-aos="fade-left" data-aos-delay="300">
+                <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
+                <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                <p class="description">lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- #features -->
+
+    <!--==========================
+      Product Advanced Featuress Section
+    ============================-->
+    <section id="advanced-features">
+
+      <div class="features-row section-bg">
         <div class="container">
-          <div class="row justify-content-end text-right">
-            <div class ="col-8 bg-custom2 d-none d-md-block py-3 mx-0">
-              <!--
-              <div class="border-top border-success w-50 mx-auto my-3"></div>
-              -->
-              <h1 class="pb-3">MACJEE</h1>
-              <div class="border-top border-light w-50 ml-auto my-3"></div>
-              <h3 class="pb-3">Ihr Jobfinder</h3>
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-right" src="img/advanced-feature-1.jpg" alt="" data-aos="fade-left">
+              <div data-aos="fade-right">
+                <h2>Kann der richtige Job die Welt retten?</h2>
+                <h3>Davon sind wir überzeugt. Wir glauben, dass alle Menschen Zugang zu dem für sie richtigen Job haben 
+                  sollten. Bei MACJEE entwickeln wir Technologien für Menschen</h3>
+                <p>Wir schaffen neue Möglichkeiten, damit Arbeitnehmende Teil eines großartigen Teams 
+                  werden und Unternehmen genau die richtigen Mitarbeiter*innen gewinnen. </p>
+                <p>So machen wir Menschen glücklicher und Unternehmen erfolgreicher. Und so sorgen wir dafür, 
+                  dass unsere Gesellschaft als Ganzes besser funktioniert. Jeden Tag aufs Neue.</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-
-    <div class="carousel-item">
-      <img src="img/carousel/img_2.jpg" class="w-100">
-      <div class="carousel-caption">
+      <div class="features-row">
         <div class="container">
-          <div class="row justify-content-start text-left">
-            <div class ="col-4 bg-custom3 d-none d-md-block py-3 mx-0">
-              <!--
-              <div class="border-top border-success w-50 mx-auto my-3"></div>
-              -->
-              <h3 class="pb-3 text-dark">passende Jobs</h3>
-              <div class="border-top border-dark w-50 mr-auto my-3"></div>
-              <p class="lead">
-                Finde den passen Job für dich!
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-left" src="img/advanced-feature-2.jpg" alt="">
+              <div data-aos="fade-left">
+                <h2>MACJEE hilft Unternehmen, die besten Mitarbeiter*innen zu finden</h2>
+                <!--<i class="ion-ios-paper-outline" data-aos="fade-left"></i>
+                <p data-aos="fade-left">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                -->
+                <i class="ion-ios-color-filter-outline" data-aos="fade-left" data-aos-delay="200"></i>
+                <p data-aos="fade-left" data-aos-delay="200">Wir sind uns sicher: Der Erfolg eines Unternehmens basiert nicht auf d
+                  essen Patenten, Fabriken oder Marken. Es sind die Menschen, die den künftigen Erfolg von Unternehmen sicherstellen. 
+                  Egal welche Position – The Stepstone Group hilft Unternehmen dabei, offene Stellen mit den richtigen Mitarbeiter*innen 
+                  zu besetzen.</p>
+                <i class="ion-ios-barcode-outline" data-aos="fade-left" data-aos-delay="400"></i>
+                <p data-aos="fade-left" data-aos-delay="400">Und so funktioniert unsere Plattform: Programmatic Advertising 
+                  sorgt für optimale Reichweite, smarte Autonomous-Matching-Technologien finden die perfekten Kandidat*innen 
+                  und unsere effektiven Hiring-Lösungen helfen Unternehmen dabei, aus großartigen Kandidat*innen großartige 
+                  Mitarbeiter*innen zu machen. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="features-row section-bg">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <img class="advanced-feature-img-right" src="img/advanced-feature-3.jpg" alt="" data-aos="fade-left">
+              <div data-aos="fade-right">
+                <h2>Der richtige Job für Jedermann</h2>
+                <h3>Wir finden, die Suche nach dem richtigen Job sollte einfach sein. Mit unserer Autonomous-Matching-Technologie 
+                  und Conversational AI führen wir Jobsuchende direkt zu den Jobs, die zu ihnen passen. Und wir tun alles dafür, 
+                  die Bewerbung auf diese Jobs so einfach wie möglich zu gestalten – mit nur einem Klick.</h3>
+                <p>Wir glauben auch, dass es für jeden Menschen den richtigen Job gibt. Unsere Plattformen werden von 
+                  Unternehmen jeder Größe und jeder Branche genutzt, um Praktikant*innen, Hochschulabsolvent*innen und 
+                  Fachkräfte zu finden. Ob Teilzeit oder Vollzeit, mobil oder vor Ort – bei The Stepstone Group haben wir 
+                  für jede*n den richtigen Job.</p>
+                <!--<i class="ion-ios-albums-outline"></i>
+                <p>Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- #advanced-features -->
+
+    <!--==========================
+      Call To Action Section
+    ============================-->
+    <section id="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-5 text-center text-lg-left">
+            <h3 class="cta-title">Werde Aktiv</h3>
+            <p class="cta-text"> Komm zu uns und werde Teil einer der weltweit führenden digitalen Recruiting-Gruppen.</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" th:href="@{/login}">Anmelden</a>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" th:href="@{/registration_zero}">Registrieren</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- #call-to-action -->
+
+    <!--==========================
+      More Features Section
+    ============================-->
+    <section id="more-features" class="section-bg">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">More Features</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6">
+            <div class="box" data-aos="fade-right">
+              <div class="icon"><i class="ion-ios-stopwatch-outline"></i></div>
+              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box" data-aos="fade-left">
+              <div class="icon"><i class="ion-ios-bookmarks-outline"></i></div>
+              <h4 class="title"><a href="">Dolor Sitema</a></h4>
+              <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box" data-aos="fade-right">
+              <div class="icon"><i class="ion-ios-heart-outline"></i></div>
+              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
+              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="box" data-aos="fade-left">
+              <div class="icon"><i class="ion-ios-analytics-outline"></i></div>
+              <h4 class="title"><a href="">Magni Dolores</a></h4>
+              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #more-features -->
+
+    <!--==========================
+      Clients
+    ============================-->
+    <section id="clients">
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-2">
+            <img src="img/clients/client-1.png" alt=""  data-aos="fade-up">
+          </div>
+
+          <div class="col-md-2">
+            <img src="img/clients/client-2.png" alt=""  data-aos="fade-up">
+          </div>
+
+          <div class="col-md-2">
+            <img src="img/clients/client-3.png" alt=""  data-aos="fade-up">
+          </div>
+
+          <div class="col-md-2">
+            <img src="img/clients/client-4.png" alt=""  data-aos="fade-up">
+          </div>
+
+          <div class="col-md-2">
+            <img src="img/clients/client-5.png" alt=""  data-aos="fade-up">
+          </div>
+
+          <div class="col-md-2">
+            <img src="img/clients/client-6.png" alt=""  data-aos="fade-up">
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #more-features -->
+
+    <!--==========================
+      Pricing Section
+    ============================-->
+    <section id="pricing" class="section-bg">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">Preise</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="box" data-aos="fade-right">
+              <h3>Free</h3>
+              <h4><sup>$</sup>9,99<span> monatl.</span></h4>
+              <ul>
+                <li><i class="ion-android-checkmark-circle"></i> mittelstandische Firmen</li>
+                <li><i class="ion-android-checkmark-circle"></i> bis zu 5 Jobs</li>
+                  <li><i class="ion-android-checkmark-circle"></i> bis zu 2 Nutzeracc.</li>
+                <li><i class="ion-android-checkmark-circle"></i> 24/7 Service</li>
+              </ul>
+              <a th:href="@{/registration_zero}" class="get-started-btn">Get Started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="box featured" data-aos="fade-up">
+              <h3>Business</h3>
+              <h4><sup>€</sup>49<span> monatl.</span></h4>
+              <ul>
+                <li><i class="ion-android-checkmark-circle"></i> kleinere Unternehmen</li>
+                <li><i class="ion-android-checkmark-circle"></i> bis zu 50 Jobs</li>
+                  <li><i class="ion-android-checkmark-circle"></i> bis zu 5 Nutzeracc.</li>
+                <li><i class="ion-android-checkmark-circle"></i> 24/7 Service</li>
+              </ul>
+              <a th:href="@{/registration_zero}" class="get-started-btn">Get Started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="box" data-aos="fade-left">
+              <h3>Developer</h3>
+              <h4><sup>€</sup>99<span> monatl.</span></h4>
+              <ul>
+                <li><i class="ion-android-checkmark-circle"></i> große Unternehmen</li>
+                <li><i class="ion-android-checkmark-circle"></i> 50+ Jobs</li>
+                <li><i class="ion-android-checkmark-circle"></i> 24/7 Service</li>
+                <li><i class="ion-android-checkmark-circle"></i> bis zu 20 Nutzeracc.</li>
+                <li><i class="ion-android-checkmark-circle"></i> viele zusätzliche Features</li>
+              </ul>
+              <a th:href="@{/registration_zero}" class="get-started-btn">Get Started</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- #pricing -->
+
+
+    <!--==========================
+      Frequently Asked Questions Section
+    ============================-->
+    <section id="faq">
+      <div class="container">
+
+        <div class="section-header">
+          <h3 class="section-title">FAQ</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">In diesem Abschnitt werden häufig gestellte Fragen beantwortet</p>
+        </div>
+
+        <ul id="faq-list" data-aos="fade-up">
+          <li>
+            <a data-toggle="collapse" class="collapsed" href="#faq1">An wen richtet sich MACJEE? <i class="ion-android-remove"></i></a>
+            <div id="faq1" class="collapse" data-parent="#faq-list">
+              <p>
+                MACJEE richtet sich hauptsächlich an Schüler, die den Erwerb der Berufsbildungsreife anstreben oder bereits über diesen verfügen. Des Weiteren hilft dir MACJEE am meisten wenn du auf der Suche nach einem Ausbildungsberuf bist.
               </p>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </li>
 
-    <div class="carousel-item">
-      <img src="img/carousel/img_3.jpg" class="w-100">
-      <div class="carousel-caption">
-        <div class="container">
-          <div class="row justify-content-center ">
-            <div class =" bg-custom2 col-6 d-none d-md-block py-3 mx-0">
-              <!--
-              <div class="border-top border-success w-50 mx-auto my-3"></div>
-              -->
-              <h3 class="pb-3">tolle Unternehmen</h3>
-              <div class="border-top border-light w-50 mx-auto my-3"></div>
-              <p class="lead">
-                Finde den perfekten Mitarbeiter
+          <li>
+            <a data-toggle="collapse" href="#faq2" class="collapsed">Worin besteht Unterschied zwischen MACJEE und herkömmlichen Jobplattformen? <i class="ion-android-remove"></i></a>
+            <div id="faq2" class="collapse" data-parent="#faq-list">
+              <p>
+                Ganz einfach. MACJEE findet deine Berufung und dazu passende Jobs, wärend herkömmliche Jobportale einfach Jobs listen.
               </p>
             </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#faq3" class="collapsed">Kann ich mit MACJEE auch meinen perfekten Studiengang finden? <i class="ion-android-remove"></i></a>
+            <div id="faq3" class="collapse" data-parent="#faq-list">
+              <p>
+                Wir arbeiten aktuell an dieser Funktion.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#faq4" class="collapsed">Wie findet MACJEE meine Berufung? <i class="ion-android-remove"></i></a>
+            <div id="faq4" class="collapse" data-parent="#faq-list">
+              <p>
+                Das bleibt natürlich unser Betriebsgeheimnis?
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <a data-toggle="collapse" href="#faq5" class="collapsed">Wo ist MACJEE verfügbar? <i class="ion-android-remove"></i></a>
+            <div id="faq5" class="collapse" data-parent="#faq-list">
+              <p>
+                MACJEE ist aktuell für ausschließlich auf den Deutschen Markt ausgelegt.
+              </p>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section><!-- #faq -->
+
+    <!--==========================
+      Our Team Section
+    ============================-->
+    <section id="team" class="section-bg">
+      <div class="container">
+        <div class="section-header">
+          <h3 class="section-title">Unser Team</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">Die drei Gründer von MACJEE sind stets damit beschäftigt, Ihnen das bestmögliche Produkt zur Verfügung zu stellen.</p>
+        </div>
+        <div class="row justify-content-md-center" data-aos="fade-up">
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/team/zacher.jpg" alt=""></div>
+              <h4>Albert Zacher</h4>
+              <span>Chief Executive Officer</span>
+              <div class="social">
+                <a href=""><i class="fa fa-twitter"></i></a>
+                <a th:href="@{https://www.instagram.com/algyier/}" target="blank_"><i class="fa fa-instagram"></i></a>
+                <a th:href="@{https://www.linkedin.com/in/albert-zacher-686833259/}" target="blank_"><i class="fa fa-linkedin"></i></a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <a href = "#carousel" class="carousel-control-prev" role = "button" data-slide="prev">
-    <span class="fas fa-chevron-left fa-2x"></span>
-  </a>
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/team/neubauer.jpg" alt=""></div>
+              <h4>Max Neubauer</h4>
+              <span>Product Manager</span>
+              <div class="social">
+                <a href=""><i class="fa fa-twitter" target="blank_"></i></a>
+                <a th:href="@{https://www.instagram.com/der_wahre.max/}" target="blank_"><i class="fa fa-instagram"></i></a>
+              </div>
+            </div>
+          </div>
 
-  <a href = "#carousel" class="carousel-control-next" role = "button" data-slide="next">
-    <span class="fas fa-chevron-right fa-2x"></span>
-  </a>
-
-
-</div>
-
-<div id="about">
-
-  <h1>
-    About
-    <div class="border-top border-dark my-3 line_1"></div>
-    <!--<div class="border-top border-success line_1"></div>-->
-  </h1>
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum</br>
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-
-
-
-
-  <div class = "container-fluid padding three_col margin_up">
-    <div class = "row text-center">
-
-      <div class = "col-md-4 three_col">
-        <img src = "img/three_col/img_1.jpg" alt = "" class="w-100">
-        <div class="">
-          <h4 class ="my-4">Hallo</h4>
-          <div class="border-top border-dark my-3 line_2"></div>
-          <p>
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-          </p>
-          <a href="#" class="btn  button_color btn-md">Click</a>
-        </div>
-
-      </div>
-
-      <div class = "col-md-4 three_col">
-        <img src = "img/three_col/img_2.jpg" alt = "" class="w-100">
-        <div class="">
-          <h4 class ="my-4">Hallo</h4>
-          <div class="border-top border-dark my-3 line_2"></div>
-          <p>
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-          </p>
-          <a href="#" class="btn  button_color btn-md">Click</a>
-        </div>
-
-      </div>
-
-      <div class = "col-md-4 three_col">
-        <img src = "img/three_col/img_3.jpg" alt = "" class="w-100">
-        <div class="">
-          <h4 class ="my-4">Hallo</h4>
-          <div class="border-top border-dark my-3 line_2"></div>
-          <p>
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-          </p>
-          <a href="#" class="btn btn-md button_color">Click</a>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-
-</div>
-
-
-<div class="white_border">
-  <div class="green_theme">
-    <h1 >Lorem Ipsum</h1>
-    <div class="border-top border-light my-3 line_2"></div>
-    <p>
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-      lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    </p>
-    <!--<a href="#" class="btn btn-outline-light btn-md" style="margin:1%;">Click</a>-->
-    <button type="button" class="btn btn-outline-light button_complement btn-lg">Registrierung</button>
-    <button type="button" class="btn btn-outline-light button_complement btn-lg">Anmeldung</button>
-  </div>
-</div>
-
-
-<div id ="leistungen">
-
-  <hr style ="height:2px;border-width:0;color:var(--main_color);background-color:var(--main_color);margin-bottom:3%;">
-
-  <h1>
-    <p class="headerCenter">
-      Leistungen
-    </p>
-    <div class="border-top border-dark my-3 line_1 margin-bottom-low"></div>
-    <!--<div class="border-top border-success line_1"></div>-->
-  </h1>
-
-  <div id="_cards" class=" margin-bottom-low">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-apartment"></i>
-          <img src="img/9_col/1.jpg">
-        </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-apartment"></i>
-            <div class="card-info-title">
-              <h3>1</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+          <div class="col-lg-3 col-md-6">
+            <div class="member">
+              <div class="pic"><img src="img/team/fernedin.jpg" alt=""></div>
+              <h4>Conrad Ferneding</h4>
+              <span>CTO</span>
+              <div class="social">
+                <a href=""><i class="fa fa-twitter"></i></a>
+                <a th:href="@{https://www.instagram.com/kakerukuku/}" target="blank_"><i class="fa fa-instagram"></i></a>
+                <a th:href="@{https://www.linkedin.com/in/conrad-ferneding-924551245/}" target="blank_"><i class="fa fa-linkedin"></i></a>
+              </div>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-unicorn"></i>
-          <img src="img/9_col/2.jpg">
+    </section><!-- #team -->
+
+    <!--==========================
+      Gallery Section
+    ============================-->
+    <section id="gallery">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h3 class="section-title">Galerie</h3>
+          <span class="section-divider"></span>
+          <p class="section-description">Herzlich Willkommen im MACJEE-Universum. Tauchen Sie ein!</p>
         </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-unicorn"></i>
-            <div class="card-info-title">
-              <h3>2</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+
+        <div class="row no-gutters">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-1.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-1.jpg" alt="">
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-blender-phone"></i>
-          <img src="img/9_col/3.jpg">
-        </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-blender-phone"></i>
-            <div class="card-info-title">
-              <h3>3</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-2.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-2.jpg" alt="">
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-person-to-portal"></i>
-          <img src="img/9_col/4.jpg">
-        </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-person-to-portal"></i>
-            <div class="card-info-title">
-              <h3>4</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-3.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-3.jpg" alt="">
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-person-from-portal"></i>
-          <img src="img/9_col/5.jpg">
-        </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-person-from-portal"></i>
-            <div class="card-info-title">
-              <h3>5</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-4.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-4.jpg" alt="">
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <div class="card-image">
-          <i class="fa-duotone fa-otter"></i>
-          <img src="img/9_col/6.jpg">
-        </div>
-        <div class="card-info-wrapper">
-          <div class="card-info">
-            <i class="fa-duotone fa-otter"></i>
-            <div class="card-info-title">
-              <h3>6</h3>
-              <h4>lorem ipsum lorem ipsum lorem ipsum lorem ipsum</h4>
+
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-5.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-5.jpg" alt="">
+              </a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <script type="text/javascript">
-    document.getElementById("_cards").onmousemove = e => {
-      for(const card of document.getElementsByClassName("card")) {
-        const rect = card.getBoundingClientRect(),
-                x = e.clientX - rect.left,
-                y = e.clientY - rect.top;
+          <div class="col-lg-4 col-md-6">
+            <div class="gallery-item" data-aos="fade-up">
+              <a href="img/gallery/gallery-6.jpg" class="gallery-popup">
+                <img src="img/gallery/gallery-6.jpg" alt="">
+              </a>
+            </div>
+          </div>
 
-        card.style.setProperty("--xPos", `${x}px`);
-        card.style.setProperty("--yPos", `${y}px`);
-      };
-    }
-  </script>
-
-  <hr style ="height:2px;border-width:0;color:var(--main_color);background-color:var(--main_color);margin-top:6%;margin-bottom:12%;">
-</div>
-
-
-<div class="green_theme2">
-  <h1 >Lorem Ipsum</h1>
-  <div class="border-top border-light my-3 line_2"></div>
-  <p>
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-    lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-  </p>
-  <a href="#" class="btn btn-outline-light btn-md" style="margin:1%;">Click</a>
-</div>
-
-<div id="kontakt">
-  <footer class="padding_up">
-
-    <div class = "container-fluid padding font_big">
-      <div class = "row text-center">
-
-        <div class = "col-md-4 footer_1">
-
-          <a href="https://www.th-brandenburg.de/kontakt-anfahrt/" class="text-light">Kontakt</a>
-          <hr class = "greyLine">
-          <a href="https://www.th-brandenburg.de/1/impressum/" class="text-light">Impressum</a>
-          <hr class = "greyLine">
-          <a href="https://www.th-brandenburg.de/1/datenschutz/" class="text-light">Datenschutz</a>
-          <hr class = "greyLine">
-          </br>
-
-
-        </div>
-
-        <div class = "col-md-4 footer_1">
-
-          <a href="https://www.th-brandenburg.de/mitarbeiterliste/" class="text-light">Personen</a>
-          <hr class = "greyLine">
-          <a href="https://www.th-brandenburg.de/alumninetzwerk/" class="text-light">Alumninetzwerk</a>
-          <hr class = "greyLine">
-          <a href="https://www.th-brandenburg.de/stellenausschreibungen/" class="text-light">Stellenausschreibung</a>
-          <hr class = "greyLine">
-          <a href="https://meincampus.th-brandenburg.de/qisserver/pages/cs/sys/portal/hisinoneStartPage.faces" class="text-light">Campus Management</a>
-          <hr class = "greyLine">
-          <a href="https://it.th-brandenburg.de/zielgruppen/" class="text-light">IT Services</a>
-          <hr class = "greyLine"></br></br>
-
-        </div>
-
-        <div class = "col-md-4 footer_1 text-light">
-          <p>Postanschrift:</p>
-          Postfach 2132</br>
-          14737 Brandenburg an der Havel</br></br>
-          <p>Kontakt:</p>
-          T +49 3381 355-207</br>
-          F +49 3381 355-199</br>
-          maxneubaue@gmail.com</br>
         </div>
 
       </div>
+    </section><!-- #gallery -->
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact">
+      <div class="container">
+        <div class="row" data-aos="fade-up">
+
+          <div class="col-lg-4 col-md-4">
+            <div class="contact-about">
+              <h3>Kontakt</h3>
+              <p>Sie haben ein Problem bei der Nutzung, eine Frage bezüglich unserer Dienstleistungen oder einen Fehler entdeckt? Schreiben Sie uns einfach eine Nachricht und wir werden uns um ihr Anliegen kümmern.</p>
+              <div class="social-links">
+                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="info">
+              <div>
+                <i class="ion-ios-location-outline"></i>
+                <p>Hauptstraße 4<br>Brandenburg a. d. Havel, 14778</p>
+              </div>
+
+              <div>
+                <i class="ion-ios-email-outline"></i>
+                <p>info@macjee.de</p>
+              </div>
+
+              <div>
+                <i class="ion-ios-telephone-outline"></i>
+                <p>0 176 33592425</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-5 col-md-8">
+            <div class="form">
+              <div id="sendmessage">Your message has been sent. Thank you!</div>
+              <div id="errormessage"></div>
+              <form action="" method="post" role="form" class="contactForm">
+                <div class="form-row">
+                  <div class="form-group col-lg-6">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Ihr Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                    <div class="validation"></div>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Ihre Email" data-rule="email" data-msg="Please enter a valid email" />
+                    <div class="validation"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Thema" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Nachricht"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <div class="text-center"><button type="submit" title="Send Message">Nachricht senden</button></div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #contact -->
+
+  </main>
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>Avilon</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
+            -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="#intro" class="scrollto">Home</a>
+            <a href="#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
     </div>
+  </footer><!-- #footer -->
 
-    <p class="text-light">This website was build by Max Neubauer, Albert Zacher, Conrad Ferneding</br></br></p>
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/aos/aos.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
 
-  </footer>
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
 
-
-</div>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
-<script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js"></script>
-<!--
-<script src="./assets/js/script.js"></script>
--->
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
 
 </body>
-
 </html>

@@ -31,6 +31,11 @@ public class Customer {
 
     private String password;
 
+    // ist für die Bestätigung
+    // geht nicht in die DB
+    @Transient
+    private String pw_conf;
+
     // HashSet: unordered List of *unique* elements
     @OneToMany(mappedBy = "customer")
     private Set<CustomerSkill> skills = new HashSet<>();

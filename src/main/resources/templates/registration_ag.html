@@ -25,7 +25,7 @@
 
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <img class="d-block mx-auto mb-4" src="img/MACJEE_logo.png" alt="" width="72" height="72">
         <h2>Registrierung</h2>
         <p class="lead">Bitte füllen Sie das untenstehende Formular wahrheitsgamäß aus!</p>
     </div>
@@ -73,30 +73,30 @@
                     </div>
                 </div>
 
-                <!--
+
                 <div class="mb-3">
                     <label for="phone">Telefonnummer</label>
                     <input type="tel" class="form-control" id="phone" placeholder="+4912312345678" name="phoneNumber" th:field="*{phoneNumber}" required>
-                    <!--<small>Format: +49-123-12345678</small><br>--><!--
+                    <!--<small>Format: +49-123-12345678</small><br>-->
                     <div class="invalid-feedback">
                         Please enter a valid phone number for shipping updates.
                     </div>
                 </div>
-                -->
+
 
                 <div class="mb-3">
                     <label for="inputPassword">Passwort</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" th:field="*{password}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="inputPassword">Passwort bestätigen</label>
-                    <input type="password" id="inputPasswordTwo" class="form-control" placeholder="Password" required>
+                    <input type="password" id="inputPasswordTwo" class="form-control" placeholder="Password" name="pw_conf" th:field="*{pw_conf}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="website">Website</label>
-                    <input type="website" class="form-control" id="website" placeholder="example.com" required>
+                    <input type="website" class="form-control" id="website" placeholder="example.com" name="website" th:field="*{website}" required>
                     <div class="invalid-feedback">
                         Please enter a valid email address for shipping updates.
                     </div>
@@ -104,7 +104,7 @@
 
                 <div class="mb-3">
                     <label for="address">Addresse</label>
-                    <input type="text" class="form-control" id="address" placeholder="Magdeburger Straße 50" required>
+                    <input type="text" class="form-control" id="address" placeholder="Magdeburger Straße 50" name="address1" th:field="*{address1}" required>
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>
@@ -112,7 +112,7 @@
 
                 <div class="mb-3">
                     <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="address2" placeholder="Apartment oder Suite">
+                    <input type="text" class="form-control" id="address2" placeholder="Apartment oder Suite" name="address2" th:field="*{address2}"/>
                 </div>
 
                 <div class="row">

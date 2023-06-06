@@ -1,5 +1,6 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Role;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class LoginController {
      */
     @GetMapping("/registration_ag")
     public String showRegistrationAg(Model model){
-        model.addAttribute("customer", new Customer());
+        model.addAttribute("customer", new Company());
         return "registration_ag";
     }
 
