@@ -7,13 +7,16 @@ import de.thb.MACJEE.Repository.UserRepository;
 import de.thb.MACJEE.Security.JWTGenerator;
 import de.thb.MACJEE.Dto.LoginDto;
 import de.thb.MACJEE.Dto.RegisterDto;
+import de.thb.MACJEE.Service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +35,7 @@ public class AuthController {
     @Autowired
     private final AuthenticationManager authenticationManager;
     @Autowired
-    private final UserRepository userRepository;
+    private final CustomUserDetailsService customUserDetailsService;
     @Autowired
     private final RoleRepository roleRepository;
     @Autowired
@@ -48,13 +51,13 @@ public class AuthController {
     @PostMapping("/login")
     public String login(LoginDto loginDto, Model model) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
-            System.out.println("I got here");
+            UserDetails user = customUserDetailsService.loadUserByUsername(loginDto.getUsername());
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                            user.getUsername(), loginDto.getPassword(), user.getAuthorities()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String token = jwtGenerator.generateToken(authentication);
-            model.addAttribute("token", token);
-            return "dashboardTest";
+            //String token = jwtGenerator.generateToken(authentication);
+            //model.addAttribute("token", token);
+            return "redirect:/dashboard";
         } catch (BadCredentialsException e) {
             model.addAttribute("error", "Invalid username or password");
             return "loginTest"; // Return back to the login page with an error message
@@ -68,7 +71,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public String register(RegisterDto registerDto, Model model) {
-        if (userRepository.existsByUsername(registerDto.getUsername())) {
+        if (customUserDetailsService.existsByUsername(registerDto.getUsername())) {
             model.addAttribute("error", "Username is taken!");
             return "registerTest"; // Return back to the register page with an error message
         }
@@ -82,7 +85,7 @@ public class AuthController {
             Role role = roleOptional.get();
             user.setRoles(Collections.singletonList(role));
 
-            userRepository.save(user);
+            customUserDetailsService.save(user);
 
             model.addAttribute("success", "User registered successfully!");
             return "loginTest"; // Return back to the login page with a success message

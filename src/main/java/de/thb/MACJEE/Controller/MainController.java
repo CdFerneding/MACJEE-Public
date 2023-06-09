@@ -29,20 +29,6 @@ public class MainController {
         return "dashboardTest";
     }
 
-    @GetMapping("/index")
-    public void showIndex(Model model) {
-        /* model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index";
-    }
-
-    @GetMapping("/index_2")
-    public void showIndex2(Model model) {
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        //return "index_2";
-    }
-
     @GetMapping("/error")
     public String showErrorPage(HttpServletRequest request, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
