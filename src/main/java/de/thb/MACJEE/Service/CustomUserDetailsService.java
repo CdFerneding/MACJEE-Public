@@ -31,7 +31,15 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
+    public Boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+    }
+
+    public void save (UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 }
