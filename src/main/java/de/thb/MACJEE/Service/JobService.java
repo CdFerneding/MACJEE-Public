@@ -17,6 +17,13 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
+    public List<Job> getAllJobs() {
+        return (List<Job>) jobRepository.findAll();
+    }
+    public List<Job> getOpenJobs() {
+        return jobRepository.findJobsByIsOpen(true);
+    }
+
     //public List<Job> getJobsByCompany(Company company) {
     //    return jobRepository.findJobsByCompany(company);
     //}

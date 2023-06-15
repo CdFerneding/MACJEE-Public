@@ -23,11 +23,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
-
     @Autowired
     private JobFinder jobFinder;
-
-
 
     @GetMapping("/customer/{id}")
     public String showCustomerProfile (@PathVariable("id") Long id, Model model) {
