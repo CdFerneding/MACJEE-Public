@@ -10,9 +10,9 @@
 
   <ul>
     <li th:each="job: ${jobs}">
-      job title: <span th:text="${job.title}"></span>
-         with salary: <span th:text="${job.salary}"></span>€/hr
-         from the company: <span th:text="${job.company.companyName}"></span>.
+      job title:<b><span th:text="${job.title}"></span></b>
+         with salary: <b><span th:text="${job.salary}"></span>€/hr</b>
+         from the company: <b><span th:text="${job.company.companyName}"></span></b>.
       <button>apply</button>
     </li>
   </ul>

@@ -14,7 +14,7 @@ import java.util.Set;
 public interface JobRepository extends CrudRepository<Job, Long> {
 
     @Query("SELECT j FROM Job j WHERE j.requiredSkills IN :requiredSkills")
-    List<Job> findBySkillsIn(@Param("requiredSkills") Set<CustomerSkill> requiredSkills);
+    List<Job> findBySkillsIn(@Param("requiredSkills") Set<Skill> requiredSkills);
 
     List<Job> findJobsByIsOpen(boolean isOpen);
 

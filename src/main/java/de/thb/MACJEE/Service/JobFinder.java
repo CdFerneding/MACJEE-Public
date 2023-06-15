@@ -23,7 +23,7 @@ public class JobFinder {
         Customer customer = customerRepository.findById(customerId).orElseThrow(() -> new IllegalArgumentException("Customer not found: " + customerId));
 
         // 2. Lese alle Skills des Customers aus
-        Set<CustomerSkill> customerSkills = customer.getSkills();
+        Set<Skill> customerSkills = customer.getSkills();
 
         // 3. Durchsuche die Datenbank nach passenden Jobs
         List<Job> matchingJobs = jobRepository.findBySkillsIn(customerSkills);

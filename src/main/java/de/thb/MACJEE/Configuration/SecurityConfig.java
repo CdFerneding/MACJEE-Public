@@ -1,31 +1,21 @@
-package de.thb.MACJEE.Security;
+package de.thb.MACJEE.Configuration;
 
-import de.thb.MACJEE.Service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig {
-
-    private JwtAuthEntryPoint authEntryPoint;
-    private CustomUserDetailsService userDetailsService;
-
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().requestMatchers("/resources/**").anyRequest();
-    }
 
     /**
      *
@@ -58,24 +48,20 @@ public class SecurityConfig {
                  * client includes thereby username and password in each request
                  */
         http
-                .exceptionHandling()
-                    .authenticationEntryPoint(authEntryPoint)
-                .and()
-                .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                    .requestMatchers("/**").permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login.html")
-                .defaultSuccessUrl("/dashboeardTest.html", true)
-                .failureUrl("/error.html")
-                .and()
-                .httpBasic();
+                .formLogin(conf -> {
+                conf.defaultSuccessUrl("/private");
+                }).logout(conf -> {
+                    conf.invalidateHttpSession(true);
+                    conf.deleteCookies("SESSION");
+                }).sessionManagement(conf ->{
+                    conf.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                }).authorizeHttpRequests(conf -> {
+                    conf.requestMatchers("/dashboard").authenticated()
+                    .requestMatchers("/**").permitAll();
+                });
 
         // adding custom filter to the chain, common method for adding a token generation algorithm
-        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         // return the final security filter chain
         return http.build();
     }
@@ -90,14 +76,4 @@ public class SecurityConfig {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    /**
-     * apply JWT to the authentication process
-     * @return
-     */
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
-    }
-
 }

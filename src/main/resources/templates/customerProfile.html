@@ -8,18 +8,21 @@
 <div layout:fragment="content">
   <h2 th:text="${customer.userName}"></h2>
   <ul>
-    <li> Name: <span th:text="customer.lastName"></span>, <span th:text="customer.firstName"></span> </li>
-    <li> Email: <span th:text="customer.email"></span> </li>
-    <li> Geburtstag: <span th:text="customer.dob"></span> </li>
-    <ul>
-      <li th:each="customerSkill: ${customer.skills}">
-        Name der Fähigkeit: <span th:text="${customerSkill.skill.name}"></span> <br>
-        Selbsteinschätzung von 1-10: <span th:text="${customerSkill.skill.abitily}"></span> <br>
-        Hardskill? <span th:text="${customerSkill.isHardSkill}"></span>
-      </li>
-    </ul>
+    <li> Name: <span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span> </li>
+    <li> Email: <span th:text="${customer.mail}"></span> </li>
+    <li> Geburtstag: <span th:text="${customer.doB}"></span> </li>
   </ul>
-  <a th:href="@{'/' + ${customer.userName} + '/find-jobs'}">Find me a job</a> <br>
+  Skills:
+  <ul>
+    <li th:each="skill: ${customer.skills}">
+      Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
+      Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
+      Hardskill? <span th:text="${skill.isHardSkill}"></span>
+    </li>
+  </ul>
+
+
+  <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
   <a th:href="@{/jobs}">All Open Jobs</a> <br>
 
 </div>

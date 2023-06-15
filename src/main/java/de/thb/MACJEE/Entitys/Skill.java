@@ -20,10 +20,13 @@ public class Skill {
     private Long id;
 
     private String name;
-    private int ability;
+    private int level;
 
-    @OneToMany(mappedBy = "skill")
-    private Set<CustomerSkill> customers = new HashSet<>();
+    @ManyToMany(mappedBy = "skills")
+    private Set<Customer> customers = new HashSet<>();
+
+    @Column(name = "is_hard_skill")
+    private boolean isHardSkill;
 
     @ManyToMany(mappedBy = "requiredSkills")
     private Set<Job> jobs = new HashSet<>();

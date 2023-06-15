@@ -34,10 +34,10 @@ public class CustomerController {
         return "customerProfile";
     }
 
-    @PostMapping("/{customer}/find-jobs")
-    public String findJobsByCompany(@PathVariable("customer") String userName, Model model) {
+    @PostMapping("/customer/{id}/find-jobs")
+    public String findJobsByCompany(@PathVariable("id") Long id, Model model) {
         try {
-            Customer customer = customerService.getCustomerByUserName(userName)
+            Customer customer = customerService.getCustomerById(id)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             Long customerId = customer.getId();
             List<Job> jobs = jobFinder.findPerfectJobs(customerId);
