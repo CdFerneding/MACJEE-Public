@@ -35,7 +35,8 @@ public class Job {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    private boolean is_open;
+    @Column(name = "is_open")
+    private boolean isOpen;
 
     @ManyToMany
     @JoinTable(name = "customer_job",

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div layout:fragment="content"></div>
+<div layout:fragment="content2">
+    <div sec:authorize="isAuthenticated()">
+        Angemeldet als <span sec:authentication="name"></span><br>
+        Rolle: <span sec:authentication="principal.authorities"></span><br>
+    </div>
+</div>
+
+</body>
+</html>

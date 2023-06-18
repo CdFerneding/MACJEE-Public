@@ -3,20 +3,11 @@ package de.thb.MACJEE.Controller;
 import de.thb.MACJEE.Entitys.Role;
 import de.thb.MACJEE.Entitys.UserEntity;
 import de.thb.MACJEE.Repository.RoleRepository;
-import de.thb.MACJEE.Repository.UserRepository;
-import de.thb.MACJEE.Security.JWTGenerator;
-import de.thb.MACJEE.Dto.LoginDto;
 import de.thb.MACJEE.Dto.RegisterDto;
 import de.thb.MACJEE.Service.CustomUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,10 +31,8 @@ public class AuthController {
     private final RoleRepository roleRepository;
     @Autowired
     private final PasswordEncoder passwordEncoder;
-    @Autowired
-    private final JWTGenerator jwtGenerator;
 
-    @GetMapping("/login")
+/**    @GetMapping("/login")
     public String showLoginForm() {
         return "loginTest"; // Assuming you have a login.html Thymeleaf template
     }
@@ -62,7 +51,7 @@ public class AuthController {
             model.addAttribute("error", "Invalid username or password");
             return "loginTest"; // Return back to the login page with an error message
         }
-    }
+    }*/
 
     @GetMapping("/register")
     public String showRegisterForm() {

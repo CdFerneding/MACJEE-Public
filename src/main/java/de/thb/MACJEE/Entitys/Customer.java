@@ -38,8 +38,11 @@ public class Customer {
 
     // HashSet: unordered List of *unique* elements
     // One to many because we have a CustomerSkill class as an Entity
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    private Set<CustomerSkill> skills = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "customer_skill",
+            joinColumns = @JoinColumn(name = "customer_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private Set<Skill> skills = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "customer_roles",
