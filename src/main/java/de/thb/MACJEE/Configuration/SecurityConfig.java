@@ -49,14 +49,19 @@ public class SecurityConfig {
                  */
         http
                 .formLogin(conf -> {
-                conf.defaultSuccessUrl("/private");
+                    conf.loginPage("/login");
+                    conf.defaultSuccessUrl("/dashboard");
                 }).logout(conf -> {
                     conf.invalidateHttpSession(true);
                     conf.deleteCookies("SESSION");
                 }).sessionManagement(conf ->{
                     conf.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
                 }).authorizeHttpRequests(conf -> {
-                    conf.requestMatchers("/dashboard").authenticated()
+                    conf
+                            .requestMatchers("/dashboard").authenticated()
+                            /*.requestMatchers("/customer/**").hasRole("CUSTOMER")
+                            .requestMatchers("/company/**").hasRole("COMPANY")
+                            .requestMatchers("/adim/**").hasRole("ADMIN")*/
                     .requestMatchers("/**").permitAll();
                 });
 

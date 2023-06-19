@@ -12,33 +12,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
-    <!--<link href="../static/styles/style.css" type="text/css" rel="stylesheet">-->
-
     <title>
         Log in
     </title>
 
 </head>
 <body class="text-center" style="padding-left:25%; padding-right:25%; margin-top:20vh;">
+custom login:
 <div style="align-content: center; width:100%;">
-    <form class="form-signin">
-        <div class="text-center mb-4">
-            <img class="mb-4" src="img/MACJEE_logo.png" alt="" width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Anmeldung</h1>
+    <form th:action="@{/login}" method="post" class="card-text needs-validation" novalidate>
+        <div th:if="${param.success}" class="alert alert-success"/>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Benutzername oder Passwort ist falsch.
+        </div>
+        <div th:if="${param.notEnabled}" class="alert alert-danger" >
+            Benutzer ist noch nicht freigeschaltet
         </div>
 
-        <div class="form-label-group" style="margin-bottom: 10px;">
-            <input id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <!--<label for="inputEmail">Email address</label>-->
+        <div class="form-group">
+            <label for="username">Benutzername</label>
+            <input type="text" id="username" name="username" class="form-control" required tabindex="1"
+                   autofocus/>
         </div>
-
-        <div class="form-label-group" style="margin-bottom: 10px;">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <!--<label for="inputPassword">Password</label>-->
+        <div class="form-group">
+            <label for="password">Passwort</label>
+            <input type="password" id="password" name="password" class="form-control" minlength="12" required tabindex="2"/>
         </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2023 MACJEE</p>
+        <div class="form-group m-1">
+            <button type="submit" class="btn btn-primary">Anmelden</button>
+            <a class="forgotPassword" th:href="@{/request_password_reset}">Passwort vergessen?</a>
+        </div>
     </form>
 </div>
 </body>

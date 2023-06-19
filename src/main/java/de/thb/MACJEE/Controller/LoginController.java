@@ -27,7 +27,7 @@ public class LoginController {
     public String showRegistrationAn(Model model){
         /*model.addAttribute("notebooks", deskService.getAllNotebooks());
         model.addAttribute("formNotebook", new Notebook());*/
-        return "registration_an";
+        return "auth/registration_an";
     }
 
     /**
@@ -38,7 +38,7 @@ public class LoginController {
     @GetMapping("/registration_ag")
     public String showRegistrationAg(Model model){
         model.addAttribute("customer", new Company());
-        return "registration_ag";
+        return "auth/registration_ag";
     }
 
     @PostMapping("/registration_ag")
@@ -55,7 +55,7 @@ public class LoginController {
     @GetMapping("/registration_zero")
     public String showRegistrationZero(Model model){
         model.addAttribute("role", new Role());
-        return "registration_zero";
+        return "auth/registration_zero";
     }
 
     /**
@@ -69,12 +69,12 @@ public class LoginController {
             //System.out.println("Test");
             return "redirect:/registration_ag";
         }
-        else if(role.getName() == "CUSTOMER") return "registration_an";
+        else if(role.getName() == "CUSTOMER") return "auth/registration_an";
         if(role.getName() == "COMPANY"){
             //System.out.println("Test");
             return "redirect:/registration_ag";
         }
-        else if(role.getName() == "CUSTOMER") return "registration_an";
+        else if(role.getName() == "CUSTOMER") return "auth/registration_an";
         return "redirect:/registration_zero";
     }
 
