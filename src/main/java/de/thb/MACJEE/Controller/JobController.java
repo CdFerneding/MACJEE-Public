@@ -1,6 +1,5 @@
 package de.thb.MACJEE.Controller;
 
-import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.JobService;
@@ -22,6 +21,6 @@ public class JobController {
     public String showAllOpenJobs(Model model) {
         List<Job> jobs = jobService.getOpenJobs();
         model.addAttribute("jobs", jobs);
-        return "openJobs";
+        return "user/openJobs";
     }
 }

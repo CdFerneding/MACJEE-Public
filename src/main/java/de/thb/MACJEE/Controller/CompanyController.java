@@ -20,7 +20,7 @@ public class CompanyController {
         Company company = companyService.getCompanyById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("company", company);
-        return "companyProfile";
+        return "user/companyProfile";
     }
 
 }

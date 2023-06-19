@@ -1,9 +1,7 @@
 package de.thb.MACJEE.Controller;
 
-import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -31,7 +28,7 @@ public class CustomerController {
         Customer customer = customerService.getCustomerById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("customer", customer);
-        return "customerProfile";
+        return "user/customerProfile";
     }
 
     @PostMapping("/customer/{id}/find-jobs")
@@ -43,7 +40,7 @@ public class CustomerController {
             List<Job> jobs = jobFinder.findPerfectJobs(customerId);
             model.addAttribute("jobs", jobs);
             model.addAttribute("customer", customer);
-            return "jobsList";
+            return "user/findJob";
         } catch (Exception e) {
             // Handle the exception appropriately
             // You can log the error or show a custom error page
