@@ -20,7 +20,7 @@ public class MainController {
 
     @GetMapping("/dashboard")
     public String showDashboard() {
-        return "user/dashboardTest";
+        return "user/dashboard";
     }
 
     @GetMapping("/error")

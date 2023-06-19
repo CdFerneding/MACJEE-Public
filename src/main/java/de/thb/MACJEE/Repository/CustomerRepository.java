@@ -8,9 +8,10 @@ import java.util.Optional;
 
 @RepositoryDefinition(domainClass = Customer.class, idClass = Long.class)
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    Optional<Customer> findCustomerByUserName(String userName);
+    Optional<Customer> findCustomerByUsername(String username);
+    Optional<Customer> findByUsername(String username);
     Optional<Customer> findCustomerById(Long id);
 
     //Optional<Long> findIdByCustomer(Customer customer);
-    boolean existsByUserName(String userName);
+    boolean existsByUsername(String userName);
 }

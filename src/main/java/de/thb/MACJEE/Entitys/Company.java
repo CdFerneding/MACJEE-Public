@@ -7,16 +7,13 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name = "company")
-public class Company {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Builder
+public class Company extends UserEntity {
 
     @Column(name = "company_name", nullable = false)
     private String companyName;
@@ -27,13 +24,8 @@ public class Company {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "user_name", nullable = false)
-    private String userName;
-
     @Column(unique = true, nullable = false)
     private String mail;
-
-    private String password;
 
     // ist für die Bestätigung
     // geht nicht in die DB
@@ -52,12 +44,6 @@ public class Company {
 
     @Column(unique = true)
     private String website;
-
-    @ManyToMany
-    @JoinTable(name = "company_roles",
-            joinColumns = @JoinColumn(name = "company_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
 
     // bidirectional --> no according column in the database needed, just visible in JPA
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)

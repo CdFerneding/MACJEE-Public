@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xml:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MACJEE Job Site</title>
+</head>
+<body>
+<div layout:fragment="content">
+    Congrats! You have accessed the Application view of MACJEE
+    Angemeldet als <span sec:authentication="name"></span><br>
+</div>
+</body>
+</html>
