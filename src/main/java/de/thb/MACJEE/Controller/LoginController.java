@@ -78,16 +78,4 @@ public class LoginController {
         return "redirect:/registration_zero";
     }
 
-    /**
-     * Anmeldungsformular mit input Benutzername und PW
-     * @param model
-     * @return
-     */
-    @GetMapping("/login")
-    public String showLogin(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
-        return "login";
-    }
-
 }

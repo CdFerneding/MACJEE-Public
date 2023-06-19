@@ -1,9 +1,9 @@
-package de.thb.MACJEE.Dto;
+package de.thb.MACJEE.Controller.form;
 
 import lombok.Data;
 
 @Data
-public class LoginDto {
+public class LoginForm {
     private String username;
     private String password;
 }

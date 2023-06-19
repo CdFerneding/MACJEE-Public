@@ -6,16 +6,15 @@ import jakarta.persistence.*;
 import java.util.*;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
-@Getter
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Entity
 @Table(name="customer")
-public class Customer {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Builder
+public class Customer extends UserEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -23,16 +22,9 @@ public class Customer {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "user_name", unique = true, nullable = false)
-    private String userName;
-
     @Column(name = "mail", unique = true, nullable = false)
     private String mail;
 
-    private String password;
-
-    // ist für die Bestätigung
-    // geht nicht in die DB
     @Transient
     private String pw_conf;
 
@@ -44,16 +36,9 @@ public class Customer {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "customer_roles",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
-
     @Temporal(TemporalType.DATE)
     private Date doB;
 
     @ManyToMany(mappedBy = "applicants")
     private Set<Job> jobs = new HashSet<>();
-
 }

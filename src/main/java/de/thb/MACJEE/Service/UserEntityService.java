@@ -3,7 +3,6 @@ package de.thb.MACJEE.Service;
 import de.thb.MACJEE.Entitys.Role;
 import de.thb.MACJEE.Entitys.UserEntity;
 import de.thb.MACJEE.Repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Data
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserEntityService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
