@@ -1,82 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register Company</title>
-</head>
-<body>
-<h1>Register</h1>
-<form th:action="@{/auth/registerCompany}" method="post">
-    <div th:if="${error}" style="color: red;">
-        <span th:text="${error}"></span>
-    </div>
-    <div th:if="${success}" style="color: green;">
-        <span th:text="${success}"></span>
-    </div>
-    <div>
-        <label for="username">Benutzername:</label>
-        <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <label for="companyName">Name deiner Firma:</label>
-        <input type="text" id="companyName" name="companyName" required>
-    </div>
-    <div>
-        <label for="firstName">Vorname:</label>
-        <input type="text" id="firstName" name="firstName" required>
-    </div>
-    <div>
-        <label for="lastName">Nachname:</label>
-        <input type="text" id="lastName" name="lastName" required>
-    </div>
-    <div>
-        <label for="mail">E-Mail:</label>
-        <input type="text" id="mail" name="mail" required>
-    </div>
-    <div>
-        <label for="description">Beschreibung:</label>
-        <input type="text" id="description" name="description" required>
-    </div>
-    <div>
-        <label for="address1">Adresse:</label>
-        <input type="text" id="address1" name="address1" required>
-    </div>
-    <div>
-        <label for="address2">Weitere Adresse:</label>
-        <input type="text" id="address2" name="address2" required>
-    </div>
-    <div>
-        <label for="country">Land:</label>
-        <input type="text" id="country" name="country" required>
-    </div>
-    <div>
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" required>
-    </div>
-    <div>
-        <label for="zip">Postleitzahl:</label>
-        <input type="number" id="zip" name="zip" required>
-    </div>
-    <div>
-        <label for="website">Webseite:</label>
-        <input type="text" id="website" name="website" required>
-    </div>
-    <!--<div>
-        <label for="skills">Skills:</label>
-        <div>
-            <label th:each="skill : ${skills}">
-                <input type="checkbox" th:name="skills[]" th:value="${skill}" th:text="${skill}">
-                <span th:text="${skill}"></span>
-            </label>
-        </div>
-    </div>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <title>Registrierung</title>
+</head>
+<body class="text-center" style="padding-left:25%; padding-right:25%; margin-top:20vh;">
+
+<h1 class="mb-5">Register</h1>
+
+<hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+
+<div style="align-content: center; width:100%;">
+    <form th:action="@{/auth/registerCompany}" method="post" class="card-text">
+        <div th:if="${error}" class="alert alert-danger">
+            <span th:text="${error}"></span>
+        </div>
+        <div th:if="${success}" class="alert alert-success">
+            <span th:text="${success}"></span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="username" class="float-left">Benutzername:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="password" class="float-left">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+            </div>
+        </div>
+
+
+        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="firstName">Vorname:</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="lastName">Nachname:</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="companyName">Name deiner Firma:</label>
+                    <input type="text" id="companyName" name="companyName" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="mail">E-Mail:</label>
+                    <input type="text" id="mail" name="mail" class="form-control" required>
+                </div>
+            </div>
+        </div>
+
+
+        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="form-group">
+                    <label class="float-left" for="description">Beschreibung:</label>
+                    <input type="text" id="description" name="description" class="form-control" required>
+                </div>
+            </div>
+        </div>
+
+        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="address1">Adresse:</label>
+                    <input type="text" id="address1" name="address1" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="address2">Weitere Adresse:</label>
+                    <input type="text" id="address2" name="address2" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="country">Land:</label>
+                    <input type="text" id="country" name="country" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="state">State:</label>
+                    <input type="text" id="state" name="state" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="zip">Postleitzahl:</label>
+                    <input type="number" id="zip" name="zip" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="website">Webseite:</label>
+                    <input type="text" id="website" name="website" class="form-control" required>
+                </div>
+            </div>
+            <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+        </div>
+
+        <!--<div>
+            <label for="skills">Skills:</label>
+            <div>
+                <label th:each="skill : ${skills}">
+                    <input type="checkbox" th:name="skills[]" th:value="${skill}" th:text="${skill}">
+                    <span th:text="${skill}"></span>
+                </label>
+            </div>
+        </div>-->
+
+        <div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

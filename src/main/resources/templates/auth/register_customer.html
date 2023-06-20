@@ -1,55 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <title>Registrierung</title>
 </head>
-<body>
-<h1>Register</h1>
-<form th:action="@{/auth/registerCustomer}" method="post">
-    <div th:if="${error}" style="color: red;">
-        <span th:text="${error}"></span>
-    </div>
-    <div th:if="${success}" style="color: green;">
-        <span th:text="${success}"></span>
-    </div>
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div>
-        <label for="firstName">Vorname:</label>
-        <input type="text" id="firstName" name="firstName" required>
-    </div>
-    <div>
-        <label for="lastName">Nachname:</label>
-        <input type="text" id="lastName" name="lastName" required>
-    </div>
-    <div>
-        <label for="doB">Geburtsdatum:</label>
-        <input type="date" id="doB" name="doB" required>
-    </div>
+<body class="text-center" style="padding-left:25%; padding-right:25%; margin-top:20vh;">
 
-    <div>
-        <label for="mail">E-Mail:</label>
-        <input type="text" id="mail" name="mail" required>
-    </div>
-    <!--<div>
-        <label for="skills">Skills:</label>
-        <div>
-            <label th:each="skill : ${skills}">
-                <input type="checkbox" th:name="skills[]" th:value="${skill}" th:text="${skill}">
-                <span th:text="${skill}"></span>
-            </label>
+<h1 class="mb-5">Registrierung</h1>
+
+<hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+
+<div style="align-content: center; width:100%;">
+    <form th:action="@{/auth/registerCustomer}" method="post" class="card-text">
+        <div th:if="${error}" class="alert alert-danger">
+            <span th:text="${error}"></span>
         </div>
-    </div>-->
+        <div th:if="${success}" class="alert alert-success">
+            <span th:text="${success}"></span>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="username">Username:</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="firstName">Vorname:</label>
+                    <input type="text" id="firstName" name="firstName" class="form-control"  required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="lastName">Nachname:</label>
+                    <input type="text" id="lastName" name="lastName" class="form-control" required>
+                </div>
 
-    <div>
-        <button type="submit">Register</button>
-    </div>
-</form>
+                <hr style="height:2px;border-width:0;" class="bg-secondary secondary mb-4">
+
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="doB">Geburtsdatum:</label>
+                    <input type="date" id="doB" name="doB" class="form-control" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="float-left" for="mail">E-Mail:</label>
+                    <input type="text" id="mail" name="mail" class="form-control" required>
+                </div>
+            </div>
+        </div>
+
+        <!--<div>
+            <label for="skills">Skills:</label>
+            <div>
+                <label th:each="skill : ${skills}">
+                    <input type="checkbox" th:name="skills[]" th:value="${skill}" th:text="${skill}">
+                    <span th:text="${skill}"></span>
+                </label>
+            </div>
+        </div>-->
+        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+
+        <div>
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>
