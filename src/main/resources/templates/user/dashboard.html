@@ -4,8 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <title>MACJEE Job Site</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+
 </head>
-<body>
+<body class="bg-dark">
+
+<header id="header">
+    <div class="container">
+
+        <div id="logo" class="pull-left">
+            <h1><a href="#intro" class="scrollto">MACJEE</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!--<a href="#intro"><img src="img/MACJEE_logo.png" alt="" title="" style="width:auto;height:70px;"/></img></a>-->
+        </div>
+
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a href="#">Home</a></li>
+                <li sec:authorize="hasAuthority('CUSTOMER')">
+                    <a th:href="@{/user/customerProfile.html}">Profil</a>
+                </li>
+                <li sec:authorize="hasAuthority('COMPANY')">
+                    <a th:href="@{/user/companyProfile.html}">Profil</a>
+                </li>
+
+                    <ul>
+                        <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
+                        <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
+                        <li class="menu-has-children"><a href="#">Drop Down</a>
+                            <ul>
+                                <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
+                                <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
+                                <li><a href="#">Deep Drop Down 3</a></li>
+                                <li><a href="#">Deep Drop Down 4</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#logout">Auslogen</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav><!-- #nav-menu-container -->
+    </div>
+</header><!-- #header -->
+
 <div layout:fragment="content">
     Congrats! You have accessed the Application view of MACJEE
     Angemeldet als <span sec:authentication="name"></span><br>
