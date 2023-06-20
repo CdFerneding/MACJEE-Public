@@ -42,9 +42,7 @@ public class AuthController {
     private final CompanyService companyService;
 
     @GetMapping("/login")
-    public String showLogin(Model model){
-        /*model.addAttribute("notebooks", deskService.getAllNotebooks());
-        model.addAttribute("formNotebook", new Notebook());*/
+    public String showLogin() {
         return "login";
     }
 
@@ -71,7 +69,7 @@ public class AuthController {
 
         if (userEntityService.existsByUsername(username)) {
             model.addAttribute("error", "Username is taken!");
-            return "auth/register"; // Return back to the register page with an error message
+            return "auth/register_customer"; // Return back to the register page with an error message
         }
 
         String dateOfBirthString = registerCustomerForm.getDoB();
@@ -81,7 +79,7 @@ public class AuthController {
             dateOfBirth = dateFormat.parse(dateOfBirthString);
         } catch (ParseException e) {
             model.addAttribute("error", "Invalid date format");
-            return "auth/register";
+            return "auth/register_customer";
         }
 
         Customer customer = new Customer();
@@ -107,7 +105,7 @@ public class AuthController {
 
         if (userEntityService.existsByUsername(username)) {
             model.addAttribute("error", "Username is taken!");
-            return "auth/register"; // Return back to the register page with an error message
+            return "auth/register_company"; // Return back to the register page with an error message
         }
 
         Company company = new Company();

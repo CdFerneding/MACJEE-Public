@@ -25,9 +25,6 @@ public class Customer extends UserEntity {
     @Column(name = "mail", unique = true, nullable = false)
     private String mail;
 
-    @Transient
-    private String pw_conf;
-
     // HashSet: unordered List of *unique* elements
     // One to many because we have a CustomerSkill class as an Entity
     @ManyToMany(fetch = FetchType.EAGER)
