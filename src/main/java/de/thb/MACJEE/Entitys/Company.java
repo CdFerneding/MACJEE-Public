@@ -27,10 +27,6 @@ public class Company extends UserEntity {
     @Column(unique = true, nullable = false)
     private String mail;
 
-    // ist für die Bestätigung
-    // geht nicht in die DB
-    @Transient
-    private String pw_conf;
     private String description;
     private String address1;
     private String address2;
