@@ -21,6 +21,7 @@ public class Job {
     private Long id;
 
     private String title;
+    private String description;
 
     // HashSet: unordered List of *unique* elements
     @ManyToMany

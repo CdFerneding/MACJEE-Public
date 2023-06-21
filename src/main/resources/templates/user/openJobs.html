@@ -6,16 +6,24 @@
 </head>
 <body>
 <div layout:fragment="content">
-  <h2>All Open Jobs YOU can apply for</h2>
+    <h2>All Open Jobs YOU can apply for</h2>
 
-  <ul>
-    <li th:each="job: ${jobs}">
-      job title:<b><span th:text="${job.title}"></span></b>
-         with salary: <b><span th:text="${job.salary}"></span>€/hr</b>
-         from the company: <b><span th:text="${job.company.companyName}"></span></b>.
-      <button>apply</button>
-    </li>
-  </ul>
+    <ul>
+        <li th:each="job: ${jobs}">
+            <div th:if="${success}" style="color: green;">
+                <span th:text="${success}"></span>
+            </div>
+            job title:<b><span th:text="${job.title}"></span></b>
+            with salary: <b><span th:text="${job.salary}"></span>€/hr</b>
+            from the company: <b><span th:text="${job.company.companyName}"></span></b>.
+            <th:block th:if="">
+                <form th:action="@{/job/apply}" method="post">
+                    <input type="hidden" name="jobId" th:value="${job.id}"/>
+                    <button type="submit">apply</button>
+                </form>
+            </th:block>
+        </li>
+    </ul>
 
 </div>
 </body>

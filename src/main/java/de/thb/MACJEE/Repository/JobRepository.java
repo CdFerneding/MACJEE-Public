@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.data.repository.query.Param;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,4 +19,5 @@ public interface JobRepository extends CrudRepository<Job, Long> {
 
     List<Job> findJobsByIsOpen(boolean isOpen);
 
+    Optional<Job> findJobById(Long jobId);
 }

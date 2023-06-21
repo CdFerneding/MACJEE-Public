@@ -2,6 +2,7 @@ package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Service.CompanyService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 @RequestMapping("/company")
+@Data
 public class CompanyController {
     @Autowired
-    private CompanyService companyService;
+    private final CompanyService companyService;
 
     @GetMapping("/{id}")
     public String showCompanyProfile(@PathVariable("id") Long id, Model model) {

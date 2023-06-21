@@ -2,16 +2,14 @@ package de.thb.MACJEE.Controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Data;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@Data
 public class MainController {
-
-    public MainController(){
-        super();
-    }
 
     @GetMapping("/")
     public String showHome(Model model) {
