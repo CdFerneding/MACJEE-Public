@@ -1,5 +1,6 @@
 package de.thb.MACJEE.Entitys;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,7 +31,7 @@ public class Job {
     @JoinTable(name = "job_skill",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> requiredSkills = new HashSet<>();
+    private List<Skill> requiredSkills = new ArrayList<>();
 
     private int salary;
 
@@ -41,7 +42,7 @@ public class Job {
     @Column(name = "is_open")
     private boolean isOpen;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "customer_job",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))

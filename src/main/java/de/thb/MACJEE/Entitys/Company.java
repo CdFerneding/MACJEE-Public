@@ -1,5 +1,7 @@
 package de.thb.MACJEE.Entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -41,13 +43,6 @@ public class Company extends UserEntity {
     @Column(unique = true)
     private String website;
 
-    // bidirectional --> no according column in the database needed, just visible in JPA
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Job> jobs;
-
-    public Job uploadJob(Skill characteristicsLevel) {
-        // write Job into the Database
-        // hand the new Job to the Controller
-        return new Job();
-    }
 }

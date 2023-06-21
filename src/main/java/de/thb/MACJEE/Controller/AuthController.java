@@ -31,15 +31,15 @@ import java.util.Date;
 public class AuthController {
 
     @Autowired
-    private final UserEntityService userEntityService;
+    private UserEntityService userEntityService;
     @Autowired
-    private final RoleService roleService;
+    private RoleService roleService;
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    private final CustomerService customerService;
+    private CustomerService customerService;
     @Autowired
-    private final CompanyService companyService;
+    private CompanyService companyService;
 
     /*@GetMapping("/login")
     public String showLogin() {

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h2>Bewerber für den Job <span th:text="${job.title}"/> von der Firma <span th:text="${company.companyName}"/></h2>
+    benötigten Skills für den Job:
+    <!--
+    <div th:each="skill: ${job.requiredSkills}">
+        <span th:text="${skill}"/>
+    </div>
+    -->
+    <ul>
+        <li th:each="applicant: ${applicants}">
+            Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b> <br>
+            Skills: <!-- Skills der Customer anzeigen (von Customer Profile kopieren--> <br>
+
+            <form th:href="@{/company/{id}(id=${job.id})/accept}" method="POST">
+                <button type="submit" th:text="akzeptieren"/>
+            </form>
+            <form th:href="@{/company/{id}(id=${job.id})/deny}" method="POST">
+                <button th:formaction="@{/company/{id}(id=${job.id})/deny}" method="POST" type="submit"
+                        th:text="ablehnen"/>
+            </form>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
