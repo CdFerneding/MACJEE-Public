@@ -28,7 +28,7 @@ public class CustomerController {
     @Autowired
     private JobFinder jobFinder;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(!authentication.isAuthenticated()) {
