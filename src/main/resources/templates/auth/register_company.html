@@ -25,21 +25,6 @@
         <div th:if="${success}" class="alert alert-success">
             <span th:text="${success}"></span>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label for="username" class="float-left">Benutzername:</label>
-                    <input type="text" id="username" name="username" class="form-control" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="password" class="float-left">Password:</label>
-                    <input type="password" id="password" name="password" class="form-control" required>
-                </div>
-            </div>
-        </div>
-
-
-        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
 
         <div class="container">
             <div class="row">
@@ -62,11 +47,34 @@
             </div>
         </div>
 
+        <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
+
+        <div class="container">
+            <div class="row">
+
+                <div class="form-group col-12">
+                    <label for="username" class="float-left form-label">Benutzername</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text">@</span>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required="">
+                        <div class="invalid-feedback">
+                            Your username is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-12">
+                    <label class="float-left" for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+            </div>
+        </div>
+
 
         <hr style="height:1px;border-width:0;" class="bg-secondary secondary mb-4">
         <div class="container">
             <div class="row">
-                <div class="form-group">
+                <div class="form-group col-12">
                     <label class="float-left" for="description">Beschreibung:</label>
                     <input type="text" id="description" name="description" class="form-control" required>
                 </div>
@@ -117,7 +125,12 @@
         <div>
             <button type="submit" class="btn btn-primary">Register</button>
         </div>
+
+        <br><br>
     </form>
 </div>
+
+<br><br>
+
 </body>
 </html>
