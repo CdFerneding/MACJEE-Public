@@ -17,15 +17,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class SecurityConfig {
 
-    /**
-     *
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(conf -> {
                     conf.loginPage("/login");
                     conf.defaultSuccessUrl("/dashboard");
+                    conf.failureUrl("/login");
                 }).logout(conf -> {
                     conf.invalidateHttpSession(true);
                     conf.deleteCookies("SESSION");

@@ -41,10 +41,10 @@ public class AuthController {
     @Autowired
     private final CompanyService companyService;
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String showLogin() {
         return "login";
-    }
+    }*/
 
     @GetMapping("/register")
     public String showRegisterForm() {
