@@ -18,6 +18,11 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String showLogin() {
+        return "login";
+    }
+
     @GetMapping("/dashboard")
     public String showDashboard() {
         return "user/dashboard";
