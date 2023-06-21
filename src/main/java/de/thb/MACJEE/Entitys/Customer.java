@@ -31,11 +31,11 @@ public class Customer extends UserEntity {
     @JoinTable(name = "customer_skill",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills = new HashSet<>();
+    private List<Skill> skills = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     private Date doB;
 
     @ManyToMany(mappedBy = "applicants")
-    private Set<Job> jobs = new HashSet<>();
+    private List<Job> jobs = new ArrayList<>();
 }

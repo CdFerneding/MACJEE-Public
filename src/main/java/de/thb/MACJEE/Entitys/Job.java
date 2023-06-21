@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -39,9 +41,9 @@ public class Job {
     @Column(name = "is_open")
     private boolean isOpen;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "customer_job",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
-    private Set<Customer> applicants = new HashSet<>();
+    private List<Customer> applicants = new ArrayList<>();
 }

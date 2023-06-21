@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/job")
@@ -52,6 +53,9 @@ public class JobController {
         Job job = jobService.getJobById(jobId)
                 .orElseThrow(() -> new JobNotAvailableExeption("Job not found or not available"));
 
+        // load the applicants from the database before accessing it (before calling the addApplicant method)
+        // didn't work? --> made applicants eager // job.getApplicants();
+        // Hibernate.initialize(job.getApplicants()); --> does not work eiter (keeping lazy fetching)
         jobService.addApplicant(job, applicant);
 
         Company company = job.getCompany();
