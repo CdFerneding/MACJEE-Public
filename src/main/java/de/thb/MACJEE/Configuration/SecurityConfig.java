@@ -32,6 +32,7 @@ public class SecurityConfig {
                 }).authorizeHttpRequests(conf -> {
                     conf
                             .requestMatchers("/dashboard").authenticated()
+                            // Spring security automatically parses the Strings to "ROLE_"+<Role>
                             .requestMatchers("/customer/**").hasRole("CUSTOMER")
                             .requestMatchers("/company/**").hasRole("COMPANY")
                             .requestMatchers("/admin/**").hasRole("ADMIN")

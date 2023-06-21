@@ -4,6 +4,7 @@ import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -21,12 +22,13 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
+@Data
 public class CustomerController {
 
     @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
     @Autowired
-    private JobFinder jobFinder;
+    private final JobFinder jobFinder;
 
     @GetMapping("")
     public String showCustomerProfile (Model model) {
