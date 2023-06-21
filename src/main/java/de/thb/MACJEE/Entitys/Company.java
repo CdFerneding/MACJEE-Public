@@ -42,7 +42,7 @@ public class Company extends UserEntity {
     private String website;
 
     // bidirectional --> no according column in the database needed, just visible in JPA
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
     public Job uploadJob(Skill characteristicsLevel) {

@@ -16,12 +16,11 @@
             job title:<b><span th:text="${job.title}"></span></b>
             with salary: <b><span th:text="${job.salary}"></span>€/hr</b>
             from the company: <b><span th:text="${job.company.companyName}"></span></b>.
-            <th:block th:if="">
-                <form th:action="@{/job/apply}" method="post">
-                    <input type="hidden" name="jobId" th:value="${job.id}"/>
-                    <button type="submit">apply</button>
-                </form>
-            </th:block>
+
+            <form th:action="@{/job/apply}" method="post">
+                <input type="hidden" name="jobId" th:value="${job.id}"/>
+                <button type="submit">apply</button>
+            </form>
         </li>
     </ul>
 
