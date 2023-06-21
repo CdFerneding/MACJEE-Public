@@ -47,4 +47,7 @@ public class Job {
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
     private List<Customer> applicants = new ArrayList<>();
+
+    @OneToOne
+    private Customer working;
 }

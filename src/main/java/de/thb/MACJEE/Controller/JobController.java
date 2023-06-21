@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class JobController {
 
     @Transactional
     @PostMapping("/apply")
-    public String applyToJob(@RequestParam("jobId") Long jobId, Model model) {
+    public String applyToJob(@RequestParam("jobId") Long jobId, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -60,17 +61,17 @@ public class JobController {
                     .orElseThrow(() -> new JobHasNoCompanyExeption("This Job does not have a referenced Company."));
 
             if (jobService.addApplicant(job, applicant)) {
-                String successMessage = "Erfolgreich als: \"" + job.getTitle() + "\" bei der Firma: \"" + company + "\" beworben!";
-                model.addAttribute("success", successMessage);
+                String successMessage = "Erfolgreich als: \"" + job.getTitle() + "\" bei der Firma: \"" + company.getCompanyName() + "\" beworben!";
+                redirectAttributes.addFlashAttribute("success", successMessage);
             } else {
                 model.addAttribute("error", "Du bist bereits ein Bewerber für diesen Job");
             }
         } catch (UsernameNotFoundException e) {
-            model.addAttribute("error", "Benutzername nicht gefunden");
+            redirectAttributes.addFlashAttribute("error", "Benutzername nicht gefunden");
         } catch (JobNotFoundExeption e) {
-            model.addAttribute("error", "Job nicht verfügbar");
+            redirectAttributes.addFlashAttribute("error", "Job nicht verfügbar");
         } catch (JobHasNoCompanyExeption e) {
-            model.addAttribute("error", "Der Job hat keine verlinkte Firma");
+            redirectAttributes.addFlashAttribute("error", "Der Job hat keine verlinkte Firma");
         }
 
         // send an email to the company.mail to link the application review site:

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -80,7 +81,7 @@ public class CompanyController {
     }
 
     @PostMapping("/jobs/{id}/accept")
-    public String acceptApplicant(@PathVariable("id") Long id, Model model) {
+    public String acceptApplicant(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -89,16 +90,18 @@ public class CompanyController {
             Job job = jobService.getJobById(id)
                     .orElseThrow(() -> new JobNotFoundExeption("job not found."));
             jobService.setAvailabilityStateOfJob(false, job);
+            redirectAttributes.addFlashAttribute("success", "Bewerber wurde angenommen");
         } catch(UsernameNotFoundException e) {
-            model.addAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
         } catch(JobNotFoundExeption e) {
-            model.addAttribute("error", "Job wurde nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
         return "redirect:company/jobs";
     }
 
     @PostMapping("/jobs/{id}/deny")
-    public String denyApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername, Model model) {
+    public String denyApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername,
+                                Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -109,10 +112,11 @@ public class CompanyController {
             Customer applicant = customerService.getCustomerByUserName(applicantUsername)
                     .orElseThrow(() -> new UsernameNotFoundException("customer not found"));
             jobService.denyApplicantOfJob(job, applicant);
+            redirectAttributes.addFlashAttribute("success", "Bewerber wurde abgelehnt");
         } catch(UsernameNotFoundException e) {
-            model.addAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
         } catch(JobNotFoundExeption e) {
-            model.addAttribute("error", "Job wurde nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
         return "redirect:company/jobs";
     }

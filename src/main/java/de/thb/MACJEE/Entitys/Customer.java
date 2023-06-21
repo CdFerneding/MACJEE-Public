@@ -37,5 +37,8 @@ public class Customer extends UserEntity {
     private Date doB;
 
     @ManyToMany(mappedBy = "applicants")
-    private List<Job> jobs = new ArrayList<>();
+    private List<Job> applications = new ArrayList<>();
+
+    @OneToOne(mappedBy = "working")
+    private Job currentJob;
 }

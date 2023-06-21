@@ -14,6 +14,12 @@
         <span th:text="${skill}"/>
     </div>
     -->
+    <div th:if="${success}" style="color: green;">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" style="color: red;">
+        <span th:text="${error}"></span>
+    </div>
     <ul>
         <li th:each="applicant: ${applicants}">
             Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b> <br>
