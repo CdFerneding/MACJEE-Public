@@ -2,7 +2,7 @@
 
 URL Übersicht:
   "MACJEE/auth/login"
-  "MACJEE/auth/register"
+  "/auth/register"  
   "/"
   "/dashboard"
   "company/<companyID>"

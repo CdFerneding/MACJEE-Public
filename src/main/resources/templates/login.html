@@ -18,7 +18,7 @@
 
 </head>
 <body class="text-center" style="padding-left:25%; padding-right:25%; margin-top:20vh;">
-custom login:
+<h1>Login</h1><br>
 <div style="align-content: center; width:100%;">
     <form th:action="@{/login}" method="post" class="card-text needs-validation" novalidate>
         <div th:if="${param.success}" class="alert alert-success"/>
@@ -34,13 +34,13 @@ custom login:
             <input type="text" id="username" name="username" class="form-control" required tabindex="1"
                    autofocus/>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="password">Passwort</label>
             <input type="password" id="password" name="password" class="form-control" minlength="12" required tabindex="2"/>
         </div>
         <div class="form-group m-1">
             <button type="submit" class="btn btn-primary">Anmelden</button>
-            <a class="forgotPassword" th:href="@{/request_password_reset}">Passwort vergessen?</a>
+            <a class="forgotPassword ml-2" th:href="@{/request_password_reset}"><button type="submit" class="btn btn-primary">Passwort vergessen?</button></a>
         </div>
     </form>
 </div>
