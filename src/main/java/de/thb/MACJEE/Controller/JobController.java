@@ -3,8 +3,8 @@ package de.thb.MACJEE.Controller;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Exeption.JobHasNoCompanyExeption;
-import de.thb.MACJEE.Exeption.JobNotFoundExeption;
+import de.thb.MACJEE.Exeption.JobHasNoCompanyException;
+import de.thb.MACJEE.Exeption.JobNotFoundException;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
@@ -55,10 +55,10 @@ public class JobController {
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
             Job job = jobService.getJobById(jobId)
-                    .orElseThrow(() -> new JobNotFoundExeption("Job not found or job is not available."));
+                    .orElseThrow(() -> new JobNotFoundException("Job not found or job is not available."));
 
             Company company = jobService.getCompanyOfJob(job.getId())
-                    .orElseThrow(() -> new JobHasNoCompanyExeption("This Job does not have a referenced Company."));
+                    .orElseThrow(() -> new JobHasNoCompanyException("This Job does not have a referenced Company."));
 
             if (jobService.addApplicant(job, applicant)) {
                 String successMessage = "Erfolgreich als: \"" + job.getTitle() + "\" bei der Firma: \"" + company.getCompanyName() + "\" beworben!";
@@ -68,9 +68,9 @@ public class JobController {
             }
         } catch (UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Benutzername nicht gefunden");
-        } catch (JobNotFoundExeption e) {
+        } catch (JobNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Job nicht verfügbar");
-        } catch (JobHasNoCompanyExeption e) {
+        } catch (JobHasNoCompanyException e) {
             redirectAttributes.addFlashAttribute("error", "Der Job hat keine verlinkte Firma");
         }
 

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ public class Job {
     @JoinTable(name = "job_skill",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    @ToString.Exclude
     private List<Skill> requiredSkills = new ArrayList<>();
 
     private int salary;
@@ -42,10 +44,12 @@ public class Job {
     @Column(name = "is_open")
     private boolean isOpen;
 
+    // if possible change: keep fetchType.LAZY for the applicants (I am getting LazyInitializationException for jobService.denyApplicant(...))
     @ManyToMany
     @JoinTable(name = "customer_job",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    @ToString.Exclude
     private List<Customer> applicants = new ArrayList<>();
 
     @OneToOne

@@ -4,7 +4,9 @@ import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Repository.JobRepository;
+import jakarta.transaction.Transactional;
 import lombok.Data;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,6 +70,7 @@ public class JobService {
 
     public void setAvailabilityStateOfJob(boolean state, Job job) {
         job.setOpen(state);
+        jobRepository.save(job);
     }
 
     public void denyApplicantOfJob(Job job, Customer applicant) {

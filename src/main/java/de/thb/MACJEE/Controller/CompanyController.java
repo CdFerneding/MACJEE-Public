@@ -3,10 +3,11 @@ package de.thb.MACJEE.Controller;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Exeption.JobNotFoundExeption;
+import de.thb.MACJEE.Exeption.JobNotFoundException;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,7 +67,7 @@ public class CompanyController {
             Company company = companyService.getCompanyByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
             Job job = jobService.getJobById(id)
-                    .orElseThrow(() -> new JobNotFoundExeption("job not found."));
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
             List<Customer> applicants = jobService.getApplicantsOfJob(job.getId());
 
             model.addAttribute("applicants", applicants);
@@ -74,31 +75,36 @@ public class CompanyController {
             model.addAttribute("company", company);
         } catch(UsernameNotFoundException e) {
             model.addAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
-        } catch(JobNotFoundExeption e) {
+        } catch(JobNotFoundException e) {
             model.addAttribute("error", "Job wurde nicht gefunden.");
         }
         return "job/applicants";
     }
 
     @PostMapping("/jobs/{id}/accept")
-    public String acceptApplicant(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+    public String acceptApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername,
+                                  Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
             Company company = companyService.getCompanyByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
             Job job = jobService.getJobById(id)
-                    .orElseThrow(() -> new JobNotFoundExeption("job not found."));
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+            Customer applicant = customerService.getCustomerByUserName(applicantUsername)
+                    .orElseThrow(() -> new UsernameNotFoundException("customer not found"));
+            // send the applicant a message...
             jobService.setAvailabilityStateOfJob(false, job);
             redirectAttributes.addFlashAttribute("success", "Bewerber wurde angenommen");
         } catch(UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
-        } catch(JobNotFoundExeption e) {
+        } catch(JobNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
-        return "redirect:company/jobs";
+        return "redirect:/company/jobs";
     }
 
+    @Transactional // for loading the job.applicants
     @PostMapping("/jobs/{id}/deny")
     public String denyApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername,
                                 Model model, RedirectAttributes redirectAttributes) {
@@ -108,18 +114,16 @@ public class CompanyController {
             Company company = companyService.getCompanyByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
             Job job = jobService.getJobById(id)
-                    .orElseThrow(() -> new JobNotFoundExeption("job not found."));
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
             Customer applicant = customerService.getCustomerByUserName(applicantUsername)
                     .orElseThrow(() -> new UsernameNotFoundException("customer not found"));
             jobService.denyApplicantOfJob(job, applicant);
             redirectAttributes.addFlashAttribute("success", "Bewerber wurde abgelehnt");
         } catch(UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
-        } catch(JobNotFoundExeption e) {
+        } catch(JobNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
-        return "redirect:company/jobs";
+        return "redirect:/company/jobs";
     }
-
-
 }

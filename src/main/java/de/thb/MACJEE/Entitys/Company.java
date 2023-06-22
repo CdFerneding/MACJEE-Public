@@ -43,6 +43,7 @@ public class Company extends UserEntity {
     @Column(unique = true)
     private String website;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "company")
+    @ToString.Exclude
     private List<Job> jobs;
 }

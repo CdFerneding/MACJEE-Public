@@ -25,12 +25,13 @@
             Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b> <br>
             Skills: <!-- Skills der Customer anzeigen (von Customer Profile kopieren--> <br>
 
-            <form th:href="@{/company/{id}(id=${job.id})/accept}" method="POST">
-                <button type="submit" th:text="akzeptieren"/>
+            <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post">
+                <input type="hidden" name="username" th:value="${applicant.username}"/>
+                <button type="submit">akzeptieren</button>
             </form>
-            <form th:href="@{/company/{id}(id=${job.id})/deny}" method="POST">
-                <button th:formaction="@{/company/{id}(id=${job.id})/deny}" method="POST" type="submit"
-                        th:text="ablehnen"/>
+            <form th:action="@{/company/jobs/{id}/deny(id=${job.id})}" method="post">
+                <input type="hidden" name="username" th:value="${applicant.username}"/>
+                <button type="submit">ablehnen</button>
             </form>
         </li>
     </ul>
