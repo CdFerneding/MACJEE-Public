@@ -33,10 +33,7 @@ public class CustomerController {
     @GetMapping("")
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!authentication.isAuthenticated()) {
-            model.addAttribute("error", "You are not allowed to access this site!");
-            return "error";
-        }
+
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
         model.addAttribute("customer", customer);

@@ -37,7 +37,7 @@
 <!--<div layout:fragment="content">
     Congrats! You have accessed the Application view of MACJEE
     Angemeldet als <span sec:authentication="name"></span><br>
-</div>-->
+-->
 <section id="call-to-action">
     <div class="container">
         <div class="row">
@@ -53,6 +53,8 @@
 
         </div>
 
+        <a th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}" th:href="@{/company}">Profile</a>
+        <a th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}" th:href="@{/customer}">Profile</a>
     </div>
 </section><!-- #call-to-action -->
 
