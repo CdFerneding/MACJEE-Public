@@ -7,7 +7,6 @@ import de.thb.MACJEE.Exeption.JobNotFoundException;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
-import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +41,7 @@ public class CompanyController {
     }
 
     @GetMapping("/jobs")
-    public String showCompanyJobs(Model model) {
+    public String showCompanyJobs(Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -54,13 +53,13 @@ public class CompanyController {
             model.addAttribute("company", company);
             model.addAttribute("jobs", companyJobs);
         } catch(UsernameNotFoundException e) {
-            model.addAttribute("error", "nutzer nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "nutzer nicht gefunden.");
         }
         return "job/companyJobs";
     }
 
     @GetMapping("/jobs/{id}")
-    public String showApplicantsOfCompanyJob(@PathVariable("id") Long id, Model model) {
+    public String showApplicantsOfCompanyJob(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -68,15 +67,31 @@ public class CompanyController {
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
             Job job = jobService.getJobById(id)
                     .orElseThrow(() -> new JobNotFoundException("job not found."));
-            List<Customer> applicants = jobService.getApplicantsOfJob(job.getId());
+            List<Job> companyJobs = companyService.getJobsByCompany(company);
 
-            model.addAttribute("applicants", applicants);
-            model.addAttribute("job", job);
-            model.addAttribute("company", company);
+            boolean isJobPartOfCompanyJobs = false;
+
+            for (Job companyJob : companyJobs) {
+                if (companyJob.getId().equals(job.getId())) {
+                    isJobPartOfCompanyJobs = true;
+                    break;
+                }
+            }
+
+            if (isJobPartOfCompanyJobs) {
+                List<Customer> applicants = jobService.getApplicantsOfJob(job.getId());
+                model.addAttribute("applicants", applicants);
+                model.addAttribute("job", job);
+                model.addAttribute("company", company);
+            } else {
+                // Currently displayed Job does not belong to the company currently logged in
+                // Display error page because this state is only reachable through manual inputted URL
+                return "error";
+            }
         } catch(UsernameNotFoundException e) {
-            model.addAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
         } catch(JobNotFoundException e) {
-            model.addAttribute("error", "Job wurde nicht gefunden.");
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
         return "job/applicants";
     }
@@ -87,15 +102,22 @@ public class CompanyController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
-            Company company = companyService.getCompanyByUserName(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
-            Job job = jobService.getJobById(id)
+            /*Company company = companyService.getCompanyByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));*/
+            Job job = jobService.getJobWithApplicants(id)
                     .orElseThrow(() -> new JobNotFoundException("job not found."));
-            Customer applicant = customerService.getCustomerByUserName(applicantUsername)
-                    .orElseThrow(() -> new UsernameNotFoundException("customer not found"));
+            Customer applicant = customerService.getCustomerWithApplications(applicantUsername)
+                    .orElseThrow(() -> new UsernameNotFoundException("customer not found."));
+            // if the customer does already have a job (currentJob) he will get accepted as the worker of the job
+            if(customerService.CustomerHasJob(applicant)) {
+                redirectAttributes.addFlashAttribute("error", "Bewerber hat bereits einen Job.");
+                return "redirect:/company/jobs";
+            }
+            customerService.setCustomerWorkingAt(applicant, job);
             // send the applicant a message...
             jobService.setAvailabilityStateOfJob(false, job);
-            redirectAttributes.addFlashAttribute("success", "Bewerber wurde angenommen");
+            customerService.removeApplication(job, applicant);
+            redirectAttributes.addFlashAttribute("success", "Bewerber wurde angenommen.");
         } catch(UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
         } catch(JobNotFoundException e) {
@@ -104,7 +126,6 @@ public class CompanyController {
         return "redirect:/company/jobs";
     }
 
-    @Transactional // for loading the job.applicants
     @PostMapping("/jobs/{id}/deny")
     public String denyApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername,
                                 Model model, RedirectAttributes redirectAttributes) {

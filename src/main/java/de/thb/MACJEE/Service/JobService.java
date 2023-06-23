@@ -22,6 +22,9 @@ public class JobService {
     public List<Job> getAllJobs() {
         return (List<Job>) jobRepository.findAll();
     }
+
+    // Transactional needed to load the required Skills if a job is loaded
+    @Transactional
     public List<Job> getOpenJobs() {
         return jobRepository.findJobsByIsOpen(true);
     }
@@ -34,12 +37,6 @@ public class JobService {
         List<Customer> applicants = job.getApplicants();
         if (applicants.contains(customer)) {
             return false; // Customer is already an applicant
-        }
-
-        for (Customer applicant : applicants) {
-            if (applicant.getId().equals(customer.getId())) {
-                return false; // Customer is already an applicant
-            }
         }
 
         applicants.add(customer);
@@ -73,9 +70,14 @@ public class JobService {
         jobRepository.save(job);
     }
 
+    @Transactional
     public void denyApplicantOfJob(Job job, Customer applicant) {
         List<Customer> applicants = job.getApplicants();
         applicants.remove(applicant);
         jobRepository.save(job);
+    }
+
+    public Optional<Job> getJobWithApplicants(Long jobId) {
+        return jobRepository.findJobWithApplicants(jobId);
     }
 }

@@ -15,6 +15,7 @@ public interface JobRepository extends CrudRepository<Job, Long> {
     @Query("SELECT j FROM Job j WHERE j.requiredSkills IN :requiredSkills")
     List<Job> findBySkillsIn(@Param("requiredSkills") List<Skill> requiredSkills);
 
+    @Query("SELECT DISTINCT j FROM Job j LEFT JOIN FETCH j.requiredSkills WHERE j.isOpen = :isOpen")
     List<Job> findJobsByIsOpen(boolean isOpen);
 
     Optional<Job> findJobById(Long jobId);
@@ -28,4 +29,8 @@ public interface JobRepository extends CrudRepository<Job, Long> {
     Optional<Job> findJobByCompany(Company company);
 
     List<Job> findJobsByCompany(Company company);
+
+    @Query("SELECT DISTINCT j FROM Job j LEFT JOIN FETCH j.applicants WHERE j.id = :id")
+    Optional<Job> findJobWithApplicants(Long id);
+
 }

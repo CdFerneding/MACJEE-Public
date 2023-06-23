@@ -57,5 +57,4 @@ public class CompanyService {
     public List<Job> getJobsByCompany(Company company) {
         return jobRepository.findJobsByCompany(company);
     }
-
 }

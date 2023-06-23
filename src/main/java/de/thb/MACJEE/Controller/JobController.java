@@ -11,6 +11,7 @@ import de.thb.MACJEE.Service.JobService;
 import de.thb.MACJEE.Service.UserEntityService;
 import jakarta.transaction.Transactional;
 import lombok.Data;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +42,10 @@ public class JobController {
     @GetMapping("/all")
     public String showAllOpenJobs(Model model) {
         List<Job> jobs = jobService.getOpenJobs();
+        // Initialize the requiredSkills collection for each job
+        /*for (Job job : jobs) {
+            Hibernate.initialize(job.getRequiredSkills());
+        }*/
         model.addAttribute("jobs", jobs);
         return "job/openJobs";
     }
