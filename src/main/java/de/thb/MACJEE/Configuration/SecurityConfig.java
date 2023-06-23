@@ -17,16 +17,15 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class SecurityConfig {
 
-    /**
-     *
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .formLogin(conf -> {
                     conf.loginPage("/login");
                     conf.defaultSuccessUrl("/dashboard");
+                    conf.failureUrl("/login?error=true");
                 }).logout(conf -> {
+                    conf.logoutUrl("/logout");
                     conf.invalidateHttpSession(true);
                     conf.deleteCookies("SESSION");
                 }).sessionManagement(conf ->{
@@ -34,9 +33,12 @@ public class SecurityConfig {
                 }).authorizeHttpRequests(conf -> {
                     conf
                             .requestMatchers("/dashboard").authenticated()
+                            .requestMatchers("/job/**").authenticated()
+                            // Spring security automatically parses the Strings to "ROLE_"+<Role>
                             .requestMatchers("/customer/**").hasRole("CUSTOMER")
                             .requestMatchers("/company/**").hasRole("COMPANY")
                             .requestMatchers("/admin/**").hasRole("ADMIN")
+                            .requestMatchers("/job/applicants").hasRole("COMPANY")
                     .requestMatchers("/**").permitAll();
                 });
 

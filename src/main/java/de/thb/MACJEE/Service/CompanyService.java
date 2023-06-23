@@ -1,8 +1,10 @@
 package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Entitys.Company;
+import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Entitys.Role;
 import de.thb.MACJEE.Repository.CompanyRepository;
+import de.thb.MACJEE.Repository.JobRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +26,8 @@ public class CompanyService {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private JobRepository jobRepository;
 
     public Optional<Company> getCompanyByCompanyName(String companyName) {
         return companyRepository.findCompanyByUsername(companyName);
@@ -45,5 +49,13 @@ public class CompanyService {
     private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map((role) -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     } */
+
+    public Optional<Company> getCompanyByUserName(String username) {
+        return companyRepository.findCompanyByUsername(username);
+    }
+
+    public List<Job> getJobsByCompany(Company company) {
+        return jobRepository.findJobsByCompany(company);
+    }
 
 }

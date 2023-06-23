@@ -6,7 +6,11 @@
 </head>
 <body>
 <div layout:fragment="content">
+
+  <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
+
   <h2 th:text="${customer.userName}"></h2>
+
   <ul>
     <li> Name: <span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span> </li>
     <li> Email: <span th:text="${customer.mail}"></span> </li>
@@ -23,7 +27,10 @@
 
 
   <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
-  <a th:href="@{/jobs}">All Open Jobs</a> <br>
+  <a th:href="@{/job/all}">All Open Jobs</a> <br>
+
+  <div th:insert="~{contact :: _contact}"></div>
+  <div th:insert="~{js_libraries :: libs}"></div>
 
 </div>
 </body>

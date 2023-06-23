@@ -4,6 +4,7 @@ import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -21,20 +22,18 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
+@Data
 public class CustomerController {
 
     @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
     @Autowired
-    private JobFinder jobFinder;
+    private final JobFinder jobFinder;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!authentication.isAuthenticated()) {
-            model.addAttribute("error", "You are not allowed to access this site!");
-            return "error";
-        }
+
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
         model.addAttribute("customer", customer);

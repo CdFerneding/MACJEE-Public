@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h2>Jobs von der Company: <span th:text="${company.companyName}"/></h2>
+
+    <div th:if="${success}" style="color: green;">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" style="color: red;">
+        <span th:text="${error}"></span>
+    </div>
+    <ul>
+        <li th:each="job: ${jobs}">
+
+            job status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
+            job Title:<b><span th:text="${job.title}"></span></b>
+            Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b>
+            von der Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
+
+            <a th:href="@{/company/jobs/{id}(id=${job.id})}">Bewerber</a> <br>
+        </li>
+    </ul>
+
+</div>
+
+</body>
+</html>

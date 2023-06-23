@@ -26,16 +26,21 @@ public class Customer extends UserEntity {
     private String mail;
 
     // HashSet: unordered List of *unique* elements
-    // One to many because we have a CustomerSkill class as an Entity
-    @ManyToMany(fetch = FetchType.EAGER)
+    // Not yet used for simplicity
+    @ManyToMany
     @JoinTable(name = "customer_skill",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills = new HashSet<>();
+    @ToString.Exclude
+    private List<Skill> skills = new ArrayList<>();
 
     @Temporal(TemporalType.DATE)
     private Date doB;
 
     @ManyToMany(mappedBy = "applicants")
-    private Set<Job> jobs = new HashSet<>();
+    @ToString.Exclude
+    private List<Job> applications = new ArrayList<>();
+
+    @OneToOne(mappedBy = "working")
+    private Job currentJob;
 }

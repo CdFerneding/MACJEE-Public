@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>All Open Jobs YOU can apply for</h2>
+
+    <div th:if="${success}" style="color: green;">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" style="color: red;">
+        <span th:text="${error}"></span>
+    </div>
+    <ul>
+        <li th:each="job: ${jobs}">
+
+            job title:<b><span th:text="${job.title}"></span></b>
+            with salary: <b><span th:text="${job.salary}"></span>€/hr</b>
+            from the company: <b><span th:text="${job.company.companyName}"></span></b>.
+
+            <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                <input type="hidden" name="jobId" th:value="${job.id}"/>
+                <button type="submit">apply</button>
+            </form>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>

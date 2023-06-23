@@ -31,20 +31,20 @@ import java.util.Date;
 public class AuthController {
 
     @Autowired
-    private final UserEntityService userEntityService;
+    private UserEntityService userEntityService;
     @Autowired
-    private final RoleService roleService;
+    private RoleService roleService;
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
-    private final CustomerService customerService;
+    private CustomerService customerService;
     @Autowired
-    private final CompanyService companyService;
+    private CompanyService companyService;
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String showLogin() {
         return "login";
-    }
+    }*/
 
     @GetMapping("/register")
     public String showRegisterForm() {
@@ -63,7 +63,7 @@ public class AuthController {
 
     @PostMapping("/registerCustomer")
     public String registerCustomer(RegisterCustomerForm registerCustomerForm, Model model) {
-        Role userRole = roleService.getRoleByName("CUSTOMER").orElseThrow(() -> new UserRoleNotFoundException("User role not found"));
+        Role userRole = roleService.getRoleByName("ROLE_CUSTOMER").orElseThrow(() -> new UserRoleNotFoundException("User role not found"));
         String username = registerCustomerForm.getUsername();
         String userPassword = registerCustomerForm.getPassword();
 
@@ -99,7 +99,7 @@ public class AuthController {
 
     @PostMapping("/registerCompany")
     public String registerCompany(RegisterCompanyForm registerCompanyForm, Model model) {
-        Role userRole = roleService.getRoleByName("COMPANY").orElseThrow(() -> new UserRoleNotFoundException("User role not found"));
+        Role userRole = roleService.getRoleByName("ROLE_COMPANY").orElseThrow(() -> new UserRoleNotFoundException("User role not found"));
         String username = registerCompanyForm.getUsername();
         String userPassword = registerCompanyForm.getPassword();
 

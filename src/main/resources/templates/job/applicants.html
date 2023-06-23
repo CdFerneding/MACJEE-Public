@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+    <h2>Bewerber für den Job <span th:text="${job.title}"/> von der Firma <span th:text="${company.companyName}"/></h2>
+    benötigten Skills für den Job:
+    <!--
+    <div th:each="skill: ${job.requiredSkills}">
+        <span th:text="${skill}"/>
+    </div>
+    -->
+    <div th:if="${success}" style="color: green;">
+        <span th:text="${success}"></span>
+    </div>
+    <div th:if="${error}" style="color: red;">
+        <span th:text="${error}"></span>
+    </div>
+    <ul>
+        <li th:each="applicant: ${applicants}">
+            Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b> <br>
+            Skills: <!-- Skills der Customer anzeigen (von Customer Profile kopieren--> <br>
+
+            <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post">
+                <input type="hidden" name="username" th:value="${applicant.username}"/>
+                <button type="submit">akzeptieren</button>
+            </form>
+            <form th:action="@{/company/jobs/{id}/deny(id=${job.id})}" method="post">
+                <input type="hidden" name="username" th:value="${applicant.username}"/>
+                <button type="submit">ablehnen</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
