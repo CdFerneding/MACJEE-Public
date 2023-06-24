@@ -23,14 +23,15 @@ public class Skill {
     private Long id;
 
     private String name;
-    private int level;
+    private Long level;
 
     @ManyToMany(mappedBy = "skills")
     @ToString.Exclude
     private List<Customer> customers = new ArrayList<>();
 
+    // Wrapper class allows attribute to be null
     @Column(name = "is_hard_skill")
-    private boolean isHardSkill;
+    private Boolean isHardSkill;
 
     @ManyToMany(mappedBy = "requiredSkills")
     @ToString.Exclude

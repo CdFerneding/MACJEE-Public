@@ -1,24 +1,20 @@
 package de.thb.MACJEE.Service;
 
-import de.thb.MACJEE.Entitys.Role;
+import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Repository.CustomerRepository;
+import de.thb.MACJEE.Repository.JobRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import de.thb.MACJEE.Entitys.Customer;
 
+import javax.swing.text.html.Option;
 
 
 @Service
@@ -27,6 +23,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private JobRepository jobRepository;
 
     /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -48,5 +46,46 @@ public class CustomerService {
 
     public Optional<Customer> getCustomerByUserName(String userName) throws UsernameNotFoundException {
         return customerRepository.findCustomerByUsername(userName);
+    }
+
+    public void setCustomerWorkingAt(Customer customer, Job job) {
+        customer.setCurrentJob(job);
+        job.setWorking(customer);
+        customerRepository.save(customer);
+        jobRepository.save(job);
+    }
+
+    public boolean CustomerHasJob(Customer customer) {
+        return customerRepository.customerHasCurrentJob(customer);
+    }
+
+    public void removeApplication(Job job, Customer customer) {
+        List<Customer> applicants = job.getApplicants();
+        // for-each instead of "customer.applications.remove(job), because not every attribute is loaded
+        // therefore the objects are not properly compared
+        // edit: for-each threw "ConcurrentModificationException"
+        Iterator<Customer> applicantIterator = applicants.iterator();
+        while (applicantIterator.hasNext()) {
+            Customer applicant = applicantIterator.next();
+            if (customer.getId().equals(applicant.getId())) {
+                applicantIterator.remove();
+            }
+        }
+
+        List<Job> applications = customer.getApplications();
+        Iterator<Job> applicationIterator = applications.iterator();
+        while (applicationIterator.hasNext()) {
+            Job application = applicationIterator.next();
+            if (job.getId().equals(application.getId())) {
+                applicationIterator.remove();
+            }
+        }
+
+        customerRepository.save(customer);
+        jobRepository.save(job);
+    }
+
+    public Optional<Customer> getCustomerWithApplications(String username) {
+        return customerRepository.findCustomerWithApplications(username);
     }
 }
