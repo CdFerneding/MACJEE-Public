@@ -6,7 +6,6 @@ import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Repository.JobRepository;
 import jakarta.transaction.Transactional;
 import lombok.Data;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +57,7 @@ public class JobService {
     //}
 
     public List<Customer> getApplicantsOfJob(Long jobId) {
-        return jobRepository.findApplicantsByJobId(jobId);
+        return jobRepository.findApplicantsWithSkillsByJobId(jobId);
     }
 
     public Optional<Job> getJobByCompany(Company company) {
@@ -70,14 +69,9 @@ public class JobService {
         jobRepository.save(job);
     }
 
-    @Transactional
-    public void denyApplicantOfJob(Job job, Customer applicant) {
-        List<Customer> applicants = job.getApplicants();
-        applicants.remove(applicant);
-        jobRepository.save(job);
-    }
-
     public Optional<Job> getJobWithApplicants(Long jobId) {
         return jobRepository.findJobWithApplicants(jobId);
     }
+
+    public Optional<Job> getJobWithRequiredSkills(Long jobId) { return jobRepository.findJobWithRequiredSkills(jobId); }
 }
