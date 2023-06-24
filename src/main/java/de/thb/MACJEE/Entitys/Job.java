@@ -49,9 +49,9 @@ public class Job {
     @JoinTable(name = "customer_job",
             joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "customer_id"))
-    @ToString.Exclude
     private List<Customer> applicants = new ArrayList<>();
 
     @OneToOne
+    @ToString.Exclude
     private Customer working;
 }

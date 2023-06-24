@@ -47,14 +47,21 @@
                 <p sec:authorize="hasAuthority('ROLE_COMPANY')" class="cta-text"> Veröffentliche einen Job um den perfekten Mitarbeiter zu finden</p>
             </div>
             <div class="col-lg-3 cta-btn-container text-center">
-                <a sec:authorize="hasAuthority('ROLE_CUSTOMER')" class="cta-btn align-middle" th:href="@{/auth/login}">Los geht`s</a>
-                <a sec:authorize="hasAuthority('ROLE_COMPANY')" class="cta-btn align-middle" th:href="@{/auth/login}">Los geht`s</a>
+                <a sec:authorize="hasAuthority('ROLE_CUSTOMER')" class="cta-btn align-middle" th:href="@{/login}">Los geht`s</a>
+                <a sec:authorize="hasAuthority('ROLE_COMPANY')" class="cta-btn align-middle" th:href="@{/login}">Los geht`s</a>
             </div>
-
         </div>
 
-        <a th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}" th:href="@{/company}">Profile</a>
-        <a th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}" th:href="@{/customer}">Profile</a>
+        <div>
+            <!-- there is a filter in /job/all for ROLE; all user are allowed to access "openJobs" -->
+            <a th:href="@{/job/all}" th:text="'Offene Jobs'"/>
+        </div>
+        <div>
+            <a sec:authorize="hasRole('ROLE_COMPANY')" th:href="@{/company/jobs}" th:text="'Jobs deiner Firma'"/>
+        </div>
+
+        <a th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}" th:href="@{/company}">Profil</a>
+        <a th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}" th:href="@{/customer}">Profil</a>
     </div>
 </section><!-- #call-to-action -->
 
