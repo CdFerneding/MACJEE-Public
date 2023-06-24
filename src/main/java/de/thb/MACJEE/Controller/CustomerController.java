@@ -30,13 +30,15 @@ public class CustomerController {
     @Autowired
     private final JobFinder jobFinder;
 
-    @GetMapping("")
+    @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+        String username = authentication.getName();
+        Customer customer = customerService.getCustomerByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+        List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
         model.addAttribute("customer", customer);
+        model.addAttribute("Applications", applications);
         return "user/customerProfile";
     }
 

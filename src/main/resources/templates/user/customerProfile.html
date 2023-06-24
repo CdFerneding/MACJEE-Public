@@ -9,7 +9,7 @@
 
   <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
 
-  <h2 th:text="${customer.userName}"></h2>
+  <h2 th:text="${customer.username}"></h2>
 
   <ul>
     <li> Name: <span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span> </li>
@@ -18,10 +18,16 @@
   </ul>
   Skills:
   <ul>
-    <li th:each="skill: ${customer.skills}">
+    <li th:each="skill : ${customer.skills}">
       Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
       Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
       Hardskill? <span th:text="${skill.isHardSkill}"></span>
+    </li>
+  </ul>
+  Applikations:
+  <ul>
+    <li th:each="application : ${applications}">
+      Application: <span th:text="${application.title}"></span>
     </li>
   </ul>
 

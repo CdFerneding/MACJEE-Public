@@ -1,21 +1,14 @@
 package de.thb.MACJEE.Service;
 
-import de.thb.MACJEE.Entitys.Role;
+import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Repository.CustomerRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import de.thb.MACJEE.Entitys.Customer;
 
@@ -44,6 +37,9 @@ public class CustomerService {
 
     public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
+    }
+    public List<Job> getApplicationsOfCustomer(Long customerId) {
+        return customerRepository.findApplicationsOfCustomer(customerId);
     }
 
     public Optional<Customer> getCustomerByUserName(String userName) throws UsernameNotFoundException {
