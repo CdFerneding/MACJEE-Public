@@ -1,5 +1,7 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
+import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
@@ -33,10 +35,44 @@ public class CompanyController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping("/{id}")
-    public String showCompanyProfile(@PathVariable("id") Long id, Model model) {
-        Company company = companyService.getCompanyById(id)
+    @GetMapping("/profile")
+    public String showCompanyProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Company company = companyService.getCompanyByCompanyName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("company", company);
+        return "user/companyProfile";
+    }
+
+    @GetMapping("/companySettings")
+    public String showCompanySettings(@RequestParam("changes") String changes, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("changes", changes);
+        model.addAttribute("company", company);
+        return "user/companySettings";
+    }
+
+    @PostMapping("/companySettings")
+    public String postCompanySettings(@RequestParam("changes") String changes, RegisterCompanyForm registerCompanyForm, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if (changes.equals("mail")) company.setMail(registerCompanyForm.getMail());
+        if (changes.equals("phoneNumber")) company.setPhoneNumber(registerCompanyForm.getPhoneNumber());
+        if (changes.equals("website")) company.setWebsite(registerCompanyForm.getWebsite());
+        if (changes.equals("address1")) company.setAddress1(registerCompanyForm.getAddress1());
+        if (changes.equals("address2")) company.setAddress2(registerCompanyForm.getAddress2());
+        if (changes.equals("country")) company.setCountry(registerCompanyForm.getCountry());
+        if (changes.equals("state")) company.setState(registerCompanyForm.getState());
+        if (changes.equals("zip")) company.setZip(registerCompanyForm.getZip());
+        if (changes.equals("name")) {
+            company.setMail(registerCompanyForm.getFirstName());
+            company.setMail(registerCompanyForm.getLastName());
+        }
+
         model.addAttribute("company", company);
         return "user/companyProfile";
     }

@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,9 @@ public class CustomerService {
 
     public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
+    }
+    public List<Job> getApplicationsOfCustomer(Long customerId) {
+        return customerRepository.findApplicationsOfCustomer(customerId);
     }
 
     public Optional<Customer> getCustomerByUserName(String userName) throws UsernameNotFoundException {

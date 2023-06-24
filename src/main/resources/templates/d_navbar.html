@@ -18,10 +18,10 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="#">Home</a></li>
           <li sec:authorize="hasAuthority('ROLE_CUSTOMER')">
-            <a th:href="@{/user/customerProfile.html}">Profil</a>
+            <a th:href="@{/customer/profile}">Profil</a>
           </li>
           <li sec:authorize="hasAuthority('ROLE_COMPANY')">
-            <a th:href="@{/user/companyProfile.html}">Profil</a>
+            <a th:href="@{/company/profile}">Profil</a>
           </li>
 
           <ul>
