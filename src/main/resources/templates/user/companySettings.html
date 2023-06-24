@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Company</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
+
+    <div th:if="${changes == 'mail'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="mail">
+            <label for="mail">Neue Mail:</label>
+            <input type="text" id="mail" name="mail" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'phoneNumber'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="phoneNumber">
+            <label for="phoneNumber">Neue Telefonnummer:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'website'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="website">
+            <label for="website">Neue Webside:</label>
+            <input type="text" id="website" name="website" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+
+    <div th:if="${changes == 'address1'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="address1">
+            <label for="address1">Neue Addresse 1:</label>
+            <input type="text" id="address1" name="address1" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'address2'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="address2">
+            <label for="address2">Neue Addresse 2:</label>
+            <input type="text" id="address2" name="address2" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'country'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="country">
+            <label for="country">Neue Country:</label>
+            <input type="text" id="country" name="country" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'state'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="state">
+            <label for="state">Neuer State:</label>
+            <input type="text" id="state" name="state" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'zip'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="zip">
+            <label for="zip">Neue Zip:</label>
+            <input type="number" id="zip" name="zip" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+
+    <div th:insert="~{contact :: _contact}"></div>
+    <div th:insert="~{js_libraries :: libs}"></div>
+
+</div>
+</body>
+</html>

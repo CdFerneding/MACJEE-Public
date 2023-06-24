@@ -38,7 +38,7 @@ public class CustomerController {
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
         List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
         model.addAttribute("customer", customer);
-        model.addAttribute("Applications", applications);
+        model.addAttribute("applications", applications);
         return "user/customerProfile";
     }
 

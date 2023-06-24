@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
+
+  <h2 th:text="${customer.username}"></h2>
+
+  <ul>
+    <li> Name: <span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span> </li>
+    <li> Email: <span th:text="${customer.mail}"></span> </li>
+    <li> Geburtstag: <span th:text="${customer.doB}"></span> </li>
+  </ul>
+  Skills:
+  <ul>
+    <li th:each="skill : ${customer.skills}">
+      Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
+      Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
+      Hardskill? <span th:text="${skill.isHardSkill}"></span>
+    </li>
+  </ul>
+  Applikations:
+  <ul>
+    <li th:each="application : ${applications}">
+      Application: <span th:text="${application.title}"></span>
+    </li>
+  </ul>
+
+
+  <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
+  <a th:href="@{/job/all}">All Open Jobs</a> <br>
+
+  <div th:insert="~{contact :: _contact}"></div>
+  <div th:insert="~{js_libraries :: libs}"></div>
+
+</div>
+</body>
+</html>
