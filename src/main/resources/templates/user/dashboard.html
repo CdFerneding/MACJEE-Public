@@ -52,16 +52,6 @@
             </div>
         </div>
 
-        <div>
-            <!-- there is a filter in /job/all for ROLE; all user are allowed to access "openJobs" -->
-            <a th:href="@{/job/all}" th:text="'Offene Jobs'"/>
-        </div>
-        <div>
-            <a sec:authorize="hasRole('ROLE_COMPANY')" th:href="@{/company/jobs}" th:text="'Jobs deiner Firma'"/>
-        </div>
-
-        <a th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}" th:href="@{/company}">Profil</a>
-        <a th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}" th:href="@{/customer}">Profil</a>
     </div>
 </section><!-- #call-to-action -->
 

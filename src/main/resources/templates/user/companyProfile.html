@@ -4,36 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <title>Company</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
 
     <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
 
-    <h2 th:text="${company.companyName}"></h2>
+    <div class="profile">
 
-    Description:
-    <span th:text="${company.description}"></span> <br> <br>
+        <h2 th:text="${company.companyName}"></h2>
 
-    User: <span th:text="${company.firstName + company.lastName}"></span> <a th:href="@{/company/companySettings(changes='name')}"><button type="button">Change</button></a> <br>
-    Mail: <span th:text="${company.mail}"></span> <a th:href="@{/company/companySettings(changes='mail')}"><button type="button">Change</button></a> <br>
-    Phone Number: <span th:text="${company.phoneNumber}"></span> <a th:href="@{/company/companySettings(changes='phoneNumber')}"><button type="button">Change</button></a> <br>
-    Webside: <span th:text="${company.website}"></span> <a th:href="@{/company/companySettings(changes='website')}"><button type="button">Change</button></a> <br>
+        <table style="width:100%;" class="mb-5">
+            <thead>
+            <tr>
+                <th style="width:20%;"></th>
+                <th style="width:60%;" scope="col"></th>
+                <th style="width:20%;" cope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table_boarder">
+                <th scope="row">Description:</th>
+                <td><span th:text="${company.description}"></span></td>
+                <td></td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">User:</th>
+                <td><span th:text="${company.firstName + company.lastName}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='name')}" class="success">
+                        Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Mail:</th>
+                <td><span th:text="${company.mail}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='mail')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Phone Number:</th>
+                <td><span th:text="${company.phoneNumber}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='phoneNumber')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Webside:</th>
+                <td><span th:text="${company.website}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='website')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Addresse:</th>
+                <td><span th:text="${company.address1}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='address1')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Adresszusatz:</th>
+                <td><span th:text="${company.address2}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='address2')}" class="success">
+                        Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Land</th>
+                <td><span th:text="${company.country}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='country')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">Bundesland:</th>
+                <td><span th:text="${company.state}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='state')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
+            <tr class="table_boarder">
+                <th scope="row">PostalCode:</th>
+                <td><span th:text="${company.zip}"></span></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='zip')}" class="success">Change
+                    </a>
+                </td>
+            </tr>
 
-    Address: <br>
-    <span th:text="${company.address1}"></span> <a th:href="@{/company/companySettings(changes='address1')}"><button type="button">Change</button></a> <br>
-    <span th:text="${company.address2}"></span> <a th:href="@{/company/companySettings(changes='address2')}"><button type="button">Change</button></a> <br>
-    <span th:text="${company.country}"></span> <a th:href="@{/company/companySettings(changes='country')}"><button type="button">Change</button></a> <br>
-    <span th:text="${company.state}"></span> <a th:href="@{/company/companySettings(changes='state')}"><button type="button">Change</button></a> <br> <br>
+            </tbody>
+        </table>
+    </div>
 
-    PostalCode: <br>
-    <span th:text="${company.zip}"></span> <a th:href="@{/company/companySettings(changes='zip')}"><button type="button">Change</button></a> <br>
+    <div class="_list_ mt-5">
 
-    <ul>
-        <li th:each="job: ${company.jobs}">
-            <span th:text="${job.title}"></span> <br>
-        </li>
-    </ul>
+        <h2>Meine Jobs</h2>
+
+        <div class="job_in_list" th:each="job: ${company.jobs}">
+
+            <b><span th:text="${job.title}"></span></b>
+            <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
+
+            Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
+            Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
+
+            job status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
+            <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">Bewerber</a> <br>
+
+        </div>
+    </div>
+
+
+
+
+
 
     <div th:insert="~{contact :: _contact}"></div>
     <div th:insert="~{js_libraries :: libs}"></div>

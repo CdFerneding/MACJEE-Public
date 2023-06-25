@@ -1244,3 +1244,29 @@ body.mobile-nav-active #mobile-nav-toggle {
 #footer .footer-links a:hover {
   color: #1dc8cd;
 }
+
+._list_{
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.job_in_list{
+  background-color: #d3d3d3;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  padding: 2%;
+}
+
+.profile{
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: #d3d3d3;
+  padding: 2%;
+}
+
+.table_boarder{
+  border-style: groove;
+  border-width: 1px;
+}
+
+

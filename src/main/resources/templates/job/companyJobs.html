@@ -3,29 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Jobs</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
 </head>
 <body>
 
 <div layout:fragment="content">
-    <h2>Jobs von der Company: <span th:text="${company.companyName}"/></h2>
 
-    <div th:if="${success}" style="color: green;">
-        <span th:text="${success}"></span>
+    <div th:insert="~{d_navbar :: d_nav}"></div>
+
+    <br><br><br><br><br><br><br><br>
+
+    <div class="_list_">
+
+        <h2>Jobs von der Company: <span th:text="${company.companyName}"/></h2>
+
+        <div th:if="${success}" style="color: green;">
+            <span th:text="${success}"></span>
+        </div>
+        <div th:if="${error}" style="color: red;">
+            <span th:text="${error}"></span>
+        </div>
+
     </div>
-    <div th:if="${error}" style="color: red;">
-        <span th:text="${error}"></span>
-    </div>
-    <ul>
-        <li th:each="job: ${jobs}">
+
+    <div class="_list_">
+        <div class="job_in_list" th:each="job: ${jobs}">
+
+            <b><span th:text="${job.title}"></span></b>
+            <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
+
+            Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
+            Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
 
             job status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
-            job Title:<b><span th:text="${job.title}"></span></b>
-            Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b>
-            von der Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
+            <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">Bewerber</a> <br>
 
-            <a th:href="@{/company/jobs/{id}(id=${job.id})}">Bewerber</a> <br>
-        </li>
-    </ul>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div th:insert="~{contact :: _contact}"></div>
+    <div th:insert="~{js_libraries :: libs}"></div>
 
 </div>
 
