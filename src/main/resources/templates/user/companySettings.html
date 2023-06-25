@@ -83,6 +83,25 @@
         </form>
     </div>
 
+    <div th:if="${changes == 'name'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="name">
+            <label for="firstName">Neuer Vorname:</label>
+            <input type="text" id="firstName" name="firstName" required>
+            <label for="lastName">Neuer Nachname:</label>
+            <input type="text" id="lastName" name="lastName" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <div th:if="${changes == 'description'}">
+        <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <input type="hidden" name="changes" value="description">
+            <label for="description">Neue Beschreibung:</label>
+            <input type="text" id="description" name="description" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
 
     <div th:insert="~{contact :: _contact}"></div>
     <div th:insert="~{js_libraries :: libs}"></div>

@@ -11,11 +11,10 @@
 
   <h2 th:text="${customer.username}"></h2>
 
-  <ul>
-    <li> Name: <span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span> </li>
-    <li> Email: <span th:text="${customer.mail}"></span> </li>
-    <li> Geburtstag: <span th:text="${customer.doB}"></span> </li>
-  </ul>
+  Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
+  Email: <span th:text="${customer.mail}"></span> <a th:href="@{/company/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
+  Geburtstag: <span th:text="${customer.doB}"></span> <a th:href="@{/customer/customerSettings(changes='dob')}"><button type="button">Change</button></a> <br>
+
   Skills:
   <ul>
     <li th:each="skill : ${customer.skills}">
@@ -23,14 +22,15 @@
       Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
       Hardskill? <span th:text="${skill.isHardSkill}"></span>
     </li>
-  </ul>
+  </ul> <br>
+  <a th:href="@{/customer/customerSettings(changes='newSkill')}"><button type="button">Skill hinzufügen</button></a> <br> <br>
+
   Applikations:
   <ul>
     <li th:each="application : ${applications}">
       Application: <span th:text="${application.title}"></span>
     </li>
   </ul>
-
 
   <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
   <a th:href="@{/job/all}">All Open Jobs</a> <br>

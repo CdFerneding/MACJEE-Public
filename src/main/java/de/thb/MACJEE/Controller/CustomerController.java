@@ -1,7 +1,11 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
+import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
+import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Repository.CustomerRepository;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
 import lombok.Data;
@@ -12,12 +16,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +33,8 @@ public class CustomerController {
     private final CustomerService customerService;
     @Autowired
     private final JobFinder jobFinder;
+    @Autowired
+    private final CustomerRepository customerRepository;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -39,6 +45,36 @@ public class CustomerController {
         List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
         model.addAttribute("customer", customer);
         model.addAttribute("applications", applications);
+        return "user/customerProfile";
+    }
+
+    @PostMapping("/customerSettings")
+    public String postCompanySettings(@RequestParam("changes") String changes, RegisterCustomerForm registerCustomerForm, Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        switch (changes) {
+            case "doB" -> {
+                String dateOfBirthString = registerCustomerForm.getDoB();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateOfBirth;
+                dateOfBirth = dateFormat.parse(dateOfBirthString);
+                customer.setDoB(dateOfBirth);
+                customerRepository.save(customer);
+            }
+            case "mail" -> {
+                customer.setMail(registerCustomerForm.getMail());
+                customerRepository.save(customer);
+            }
+            case "name" -> {
+                customer.setFirstName(registerCustomerForm.getFirstName());
+                customer.setLastName(registerCustomerForm.getLastName());
+                customerRepository.save(customer);
+            }
+        }
+
+        model.addAttribute("customer", customer);
         return "user/customerProfile";
     }
 

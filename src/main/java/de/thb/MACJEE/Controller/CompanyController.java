@@ -7,9 +7,11 @@ import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Exeption.JobNotFoundException;
+import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
+import de.thb.MACJEE.Service.UserEntityService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,8 @@ public class CompanyController {
     private JobService jobService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @GetMapping("/profile")
     public String showCompanyProfile(Model model) {
@@ -60,17 +64,48 @@ public class CompanyController {
         Company company = companyService.getCompanyByCompanyName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (changes.equals("mail")) company.setMail(registerCompanyForm.getMail());
-        if (changes.equals("phoneNumber")) company.setPhoneNumber(registerCompanyForm.getPhoneNumber());
-        if (changes.equals("website")) company.setWebsite(registerCompanyForm.getWebsite());
-        if (changes.equals("address1")) company.setAddress1(registerCompanyForm.getAddress1());
-        if (changes.equals("address2")) company.setAddress2(registerCompanyForm.getAddress2());
-        if (changes.equals("country")) company.setCountry(registerCompanyForm.getCountry());
-        if (changes.equals("state")) company.setState(registerCompanyForm.getState());
-        if (changes.equals("zip")) company.setZip(registerCompanyForm.getZip());
-        if (changes.equals("name")) {
-            company.setMail(registerCompanyForm.getFirstName());
-            company.setMail(registerCompanyForm.getLastName());
+        switch (changes) {
+            case "description" -> {
+                company.setDescription(registerCompanyForm.getDescription());
+                companyRepository.save(company);
+            }
+            case "mail" -> {
+                company.setMail(registerCompanyForm.getMail());
+                companyRepository.save(company);
+            }
+            case "phoneNumber" -> {
+                company.setPhoneNumber(registerCompanyForm.getPhoneNumber());
+                companyRepository.save(company);
+            }
+            case "website" -> {
+                company.setWebsite(registerCompanyForm.getWebsite());
+                companyRepository.save(company);
+            }
+            case "address1" -> {
+                company.setAddress1(registerCompanyForm.getAddress1());
+                companyRepository.save(company);
+            }
+            case "address2" -> {
+                company.setAddress2(registerCompanyForm.getAddress2());
+                companyRepository.save(company);
+            }
+            case "country" -> {
+                company.setCountry(registerCompanyForm.getCountry());
+                companyRepository.save(company);
+            }
+            case "state" -> {
+                company.setState(registerCompanyForm.getState());
+                companyRepository.save(company);
+            }
+            case "zip" -> {
+                company.setZip(registerCompanyForm.getZip());
+                companyRepository.save(company);
+            }
+            case "name" -> {
+                company.setFirstName(registerCompanyForm.getFirstName());
+                company.setLastName(registerCompanyForm.getLastName());
+                companyRepository.save(company);
+            }
         }
 
         model.addAttribute("company", company);
