@@ -76,10 +76,10 @@
 
   <div class="_list_">
     <h2>
-      Applikations:
+      Bewerbungen:
     </h2>
-    <div class="job_in_list" th:each="application : ${applications}">
-      Application: <span th:text="${application.title}"></span>
+    <div class="job_in_list" th:each="_application : ${applications}">
+      Application: <span th:text="${_application.title}"></span>
     </div>
   </div>
 
