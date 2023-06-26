@@ -36,8 +36,6 @@ public class CompanyController {
     private JobService jobService;
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private CompanyRepository companyRepository;
 
     @GetMapping("/profile")
     public String showCompanyProfile(Model model) {
