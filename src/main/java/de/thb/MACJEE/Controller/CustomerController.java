@@ -1,17 +1,10 @@
 package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
-import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
-import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
-import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Entitys.Skill;
-import de.thb.MACJEE.Repository.CustomerRepository;
-import de.thb.MACJEE.Repository.SkillRepository;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
-import de.thb.MACJEE.Service.UserEntityService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -37,10 +28,6 @@ public class CustomerController {
     private final CustomerService customerService;
     @Autowired
     private final JobFinder jobFinder;
-    @Autowired
-    private final CustomerRepository customerRepository;
-    @Autowired
-    private final SkillRepository skillRepository;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -85,7 +72,7 @@ public class CustomerController {
             List<Job> jobs = jobFinder.findPerfectJobs(customerId);
             model.addAttribute("jobs", jobs);
             model.addAttribute("customer", customer);
-            return "user/findJob";
+            return "job/findJob";
         } catch (Exception e) {
             // Handle the exception appropriately
             // You can log the error or show a custom error page
