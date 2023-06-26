@@ -1,9 +1,7 @@
 package de.thb.MACJEE.Service;
 
-import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
-import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Repository.JobRepository;
@@ -23,7 +21,7 @@ public class CompanyService {
     private JobRepository jobRepository;
 
     public Optional<Company> getCompanyByCompanyName(String companyName) {
-        return companyRepository.findCompanyByUsername(companyName);
+        return companyRepository.findCompanyByUsernameWithJobs(companyName);
     }
 
     public Company addCompany(Company company) {
@@ -48,10 +46,10 @@ public class CompanyService {
     }
 
     public List<Job> getJobsByCompany(Company company) {
-        return jobRepository.findJobsByCompany(company);
+        return jobRepository.findJobsByCompanyWithApplicants(company);
     }
 
-    public void Settings(Company company, String changes, RegisterCompanyForm registerCompanyForm){
+    public void setAttributes(Company company, String changes, RegisterCompanyForm registerCompanyForm){
         switch (changes) {
             case "description" -> {
                 company.setDescription(registerCompanyForm.getDescription());
