@@ -1,17 +1,13 @@
 package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
-import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Exeption.JobNotFoundException;
-import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
-import de.thb.MACJEE.Service.UserEntityService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,7 +59,7 @@ public class CompanyController {
         Company company = companyService.getCompanyByCompanyName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        companyService.Settings(company, changes, registerCompanyForm);
+        companyService.setAttributes(company, changes, registerCompanyForm);
 
         model.addAttribute("company", company);
         return "user/companyProfile";
