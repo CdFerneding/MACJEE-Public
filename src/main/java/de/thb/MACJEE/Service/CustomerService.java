@@ -10,19 +10,11 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import de.thb.MACJEE.Entitys.Customer;
-
-import javax.swing.text.html.Option;
 
 
 @Service
@@ -125,14 +117,16 @@ public class CustomerService {
                 customer.setLastName(customerSettingsForm.getLastName());
                 customerRepository.save(customer);
             }
-            case "new_Skill" -> {
+            case "newSkill" -> {
                 Skill skill = new Skill();
                 skill.setName(customerSettingsForm.getSkill());
                 skill.setLevel((long) customerSettingsForm.getValue());
                 skill.setIsHardSkill(customerSettingsForm.isHardSkill());
+                List<Customer> customers = new ArrayList<>(Collections.singletonList(customer));
+                skill.setCustomers(customers);
                 customer.addSkill(skill);
-                customerRepository.save(customer);
                 skillRepository.save(skill);
+                customerRepository.save(customer);
             }
         }
     }

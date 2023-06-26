@@ -48,11 +48,15 @@
             <tr class="table_boarder">
                 <th scope="row">Description:</th>
                 <td><span th:text="${company.description}"></span></td>
-                <td></td>
+                <td>
+                    <a th:href="@{/company/companySettings(changes='description')}" class="success">
+                        Change
+                    </a>
+                </td>
             </tr>
             <tr class="table_boarder">
                 <th scope="row">User:</th>
-                <td><span th:text="${company.firstName + company.lastName}"></span></td>
+                <td><span th:text="${company.firstName + ' ' + company.lastName}"></span></td>
                 <td>
                     <a th:href="@{/company/companySettings(changes='name')}" class="success">
                         Change
@@ -147,7 +151,7 @@
         </div>
     </div>
 
-
+<!--
     Beschreibung: <span th:text="${company.description}"></span>  <a th:href="@{/company/companySettings(changes='description')}"><button type="button">Change</button></a> <br><br> <br>
 
     User: <span th:text="${company.firstName + ' ' + company.lastName}"></span> <a th:href="@{/company/companySettings(changes='name')}"><button type="button">Change</button></a> <br>
@@ -161,7 +165,7 @@
     country: <span th:text="${company.country}"></span> <a th:href="@{/company/companySettings(changes='country')}"><button type="button">Change</button></a> <br>
     state: <span th:text="${company.state}"></span> <a th:href="@{/company/companySettings(changes='state')}"><button type="button">Change</button></a> <br> <br>
 
-
+-->
 
 
 

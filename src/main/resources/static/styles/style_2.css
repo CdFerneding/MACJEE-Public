@@ -1257,6 +1257,14 @@ body.mobile-nav-active #mobile-nav-toggle {
   padding: 2%;
 }
 
+.skill_in_list{
+  background-color: #fff;
+  padding: 2%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  border-radius: 5px;
+}
+
 .profile{
   margin-left: 5%;
   margin-right: 5%;
