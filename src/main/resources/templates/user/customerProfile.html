@@ -27,8 +27,8 @@
 
   Applikations:
   <ul>
-    <li th:each="application : ${applications}">
-      Application: <span th:text="${application.title}"></span>
+    <li th:each="_application : ${applications}">
+      Application: <span th:text="${_application.title}"></span>
     </li>
   </ul>
 
