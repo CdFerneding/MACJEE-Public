@@ -3,35 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Jobs</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Alle Jobs bei denen <span sec:authorize="hasRole('ROLE_CUSTOMER')" th:text="'DU DICH bewerben kannst'"/><span sec:authorize="hasRole('ROLE_COMPANY')" th:text="'Nutzer sich bewerben können'"/>!</h2>
 
-    <div th:if="${success}" style="color: green;">
-        <span th:text="${success}"></span>
-    </div>
-    <div th:if="${error}" style="color: red;">
-        <span th:text="${error}"></span>
-    </div>
-    <ul>
-        <li th:each="job: ${jobs}">
+    <div th:insert="~{d_navbar :: d_nav}"></div>
 
-            Job Titel:<b><span th:text="${job.title}"></span></b>
-            Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b>
-            Von der Firma: <b><span th:text="${job.company.companyName}"></span></b>.
+    <br><br><br><br><br><br><br><br>
 
-            <ul>
-                <li th:each="skill: ${job.requiredSkills}">
-                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt; <span th:if="${skill.isHardSkill()}" th:text="'Dieser Skill ist notwendig!'"/><span th:if="${!skill.isHardSkill()}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
-                </li>
-            </ul>
+    <div class="_list_">
+
+        <h2>Alle Jobs bei denen <span sec:authorize="hasRole('ROLE_CUSTOMER')" th:text="'DU DICH bewerben kannst'"/><span sec:authorize="hasRole('ROLE_COMPANY')" th:text="'Nutzer sich bewerben können'"/>!</h2>
+
+        <div th:if="${success}" style="color: green;">
+            <span th:text="${success}"></span>
+        </div>
+        <div th:if="${error}" style="color: red;">
+            <span th:text="${error}"></span>
+        </div>
+
+        <div class="job_in_list" th:each="job: ${jobs}">
+
+            <b><span th:text="${job.title}"></span></b>
+
+            <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
+
+            Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
+            Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
+
+            <div th:each="skill: ${job.requiredSkills}">
+                <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt; <span th:if="${skill.isHardSkill()}" th:text="'Dieser Skill ist notwendig!'"/><span th:if="${!skill.isHardSkill()}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
+
+            </div>
             <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
                 <input type="hidden" name="jobId" th:value="${job.id}"/>
                 <button type="submit">bewerben</button>
             </form>
-        </li>
-    </ul>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <br><br><br>
+
+    <div th:insert="~{contact :: _contact}"></div>
+    <div th:insert="~{js_libraries :: libs}"></div>
 
 </div>
 </body>

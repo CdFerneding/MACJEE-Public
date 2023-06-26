@@ -3,13 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <title>Profile</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+  <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+  <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link th:href="@{/styles/style_2.css}" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
 
   <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
 
-  <h2 th:text="${customer.username}"></h2>
+  <div class="profile">
+
+    <h2 th:text="${customer.username}"></h2>
+
+    <table style="width:100%;" class="mb-5">
+      <thead>
+        <tr>
+          <th style="width:20%;"></th>
+          <th style="width:60%;" scope="col"></th>
+          <th style="width:20%;" cope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table_boarder">
+          <th scope="row">Name:</th>
+          <td><span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span></td>
+          <td></td>
+        </tr>
+        <tr class="table_boarder">
+          <th scope="row">Email: </th>
+          <td><span th:text="${customer.mail}"></span></td>
+          <td></td>
+        </tr>
+        <tr class="table_boarder">
+          <th scope="row">Geburtstag:</th>
+          <td><span th:text="${customer.doB}"></span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
 
   Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"></span> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
   Email: <span th:text="${customer.mail}"></span> <a th:href="@{/customer/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
