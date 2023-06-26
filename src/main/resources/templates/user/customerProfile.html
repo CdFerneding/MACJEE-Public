@@ -46,35 +46,38 @@
       <tbody>
         <tr class="table_boarder">
           <th scope="row">Name:</th>
-          <td><span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span></td>
-          <td></td>
+          <td><span th:text="${customer.lastName + ' ' + customer.firstName}"></span></td>
+          <td><a th:href="@{/customer/customerSettings(changes='name')}" class="success">Change</a></td>
         </tr>
         <tr class="table_boarder">
           <th scope="row">Email: </th>
           <td><span th:text="${customer.mail}"></span></td>
-          <td></td>
+          <td><a th:href="@{/customer/customerSettings(changes='mail')}" class="success">Change</a></td>
         </tr>
         <tr class="table_boarder">
           <th scope="row">Geburtstag:</th>
           <td><span th:text="${customer.doB}"></span></td>
-          <td></td>
+          <td><a th:href="@{/customer/customerSettings(changes='doB')}" class="success">Change</a></td>
         </tr>
       </tbody>
     </table>
 
 
-  Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"></span> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
-  Email: <span th:text="${customer.mail}"></span> <a th:href="@{/customer/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
-  Geburtstag: <span th:text="${customer.doB}"></span> <a th:href="@{/customer/customerSettings(changes='doB')}"><button type="button">Change</button></a> <br>
+    <h2>Skills:</h2>
 
-  Skills:
-  <ul>
+    <div th:each="skill : ${customer.skills}" class="skill_in_list">
+      <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
+      <!--<span th:text="${skill.isHardSkill}"></span>-->
+    </div>
+
+
+  <!--<ul>
     <li th:each="skill : ${customer.skills}">
       Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
       Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
       Hardskill? <span th:text="${skill.isHardSkill}"></span>
     </li>
-  </ul> <br>
+  </ul> <br>-->
   <a th:href="@{/customer/customerSettings(changes='newSkill')}"><button type="button">Skill hinzufügen</button></a> <br> <br>
 
   Applikations:
@@ -86,6 +89,8 @@
 
   <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
   <a th:href="@{/job/all}">All Open Jobs</a> <br>
+
+  </div>
 
   <div th:insert="~{contact :: _contact}"></div>
   <div th:insert="~{js_libraries :: libs}"></div>

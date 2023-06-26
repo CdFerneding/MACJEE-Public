@@ -33,6 +33,42 @@
     <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
 
     <div class="profile">
+
+        <div th:if="${changes == 'name'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="name">
+                        <label for="firstName">Neuer Vorname:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-4">
+                        <label for="lastName">Neuer Nachname:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'description'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="hidden" name="changes" value="description">
+                        <label for="description">Neue Beschreibung:</label>
+                        <input type="text" id="description" name="description" required>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div th:if="${changes == 'mail'}">
             <form th:action="@{/company/companySettings}" method="post" class="card-text">
                 <div class="row">
@@ -86,120 +122,101 @@
             </form>
         </div>
 
-            <div th:if="${changes == 'address1'}">
-                <form th:action="@{/company/companySettings}" method="post" class="card-text">
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="hidden" name="changes" value="address1">
-                            <label for="address1">Neue Addresse 1:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="text" id="address1" name="address1" required>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit">Register</button>
-                        </div>
+        <div th:if="${changes == 'address1'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="address1">
+                        <label for="address1">Neue Addresse 1:</label>
                     </div>
-                </form>
-            </div>
-
-            <div th:if="${changes == 'address2'}">
-                <form th:action="@{/company/companySettings}" method="post" class="card-text">
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="hidden" name="changes" value="address2">
-                            <label for="address2">Neue Addresse 2:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="text" id="address2" name="address2" required>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit">Register</button>
-                        </div>
+                    <div class="col-4">
+                        <input type="text" id="address1" name="address1" required>
                     </div>
-                </form>
-            </div>
-
-
-
-            <div th:if="${changes == 'country'}">
-                <form th:action="@{/company/companySettings}" method="post" class="card-text">
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="hidden" name="changes" value="country">
-                            <label for="country">Neue Country:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="text" id="country" name="country" required>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit">Register</button>
-                        </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
-
-            <div th:if="${changes == 'state'}">
-                <form th:action="@{/company/companySettings}" method="post" class="card-text">
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="hidden" name="changes" value="state">
-                            <label for="state">Neuer State:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="text" id="state" name="state" required>
-                        </div>
-                        <div class="col-4">
-                            button type="submit">Register</button>
-                        </div>
+        <div th:if="${changes == 'address2'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="address2">
+                        <label for="address2">Neue Addresse 2:</label>
                     </div>
-                </form>
-            </div>
-
-
-            <div th:if="${changes == 'zip'}">
-                <form th:action="@{/company/companySettings}" method="post" class="card-text">
-                    <div class="row">
-                        <div class="col-4">
-                            <input type="hidden" name="changes" value="zip">
-                            <label for="zip">Neue Zip:</label>
-                        </div>
-                        <div class="col-4">
-                            <input type="number" id="zip" name="zip" required>
-                        </div>
-                        <div class="col-4">
-                            <button type="submit">Register</button>
-                        </div>
+                    <div class="col-4">
+                        <input type="text" id="address2" name="address2" required>
                     </div>
-                </form>
-            </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 
 
 
+        <div th:if="${changes == 'country'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="country">
+                        <label for="country">Neue Country:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div th:if="${changes == 'state'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="state">
+                        <label for="state">Neuer State:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="col-4">
+                        button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div th:if="${changes == 'zip'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="zip">
+                        <label for="zip">Neue Zip:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="number" id="zip" name="zip" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
     <br><br><br>
 
 
-    <div th:if="${changes == 'name'}">
-        <form th:action="@{/company/companySettings}" method="post" class="card-text">
-            <input type="hidden" name="changes" value="name">
-            <label for="firstName">Neuer Vorname:</label>
-            <input type="text" id="firstName" name="firstName" required>
-            <label for="lastName">Neuer Nachname:</label>
-            <input type="text" id="lastName" name="lastName" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
 
-    <div th:if="${changes == 'description'}">
-        <form th:action="@{/company/companySettings}" method="post" class="card-text">
-            <input type="hidden" name="changes" value="description">
-            <label for="description">Neue Beschreibung:</label>
-            <input type="text" id="description" name="description" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
+
+
 
     <div th:insert="~{contact :: _contact}"></div>
     <div th:insert="~{js_libraries :: libs}"></div>
