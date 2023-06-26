@@ -1,9 +1,17 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
+import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
+import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
+import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
+import de.thb.MACJEE.Repository.CustomerRepository;
+import de.thb.MACJEE.Repository.SkillRepository;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import de.thb.MACJEE.Service.UserEntityService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,12 +20,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +37,10 @@ public class CustomerController {
     private final CustomerService customerService;
     @Autowired
     private final JobFinder jobFinder;
+    @Autowired
+    private final CustomerRepository customerRepository;
+    @Autowired
+    private final SkillRepository skillRepository;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -39,6 +51,28 @@ public class CustomerController {
         List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
         model.addAttribute("customer", customer);
         model.addAttribute("applications", applications);
+        return "user/customerProfile";
+    }
+
+    @GetMapping("/customerSettings")
+    public String showCustomerSettings(@RequestParam("changes") String changes, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("changes", changes);
+        model.addAttribute("customer", customer);
+        return "user/customerSettings";
+    }
+
+    @PostMapping("/customerSettings")
+    public String postCustomerSettings(@RequestParam("changes") String changes, CustomerSettingsForm customerSettingsForm, Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        customerService.Settings(customer, changes, customerSettingsForm);
+
+        model.addAttribute("customer", customer);
         return "user/customerProfile";
     }
 

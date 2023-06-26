@@ -148,6 +148,21 @@
     </div>
 
 
+    Beschreibung: <span th:text="${company.description}"></span>  <a th:href="@{/company/companySettings(changes='description')}"><button type="button">Change</button></a> <br><br> <br>
+
+    User: <span th:text="${company.firstName + ' ' + company.lastName}"></span> <a th:href="@{/company/companySettings(changes='name')}"><button type="button">Change</button></a> <br>
+    Mail: <span th:text="${company.mail}"></span> <a th:href="@{/company/companySettings(changes='mail')}"><button type="button">Change</button></a> <br>
+    Phone Number: <span th:text="${company.phoneNumber}"></span> <a th:href="@{/company/companySettings(changes='phoneNumber')}"><button type="button">Change</button></a> <br>
+    Webside: <span th:text="${company.website}"></span> <a th:href="@{/company/companySettings(changes='website')}"><button type="button">Change</button></a> <br>
+
+    Address <br>
+    Addresse 1: <span th:text="${company.address1}"></span> <a th:href="@{/company/companySettings(changes='address1')}"><button type="button">Change</button></a> <br>
+    Addresse 2: <span th:text="${company.address2}"></span> <a th:href="@{/company/companySettings(changes='address2')}"><button type="button">Change</button></a> <br>
+    country: <span th:text="${company.country}"></span> <a th:href="@{/company/companySettings(changes='country')}"><button type="button">Change</button></a> <br>
+    state: <span th:text="${company.state}"></span> <a th:href="@{/company/companySettings(changes='state')}"><button type="button">Change</button></a> <br> <br>
+
+
+
 
 
 

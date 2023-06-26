@@ -31,56 +31,55 @@
 
   <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
 
-  <div class="profile">
 
-    <h2 th:text="${customer.username}"></h2>
-
-    <table style="width:100%;" class="mb-5">
-      <thead>
-      <tr>
-        <th style="width:20%;"></th>
-        <th style="width:60%;" scope="col"></th>
-        <th style="width:20%;" cope="col"></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="table_boarder">
-        <th scope="row">Name:</th>
-        <td><span th:text="${customer.lastName}"></span>, <span th:text="${customer.firstName}"></span></td>
-        <td></td>
-      </tr>
-      <tr class="table_boarder">
-        <th scope="row">Email: </th>
-        <td><span th:text="${customer.mail}"></span></td>
-        <td></td>
-      </tr>
-      <tr class="table_boarder">
-        <th scope="row">Geburtstag:</th>
-        <td><span th:text="${customer.doB}"></span></td>
-        <td></td>
-      </tr>
-      </tbody>
-    </table>
-
+  <div th:if="${changes == 'name'}">
+    <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+      <input type="hidden" name="changes" value="name">
+      <label for="firstName">Neuer Vorname:</label>
+      <input type="text" id="firstName" name="firstName" required>
+      <label for="lastName">Neuer Nachname:</label>
+      <input type="text" id="lastName" name="lastName" required>
+      <button type="submit">Register</button>
+    </form>
   </div>
 
-  <div class="_list_">
-    <h2>Skills:</h2>
-    <div class="job_in_list" th:each="skill : ${customer.skills}">
-      Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
-      Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
-      Hardskill? <span th:text="${skill.isHardSkill}"></span>
-    </div>
-
+  <div th:if="${changes == 'doB'}">
+    <form th:action="@{/customer/customerSettings}" method="post">
+      <input type="hidden" name="changes" value="doB">
+      <label for="doB">Geburtsdatum:</label>
+      <input type="date" id="doB" name="doB" required>
+      <button type="submit">Register</button>
+    </form>
   </div>
 
-  <div class="_list_">
-    <h2>
-      Applikations:
-    </h2>
-    <div class="job_in_list" th:each="application : ${applications}">
-      Application: <span th:text="${application.title}"></span>
-    </div>
+  <div th:if="${changes == 'mail'}">
+    <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+      <input type="hidden" name="changes" value="mail">
+      <label for="mail">Neue Mail:</label>
+      <input type="text" id="mail" name="mail" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div th:if="${changes == 'newSkill'}">
+    <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+      <input type="hidden" name="changes" value="newSkill">
+
+      <label for="skill">Skill auswählen:</label> <br>
+        <select id="skill" name="skill">
+          <option th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}"
+                  th:value="${skill}" th:text="${skill}"></option>
+        </select>
+
+      <label for="value">Ausprägung:</label>
+      <input type="number" id="value" name="value" min="0" max="15" required>
+
+      <label for="isHardSkill">Hardskill:</label>
+      <input type="checkbox" id="isHardSkill" name="isHardSkill">
+
+      <button type="submit">Register</button>
+    </form>
+
   </div>
 
   <div class="_list_">

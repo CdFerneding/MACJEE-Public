@@ -62,34 +62,30 @@
       </tbody>
     </table>
 
-  </div>
 
-  <div class="_list_">
-    <h2>Skills:</h2>
-    <div class="job_in_list" th:each="skill : ${customer.skills}">
+  Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"></span> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
+  Email: <span th:text="${customer.mail}"></span> <a th:href="@{/customer/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
+  Geburtstag: <span th:text="${customer.doB}"></span> <a th:href="@{/customer/customerSettings(changes='doB')}"><button type="button">Change</button></a> <br>
+
+  Skills:
+  <ul>
+    <li th:each="skill : ${customer.skills}">
       Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
       Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
       Hardskill? <span th:text="${skill.isHardSkill}"></span>
-    </div>
+    </li>
+  </ul> <br>
+  <a th:href="@{/customer/customerSettings(changes='newSkill')}"><button type="button">Skill hinzufügen</button></a> <br> <br>
 
-  </div>
-
-  <div class="_list_">
-    <h2>
-      Bewerbungen:
-    </h2>
-    <div class="job_in_list" th:each="_application : ${applications}">
+  Applikations:
+  <ul>
+    <li th:each="_application : ${applications}">
       Application: <span th:text="${_application.title}"></span>
-    </div>
-  </div>
+    </li>
+  </ul>
 
-  <div class="_list_">
-    <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
-    <a th:href="@{/job/all}">All Open Jobs</a> <br>
-  </div>
-
-
-
+  <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
+  <a th:href="@{/job/all}">All Open Jobs</a> <br>
 
   <div th:insert="~{contact :: _contact}"></div>
   <div th:insert="~{js_libraries :: libs}"></div>
