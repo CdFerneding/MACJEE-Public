@@ -64,49 +64,7 @@ public class CompanyController {
         Company company = companyService.getCompanyByCompanyName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        switch (changes) {
-            case "description" -> {
-                company.setDescription(registerCompanyForm.getDescription());
-                companyRepository.save(company);
-            }
-            case "mail" -> {
-                company.setMail(registerCompanyForm.getMail());
-                companyRepository.save(company);
-            }
-            case "phoneNumber" -> {
-                company.setPhoneNumber(registerCompanyForm.getPhoneNumber());
-                companyRepository.save(company);
-            }
-            case "website" -> {
-                company.setWebsite(registerCompanyForm.getWebsite());
-                companyRepository.save(company);
-            }
-            case "address1" -> {
-                company.setAddress1(registerCompanyForm.getAddress1());
-                companyRepository.save(company);
-            }
-            case "address2" -> {
-                company.setAddress2(registerCompanyForm.getAddress2());
-                companyRepository.save(company);
-            }
-            case "country" -> {
-                company.setCountry(registerCompanyForm.getCountry());
-                companyRepository.save(company);
-            }
-            case "state" -> {
-                company.setState(registerCompanyForm.getState());
-                companyRepository.save(company);
-            }
-            case "zip" -> {
-                company.setZip(registerCompanyForm.getZip());
-                companyRepository.save(company);
-            }
-            case "name" -> {
-                company.setFirstName(registerCompanyForm.getFirstName());
-                company.setLastName(registerCompanyForm.getLastName());
-                companyRepository.save(company);
-            }
-        }
+        companyService.Settings(company, changes, registerCompanyForm);
 
         model.addAttribute("company", company);
         return "user/companyProfile";

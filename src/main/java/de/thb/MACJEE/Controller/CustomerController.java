@@ -70,39 +70,7 @@ public class CustomerController {
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        switch (changes) {
-            case "doB" -> {
-                String dateOfBirthString = customerSettingsForm.getDoB();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                Date dateOfBirth;
-                try {
-                    dateOfBirth = dateFormat.parse(dateOfBirthString);
-                    customer.setDoB(dateOfBirth);
-                    customerRepository.save(customer);
-                } catch (ParseException e) {
-                    model.addAttribute("changes", "doB");
-                    return "user/customerSettings";
-                }
-            }
-            case "mail" -> {
-                customer.setMail(customerSettingsForm.getMail());
-                customerRepository.save(customer);
-            }
-            case "name" -> {
-                customer.setFirstName(customerSettingsForm.getFirstName());
-                customer.setLastName(customerSettingsForm.getLastName());
-                customerRepository.save(customer);
-            }
-            case "new_Skill" -> {
-                Skill skill = new Skill();
-                skill.setName(customerSettingsForm.getSkill());
-                skill.setLevel((long) customerSettingsForm.getValue());
-                skill.setIsHardSkill(customerSettingsForm.isHardSkill());
-                customer.addSkill(skill);
-                customerRepository.save(customer);
-                skillRepository.save(skill);
-            }
-        }
+        customerService.Settings(customer, changes, customerSettingsForm);
 
         model.addAttribute("customer", customer);
         return "user/customerProfile";

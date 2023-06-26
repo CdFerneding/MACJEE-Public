@@ -1,15 +1,20 @@
 package de.thb.MACJEE.Service;
 
+import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CustomerRepository;
 import de.thb.MACJEE.Repository.JobRepository;
+import de.thb.MACJEE.Repository.SkillRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 import java.util.List;
@@ -28,7 +33,8 @@ public class CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private JobRepository jobRepository;
-
+    @Autowired
+    private SkillRepository skillRepository;
     /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Customer customer = customerRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("username not found!"));
@@ -93,5 +99,41 @@ public class CustomerService {
 
     public Optional<Customer> getCustomerWithApplications(String username) {
         return customerRepository.findCustomerWithApplications(username);
+    }
+
+    public void Settings(Customer customer, String changes, CustomerSettingsForm customerSettingsForm){
+        switch (changes) {
+            case "doB" -> {
+                String dateOfBirthString = customerSettingsForm.getDoB();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date dateOfBirth;
+                try {
+                    dateOfBirth = dateFormat.parse(dateOfBirthString);
+                    customer.setDoB(dateOfBirth);
+                    customerRepository.save(customer);
+                } catch (ParseException e) {
+                    //model.addAttribute("changes", "doB");
+                    //return "user/customerSettings";
+                }
+            }
+            case "mail" -> {
+                customer.setMail(customerSettingsForm.getMail());
+                customerRepository.save(customer);
+            }
+            case "name" -> {
+                customer.setFirstName(customerSettingsForm.getFirstName());
+                customer.setLastName(customerSettingsForm.getLastName());
+                customerRepository.save(customer);
+            }
+            case "new_Skill" -> {
+                Skill skill = new Skill();
+                skill.setName(customerSettingsForm.getSkill());
+                skill.setLevel((long) customerSettingsForm.getValue());
+                skill.setIsHardSkill(customerSettingsForm.isHardSkill());
+                customer.addSkill(skill);
+                customerRepository.save(customer);
+                skillRepository.save(skill);
+            }
+        }
     }
 }
