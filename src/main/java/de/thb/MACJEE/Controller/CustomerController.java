@@ -1,13 +1,17 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Controller.form.RegisterCustomerForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CustomerRepository;
+import de.thb.MACJEE.Repository.SkillRepository;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import de.thb.MACJEE.Service.UserEntityService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +39,8 @@ public class CustomerController {
     private final JobFinder jobFinder;
     @Autowired
     private final CustomerRepository customerRepository;
+    @Autowired
+    private final SkillRepository skillRepository;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -48,29 +54,53 @@ public class CustomerController {
         return "user/customerProfile";
     }
 
+    @GetMapping("/customerSettings")
+    public String showCustomerSettings(@RequestParam("changes") String changes, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("changes", changes);
+        model.addAttribute("customer", customer);
+        return "user/customerSettings";
+    }
+
     @PostMapping("/customerSettings")
-    public String postCompanySettings(@RequestParam("changes") String changes, RegisterCustomerForm registerCustomerForm, Model model) throws ParseException {
+    public String postCustomerSettings(@RequestParam("changes") String changes, CustomerSettingsForm customerSettingsForm, Model model) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         switch (changes) {
             case "doB" -> {
-                String dateOfBirthString = registerCustomerForm.getDoB();
+                String dateOfBirthString = customerSettingsForm.getDoB();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 Date dateOfBirth;
-                dateOfBirth = dateFormat.parse(dateOfBirthString);
-                customer.setDoB(dateOfBirth);
-                customerRepository.save(customer);
+                try {
+                    dateOfBirth = dateFormat.parse(dateOfBirthString);
+                    customer.setDoB(dateOfBirth);
+                    customerRepository.save(customer);
+                } catch (ParseException e) {
+                    model.addAttribute("changes", "doB");
+                    return "user/customerSettings";
+                }
             }
             case "mail" -> {
-                customer.setMail(registerCustomerForm.getMail());
+                customer.setMail(customerSettingsForm.getMail());
                 customerRepository.save(customer);
             }
             case "name" -> {
-                customer.setFirstName(registerCustomerForm.getFirstName());
-                customer.setLastName(registerCustomerForm.getLastName());
+                customer.setFirstName(customerSettingsForm.getFirstName());
+                customer.setLastName(customerSettingsForm.getLastName());
                 customerRepository.save(customer);
+            }
+            case "new_Skill" -> {
+                Skill skill = new Skill();
+                skill.setName(customerSettingsForm.getSkill());
+                skill.setLevel((long) customerSettingsForm.getValue());
+                skill.setIsHardSkill(customerSettingsForm.isHardSkill());
+                customer.addSkill(skill);
+                customerRepository.save(customer);
+                skillRepository.save(skill);
             }
         }
 

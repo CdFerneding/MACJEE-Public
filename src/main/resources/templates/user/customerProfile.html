@@ -11,9 +11,9 @@
 
   <h2 th:text="${customer.username}"></h2>
 
-  Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
-  Email: <span th:text="${customer.mail}"></span> <a th:href="@{/company/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
-  Geburtstag: <span th:text="${customer.doB}"></span> <a th:href="@{/customer/customerSettings(changes='dob')}"><button type="button">Change</button></a> <br>
+  Name: <span th:text="${customer.lastName + ' ' + customer.firstName}"></span> <a th:href="@{/customer/customerSettings(changes='name')}"><button type="button">Change</button></a> <br>
+  Email: <span th:text="${customer.mail}"></span> <a th:href="@{/customer/customerSettings(changes='mail')}"><button type="button">Change</button></a> <br>
+  Geburtstag: <span th:text="${customer.doB}"></span> <a th:href="@{/customer/customerSettings(changes='doB')}"><button type="button">Change</button></a> <br>
 
   Skills:
   <ul>

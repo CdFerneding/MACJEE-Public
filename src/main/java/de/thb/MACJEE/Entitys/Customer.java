@@ -43,4 +43,8 @@ public class Customer extends UserEntity {
 
     @OneToOne(mappedBy = "working")
     private Job currentJob;
+
+    public void addSkill(Skill skill){
+        skills.add(skill);
+    }
 }
