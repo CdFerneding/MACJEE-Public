@@ -1255,6 +1255,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 2%;
   margin-top: 2%;
   padding: 2%;
+  border-radius: 5px;
 }
 
 .skill_in_list{
