@@ -23,6 +23,9 @@
           <li sec:authorize="hasAuthority('ROLE_COMPANY')">
             <a th:href="@{/company/profile}">Profil</a>
           </li>
+          <li sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <a th:href="@{/customer/job/perfect}">Perfekter Job</a>
+          </li>
           <li>
             <a th:href="@{/job/all}">Alle Jobs</a>
           </li>
