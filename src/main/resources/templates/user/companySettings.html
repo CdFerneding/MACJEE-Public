@@ -210,6 +210,34 @@
                 </div>
             </form>
         </div>
+
+        <div th:if="${changes == 'newJob'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <input type="hidden" name="changes" value="newJob">
+
+                <label for="jobTitle">Name:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+
+                <label for="jobDescription">Beschreibung:</label>
+                <input type="text" id="jobDescription" name="jobDescription" required>
+
+                <label for="jobSalary">Salary:</label>
+                <input type="number" id="jobSalary" name="jobSalary" required>
+
+                <!--div th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}" class="skill_in_list">
+                    <label for="skillValues">Geforderte Skills:</label>
+                    <label for="isHardSkills" type="hidden"></label>
+                    <span th:text="${skill.name}"></span>
+                    <p>Ausprägung:</p>
+                    <input type="number" id="skillValues[]" name="skillValues[]" min="0" max="15" required>
+                    <p>HardSkill?:</p>
+                    <input type="checkbox" id="isHardSkills[]" name="isHardSkills" th:checked="${hardskill}"><br>
+                </div-->
+
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
     </div>
     <br><br><br>
 

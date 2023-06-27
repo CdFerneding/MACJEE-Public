@@ -1,5 +1,6 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.CompanySettingsForm;
 import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
@@ -54,12 +55,12 @@ public class CompanyController {
     }
 
     @PostMapping("/companySettings")
-    public String postCompanySettings(@RequestParam("changes") String changes, RegisterCompanyForm registerCompanyForm, Model model) {
+    public String postCompanySettings(@RequestParam("changes") String changes, CompanySettingsForm companySettingsForm, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Company company = companyService.getCompanyByCompanyName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        companyService.setAttributes(company, changes, registerCompanyForm);
+        companyService.setAttributes(company, changes, companySettingsForm);
 
         model.addAttribute("company", company);
         return "user/companyProfile";
