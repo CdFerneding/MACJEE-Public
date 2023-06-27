@@ -36,7 +36,9 @@
         <br><br><br><br><br><br><br><br>
         <div class="_list_">
             <h1>Der perfekte Job für dich ist: </h1>
-            <div>
+
+            <div class="job_in_list" th:each="job: ${jobs}">
+
                 <b><span th:text="${job.title}"></span></b>
 
                 <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
@@ -54,6 +56,7 @@
                     <input type="hidden" name="jobId" th:value="${job.id}"/>
                     <button type="submit">bewerben</button>
                 </form>
+
             </div>
 
             <div th:insert="~{contact :: _contact}"></div>

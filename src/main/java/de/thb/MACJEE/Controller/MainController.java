@@ -26,13 +26,15 @@ public class MainController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
+    public String logout(HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
-            // Abmeldung des Benutzers
+            // Clearing the Context Holder
             new SecurityContextLogoutHandler().logout(request, response, authentication);
+            model.addAttribute("success", "Logout erfolgreich");
+        } else {
+            model.addAttribute("error", "Logout fehlgeschlagen");
         }
-        // Weiterleitung zur Login-Seite oder einer anderen geeigneten Seite
         return "redirect:/login?logout";
     }
 
