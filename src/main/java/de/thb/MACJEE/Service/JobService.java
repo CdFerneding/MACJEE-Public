@@ -74,4 +74,12 @@ public class JobService {
     }
 
     public Optional<Job> getJobWithRequiredSkills(Long jobId) { return jobRepository.findJobWithRequiredSkills(jobId); }
+
+    public Job getPerfectJob(Customer customer) {
+        List<Job> openJobs = getOpenJobs();
+        if(openJobs.size() > 0) {
+            return openJobs.get(0);
+        }
+        else return null;
+    }
 }

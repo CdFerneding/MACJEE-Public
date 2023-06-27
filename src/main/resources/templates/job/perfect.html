@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfect Job</title>
+
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+</head>
+<body>
+<div>
+    <div layout:fragment="content">
+        <div th:insert="~{d_navbar :: d_nav}"></div>
+
+        <br><br><br><br><br><br><br><br>
+        <div class="_list_">
+            <h1>Der perfekte Job für dich ist: </h1>
+            <div>
+                <b><span th:text="${job.title}"></span></b>
+
+                <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
+
+                Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
+                Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
+
+                <div th:each="skill: ${job.requiredSkills}">
+                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
+                    <span th:if="${skill.isHardSkill}" th:text="'Dieser Skill ist notwendig!'"/>
+                    <span th:if="${!skill.isHardSkill}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
+
+                </div>
+                <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                    <input type="hidden" name="jobId" th:value="${job.id}"/>
+                    <button type="submit">bewerben</button>
+                </form>
+            </div>
+
+            <div th:insert="~{contact :: _contact}"></div>
+            <div th:insert="~{js_libraries :: libs}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
