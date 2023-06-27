@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.boot.archive.scan.internal.ScanResultImpl;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +29,7 @@ public class CompanySettingsForm {
     private String jobTitle;
     private String jobDescription;
     private int jobSalary;
+    private List<String> skillName;
+    private List<Long> skillValue;
+    private List<Boolean> skillHard;
 }

@@ -2,12 +2,18 @@ package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Controller.form.CompanySettingsForm;
 import de.thb.MACJEE.Entitys.Company;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Repository.JobRepository;
+import de.thb.MACJEE.Repository.SkillRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +25,8 @@ public class CompanyService {
     private CompanyRepository companyRepository;
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private SkillRepository skillRepository;
 
     public Optional<Company> getCompanyByCompanyName(String companyName) {
         return companyRepository.findCompanyByUsernameWithJobs(companyName);
@@ -101,6 +109,17 @@ public class CompanyService {
                 job.setOpen(true);
                 company.addJob(job);
                 jobRepository.save(job);
+                int i = 0;
+                for(Characteristics skillName : Characteristics.values()) {
+                    Skill skill = new Skill();
+                    skill.setName(skillName.toString());
+                    skill.setLevel(companySettingsForm.getSkillValue().get(i));
+                    skill.setIsHardSkill(companySettingsForm.getSkillHard().get(i));
+                    List<Job> jobs = new ArrayList<>(Collections.singletonList(job));
+                    skill.setJobs(jobs);
+                    skillRepository.save(skill);
+                    i++;
+                }
                 companyRepository.save(company);
             }
         }
