@@ -54,9 +54,9 @@
             <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
             Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-            Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
+            <!--Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>-->
 
-            job status: <b><span th:if="${job.isOpen()}" th:text="offen"/>
+            Status: <b><span th:if="${job.isOpen()}" th:text="offen"/>
             <span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
             <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
                 <span th:text="${job.applicants.size()}"></span> Bewerber

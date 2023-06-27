@@ -36,13 +36,16 @@
         <br><br><br><br><br><br><br><br>
         <div class="_list_">
             <h1>Der perfekte Job für dich ist: </h1>
-            <div>
+
+            <div class="job_in_list" th:each="job: ${jobs}">
+
                 <b><span th:text="${job.title}"></span></b>
 
                 <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
                 Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
                 Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
+                Beschreibung: <span th:text="${job.description}"/><br>
 
                 <div th:each="skill: ${job.requiredSkills}">
                     <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
@@ -54,6 +57,7 @@
                     <input type="hidden" name="jobId" th:value="${job.id}"/>
                     <button type="submit">bewerben</button>
                 </form>
+
             </div>
 
             <div th:insert="~{contact :: _contact}"></div>
