@@ -1,19 +1,13 @@
 package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Controller.form.CompanySettingsForm;
-import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
-import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Repository.JobRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
