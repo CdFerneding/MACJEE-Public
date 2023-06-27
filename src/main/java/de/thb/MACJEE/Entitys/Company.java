@@ -46,4 +46,8 @@ public class Company extends UserEntity {
     @OneToMany(mappedBy = "company")
     @ToString.Exclude
     private List<Job> jobs;
+
+    public void addJob(Job job){
+        jobs.add(job);
+    }
 }

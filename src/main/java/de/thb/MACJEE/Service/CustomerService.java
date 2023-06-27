@@ -119,10 +119,9 @@ public class CustomerService {
             }
             case "newSkill" -> {
                 Skill skill = new Skill();
+                List<Customer> customers = new ArrayList<>(Collections.singletonList(customer));
                 skill.setName(customerSettingsForm.getSkill());
                 skill.setLevel((long) customerSettingsForm.getValue());
-                skill.setIsHardSkill(customerSettingsForm.isHardSkill());
-                List<Customer> customers = new ArrayList<>(Collections.singletonList(customer));
                 skill.setCustomers(customers);
                 customer.addSkill(skill);
                 skillRepository.save(skill);
