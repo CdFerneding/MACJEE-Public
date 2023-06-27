@@ -39,24 +39,32 @@
 
             <div class="job_in_list" th:each="job: ${jobs}">
 
-                <b><span th:text="${job.title}"></span></b>
+                <a th:href="@{/job/viewJob(id=${job.id})}" class="text-dark">
+                    <b><span th:text="${job.title}"></span></b>
+                </a>
 
                 <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
-                Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
-                Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
-                Beschreibung: <span th:text="${job.description}"/><br>
+                <div class="row">
+                    <div class="col-lg-10 col-12">
+                        Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
+                        Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
+                        Beschreibung: <span th:text="${job.description}"/><br>
 
-                <div th:each="skill: ${job.requiredSkills}">
-                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
-                    <span th:if="${skill.isHardSkill}" th:text="'Dieser Skill ist notwendig!'"/>
-                    <span th:if="${!skill.isHardSkill}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
+                        <!--<div th:each="skill: ${job.requiredSkills}">
+                            <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
+                            <span th:if="${skill.isHardSkill}" th:text="'Dieser Skill ist notwendig!'"/>
+                            <span th:if="${!skill.isHardSkill}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
 
+                        </div>-->
+                    </div>
+                    <div class="col-lg-2 col-12">
+                        <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                            <input type="hidden" name="jobId" th:value="${job.id}"/>
+                            <button type="submit" class="mac_button d-flex justify-content-end">bewerben</button>
+                        </form>
+                    </div>
                 </div>
-                <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
-                    <input type="hidden" name="jobId" th:value="${job.id}"/>
-                    <button type="submit">bewerben</button>
-                </form>
 
             </div>
 
