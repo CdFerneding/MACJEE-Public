@@ -25,6 +25,9 @@
         <div th:if="${param.error}" class="alert alert-danger">
             Benutzername oder Passwort ist falsch.
         </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            <span>Logout erfolgreich!</span>
+        </div>
         <div th:if="${param.notEnabled}" class="alert alert-danger" >
             Benutzer ist noch nicht freigeschaltet
         </div>

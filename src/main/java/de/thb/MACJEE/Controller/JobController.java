@@ -50,7 +50,6 @@ public class JobController {
         return "job/openJobs";
     }
 
-    @Transactional
     @PostMapping("/apply")
     public String applyToJob(@RequestParam("jobId") Long jobId, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -69,7 +68,7 @@ public class JobController {
                 String successMessage = "Erfolgreich als: \"" + job.getTitle() + "\" bei der Firma: \"" + company.getCompanyName() + "\" beworben!";
                 redirectAttributes.addFlashAttribute("success", successMessage);
             } else {
-                model.addAttribute("error", "Du bist bereits ein Bewerber für diesen Job");
+                redirectAttributes.addFlashAttribute("error", "Du bist bereits ein Bewerber für diesen Job oder du hast bereits einen Job.");
             }
         } catch (UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "Benutzername nicht gefunden");

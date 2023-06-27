@@ -77,9 +77,9 @@ public class CustomerController {
             Customer customer = customerService.getCustomerByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
-            Job job = jobService.getPerfectJob(customer);
-            if (job != null) {
-                model.addAttribute("job", job);
+            List<Job> jobs = jobService.getPerfectJob(customer);
+            if (jobs != null) {
+                model.addAttribute("jobs", jobs);
                 redirectAttributes.addFlashAttribute("success", "Es wurde ein perfekter Job für dich gefunden.");
             } else {
                 redirectAttributes.addFlashAttribute("error", "Es wurde KEIN perfekter Job für dich gefunden.");
