@@ -10,7 +10,6 @@ import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.UserEntityService;
 import de.thb.MACJEE.Service.RoleService;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

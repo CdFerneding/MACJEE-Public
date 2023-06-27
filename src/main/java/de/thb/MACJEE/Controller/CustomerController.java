@@ -3,8 +3,10 @@ package de.thb.MACJEE.Controller;
 import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import de.thb.MACJEE.Service.JobService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.ParseException;
 import java.util.List;
@@ -28,6 +31,8 @@ public class CustomerController {
     private final CustomerService customerService;
     @Autowired
     private final JobFinder jobFinder;
+    @Autowired
+    private JobService jobService;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -63,21 +68,25 @@ public class CustomerController {
         return "user/customerProfile";
     }
 
-    @PostMapping("/{id}/find-jobs")
-    public String findJobsByCompany(@PathVariable("id") Long id, Model model) {
-        try {
-            Customer customer = customerService.getCustomerById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            Long customerId = customer.getId();
-            List<Job> jobs = jobFinder.findPerfectJobs(customerId);
-            model.addAttribute("jobs", jobs);
-            model.addAttribute("customer", customer);
-            return "job/findJob";
-        } catch (Exception e) {
-            // Handle the exception appropriately
-            // You can log the error or show a custom error page
-            return "error";
-        }
-    }
+    @GetMapping("/job/perfect")
+    public String showPerfectJob(Model model, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        try{
+            // fetch customer with his skills
+            Customer customer = customerService.getCustomerByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
+            Job job = jobService.getPerfectJob(customer);
+            if (job != null) {
+                model.addAttribute("job", job);
+                redirectAttributes.addFlashAttribute("success", "Es wurde ein perfekter Job für dich gefunden.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Es wurde KEIN perfekter Job für dich gefunden.");
+            }
+        } catch (UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "there is a problem with the currently logged in user.");
+        }
+        return "job/perfect";
+    }
 }

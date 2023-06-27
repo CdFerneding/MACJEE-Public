@@ -28,7 +28,8 @@ public interface JobRepository extends CrudRepository<Job, Long> {
 
     Optional<Job> findJobByCompany(Company company);
 
-    List<Job> findJobsByCompany(Company company);
+    @Query("SELECT DISTINCT j FROM Job j LEFT JOIN FETCH j.applicants WHERE j.company = :company")
+    List<Job> findJobsByCompanyWithApplicants(Company company);
 
     @Query("SELECT DISTINCT j FROM Job j LEFT JOIN FETCH j.applicants WHERE j.id = :id")
     Optional<Job> findJobWithApplicants(Long id);
