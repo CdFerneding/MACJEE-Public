@@ -52,6 +52,7 @@
 
             Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
             Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
+            Beschreibung: <span th:text="${job.description}"/><br>
 
             <div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
 

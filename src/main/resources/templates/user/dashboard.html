@@ -51,6 +51,12 @@
                 <a sec:authorize="hasAuthority('ROLE_COMPANY')" class="cta-btn align-middle" th:href="@{/login}">Los geht`s</a>
             </div>
         </div>
+        <div>
+            <p class="cta-text">Angemeldet als:
+                <span sec:authorize="hasRole('ROLE_CUSTOMER')">Kunde, der einen Job sucht</span>
+                <span sec:authorize="hasRole('ROLE_COMPANY')">Firma, die Mitarbeiter sucht</span>
+            </p>
+        </div>
 
     </div>
 </section><!-- #call-to-action -->
