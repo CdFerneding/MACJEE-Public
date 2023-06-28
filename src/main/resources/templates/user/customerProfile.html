@@ -61,6 +61,9 @@
                 <td><span th:text="${customer.doB}"></span></td>
                 <td><a th:href="@{/customer/customerSettings(changes='doB')}" class="success">Change</a></td>
             </tr>
+            <tr class="table_boarder">
+
+            <td>
             </tbody>
         </table>
 
@@ -78,13 +81,6 @@
         </div>
 
 
-        <!--<ul>
-          <li th:each="skill : ${customer.skills}">
-            Name der Fähigkeit: <span th:text="${skill.name}"></span> <br>
-            Selbsteinschätzung von 1-10: <span th:text="${skill.level}"></span> <br>
-            Hardskill? <span th:text="${skill.isHardSkill}"></span>
-          </li>
-        </ul> <br>-->
         <a th:href="@{/customer/customerSettings(changes='newSkill')}">
             <button type="button">Skill hinzufügen</button>
         </a> <br> <br>
