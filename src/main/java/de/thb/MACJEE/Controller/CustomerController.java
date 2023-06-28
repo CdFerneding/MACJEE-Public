@@ -3,7 +3,6 @@ package de.thb.MACJEE.Controller;
 import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
 import de.thb.MACJEE.Service.JobService;
@@ -38,7 +37,7 @@ public class CustomerController {
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        Customer customer = customerService.getCustomerByUserName(username)
+        Customer customer = customerService.getCustomerByUsernameWithSkills(username)
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
         List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
         model.addAttribute("customer", customer);
