@@ -4,6 +4,7 @@ import de.thb.MACJEE.Controller.form.CompanySettingsForm;
 import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Exeption.JobNotFoundException;
 import de.thb.MACJEE.Service.CompanyService;
@@ -51,6 +52,7 @@ public class CompanyController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("changes", changes);
         model.addAttribute("company", company);
+        model.addAttribute("characteristics", Characteristics.values());
         return "user/companySettings";
     }
 
