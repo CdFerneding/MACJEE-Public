@@ -56,15 +56,13 @@ public class CustomerController {
     }
 
     @PostMapping("/customerSettings")
-    public String postCustomerSettings(@RequestParam("changes") String changes, CustomerSettingsForm customerSettingsForm, Model model) throws ParseException {
+    public String postCustomerSettings(@RequestParam("changes") String changes, CustomerSettingsForm customerSettingsForm) throws ParseException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         customerService.Settings(customer, changes, customerSettingsForm);
-
-        model.addAttribute("customer", customer);
-        return "user/customerProfile";
+        return "redirect:/customer/profile";
     }
 
     @GetMapping("/job/perfect")
