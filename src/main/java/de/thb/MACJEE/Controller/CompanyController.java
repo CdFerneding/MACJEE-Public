@@ -121,6 +121,52 @@ public class CompanyController {
         return "job/applicants";
     }
 
+    @GetMapping("/jobs/{id}/fire")
+    public String fireCurrentWorker(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        try {
+            Company company = companyService.getCompanyByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            if(job.getWorking() != null) {
+                jobService.fireCurrentWorker(job);
+                jobService.setAvailabilityStateOfJob(true, job);
+                redirectAttributes.addFlashAttribute("success", "Arbeiter wurde erfolgreich gekündigt.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "dieser Job hat keinen Arbeiter");
+            }
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/delete")
+    public String deleteJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        try {
+            Company company = companyService.getCompanyByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.deleteJob(job);
+            String m = "Job '" + job.getTitle() + "' wurde gelöscht";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
     @PostMapping("/jobs/{id}/accept")
     public String acceptApplicant(@PathVariable("id") Long id, @RequestParam("username") String applicantUsername, RedirectAttributes redirectAttributes) {
         try {

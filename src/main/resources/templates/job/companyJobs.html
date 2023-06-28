@@ -12,7 +12,8 @@
     <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i"
+          rel="stylesheet">
 
     <!-- Bootstrap CSS File -->
     <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -52,15 +53,27 @@
 
             <b><span th:text="${job.title}"></span></b>
             <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
+            <a th:href="@{/company/jobs/{id}/delete(id=${job.id})}" class="success">
+                <span th:text="'Job löschen'"></span>
+            </a>
+            <br>
 
             Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-            Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
-
-            job status: <b><span th:if="${job.isOpen()}" th:text="offen"/>
-            <span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
-            <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
-                <span th:text="${job.applicants.size()}"></span> Bewerber
-            </a>
+            <!--Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>-->
+            <div th:if="${job.isOpen()}">
+                Status: <b><span th:text="offen"/></b>
+                <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
+                    <br><span th:text="${job.applicants.size()}"></span> Bewerber
+                </a>
+            </div>
+            <div th:if="${!job.isOpen()}">
+                <span th:if="${job.working != null}" th:text="'geschlossen, Arbeiter: ' + ${job.working.firstName} + ' ' +  ${job.working.lastName}"/><br>
+                <span th:if="${job.working == null}" th:text="'geschlossen, kein Arbeiter zugewiesen'"/>
+                Kontakt: <span th:if="${job.working != null}" th:text="${job.working.mail}"></span><br>
+                <a th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
+                    <span th:text="'Arbeiter Kündigen'"></span>
+                </a>
+            </div>
 
         </div>
     </div>
