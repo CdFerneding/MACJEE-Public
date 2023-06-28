@@ -40,7 +40,7 @@
         <tr>
           <th style="width:20%;"></th>
           <th style="width:60%;" scope="col"></th>
-          <th style="width:20%;" cope="col"></th>
+          <th style="width:20%;" scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -66,7 +66,14 @@
     <h2>Skills:</h2>
 
     <div th:each="skill : ${customer.skills}" class="skill_in_list">
-      <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
+      <span th:if="${skill.isHardSkill}" th:class="danger" style="color:#ff0000;">
+        <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
+      </span>
+
+      <span th:if="${!skill.isHardSkill}" th:class="success" style="color:#00ff00;">
+        <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
+      </span>
+
       <!--<span th:text="${skill.isHardSkill}"></span>-->
     </div>
 
@@ -80,12 +87,11 @@
   </ul> <br>-->
   <a th:href="@{/customer/customerSettings(changes='newSkill')}"><button type="button">Skill hinzufügen</button></a> <br> <br>
 
-  Applikations:
-  <ul>
-    <li th:each="_application : ${applications}">
+  <h2>Applikations:</h2>
+  <div th:each="_application : ${applications}" class="skill_in_list">
       Application: <span th:text="${_application.title}"></span>
-    </li>
-  </ul>
+  </div>
+
 
   <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
   <a th:href="@{/job/all}">All Open Jobs</a> <br>

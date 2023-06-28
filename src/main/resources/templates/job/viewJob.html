@@ -35,42 +35,37 @@
 
     <div class="_list_">
 
-        <h2>Alle Jobs bei denen <span sec:authorize="hasRole('ROLE_CUSTOMER')" th:text="'DU DICH bewerben kannst'"/><span sec:authorize="hasRole('ROLE_COMPANY')" th:text="'Nutzer sich bewerben können'"/>!</h2>
 
-        <div th:if="${success}" style="color: green;">
-            <span th:text="${success}"></span>
-        </div>
-        <div th:if="${error}" style="color: red;">
-            <span th:text="${error}"></span>
-        </div>
 
-        <div class="job_in_list" th:each="job: ${jobs}">
 
-            <a th:href="@{/job/viewJob(id=${job.id})}" class="text-dark">
-                <b><span th:text="${job.title}"></span></b>
-            </a>
+
+        <div class="job_in_list">
+
+            <b><span th:text="${job.title}"></span></b>
 
             <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
             <div class="row">
-                <div class="col-lg-10 col-12">
-                    Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
-                    Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
-                    Beschreibung: <span th:text="${job.description}"/><br>
+                <div class="col-lg-12 col-12">
+                    Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br><br>
+                    Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br><br>
+                    Beschreibung: <span th:text="${job.description}"></span><br><br>
 
-                    <!--<div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
+                    <h2>Skills:</h2>
+
+                    <div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
 
                         <span th:if="${skill.isHardSkill}" th:class="danger" style="color:#ff4444;">
-                            <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt
+                            <span th:text="${skill.name}"></span>: <span th:text="${skill.level}">/15 benötigt</span>
                         </span>
 
                         <span th:if="${!skill.isHardSkill}" th:class="success" style="color:#44ff44;">
-                            <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt
+                            <span th:text="${skill.name}"></span>: <span th:text="${skill.level}">/15 benötigt</span>
                         </span>
 
-                    </div>-->
+                    </div>
                 </div>
-                <div class="col-lg-2 col-12 d-flex align-items-center">
+                <div class="col-lg-12 col-12 d-flex align-items-center">
                     <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
                         <input type="hidden" name="jobId" th:value="${job.id}"/>
                         <button type="submit" class="mac_button d-flex justify-content-end">bewerben</button>

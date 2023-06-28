@@ -1255,14 +1255,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 2%;
   margin-top: 2%;
   padding: 2%;
+  border-radius: 10px;
 }
 
 .skill_in_list{
   background-color: #fff;
-  padding: 2%;
-  margin-bottom: 2%;
-  margin-top: 2%;
-  border-radius: 5px;
+  padding: 1% 2% 1% 2%;
+  margin-bottom: 1%;
+  margin-top: 1%;
+  border-radius: 7px;
 }
 
 .profile{
@@ -1275,6 +1276,18 @@ body.mobile-nav-active #mobile-nav-toggle {
 .table_boarder{
   border-style: groove;
   border-width: 1px;
+}
+
+.mac_button{
+  background-color: #28a745;
+  padding: 2% 5%;
+  border-radius: 5px;
+  border-style: none;
+}
+
+.mac_button:hover{
+  background-color: #0f521f;
+  color: white;
 }
 
 

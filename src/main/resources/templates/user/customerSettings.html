@@ -90,17 +90,21 @@
       <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
         <input type="hidden" name="changes" value="newSkill">
 
-        <label for="skill">Skill auswählen:</label> <br>
-        <select id="skill" name="skill">
-          <option th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}"
-                  th:value="${skill}" th:text="${skill}"></option>
-        </select>
+        <div th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}">
+          <label for="skill">Skill auswählen:</label> <br>
+          <select id="skill" name="skill">
+            <option th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}"
+                    th:value="${skill}" th:text="${skill}"></option>
+          </select>
 
-        <label for="value">Ausprägung:</label>
-        <input type="number" id="value" name="value" min="0" max="15" required>
+          <label for="value">Ausprägung:</label>
+          <input type="number" id="value" name="value" min="0" max="15" required>
 
-        <label for="isHardSkill">Hardskill:</label>
-        <input type="checkbox" id="isHardSkill" name="isHardSkill">
+          <label for="isHardSkill">Hardskill:</label>
+          <input type="checkbox" id="isHardSkill" name="isHardSkill">
+        </div>
+
+
 
         <button type="submit">Register</button>
       </form>

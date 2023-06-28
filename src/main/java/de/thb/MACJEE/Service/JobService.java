@@ -35,6 +35,9 @@ public class JobService {
     public Optional<Job> getJobById(Long jobId) {
         return jobRepository.findJobByIdWithApplicants(jobId);
     }
+    public Optional<Job> getJobByIdWithSkills(Long jobId) {
+        return jobRepository.findJobWithRequiredSkills(jobId);
+    }
 
     public boolean addApplicant(Job job, Customer customer) {
         List<Customer> applicants = job.getApplicants();

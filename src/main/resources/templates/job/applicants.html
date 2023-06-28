@@ -58,7 +58,7 @@
                 Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b><br>
                 Skills: <!-- Skills der Customer anzeigen (von Customer Profile kopieren--><br>
                 <div th:each="skill: ${applicant.skills}" class="table_boarder">
-                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 (nach Selbsteinschätzung)
+                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15
                 </div>
                 <div class="row">
                     <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post" class="mr-2">

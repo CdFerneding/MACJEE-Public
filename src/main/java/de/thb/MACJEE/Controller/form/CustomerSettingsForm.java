@@ -18,5 +18,4 @@ public class CustomerSettingsForm {
     private String mail;
     private String skill;
     private int value;
-    private boolean isHardSkill;
 }

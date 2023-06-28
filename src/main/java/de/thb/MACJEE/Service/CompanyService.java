@@ -1,13 +1,19 @@
 package de.thb.MACJEE.Service;
 
-import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
+import de.thb.MACJEE.Controller.form.CompanySettingsForm;
 import de.thb.MACJEE.Entitys.Company;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
+import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Repository.JobRepository;
+import de.thb.MACJEE.Repository.SkillRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +25,11 @@ public class CompanyService {
     private CompanyRepository companyRepository;
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private SkillRepository skillRepository;
 
-    public Optional<Company> getCompanyByCompanyName(String companyName) {
-        return companyRepository.findCompanyByUsernameWithJobs(companyName);
+    public Optional<Company> getCompanyByUsername(String username) {
+        return companyRepository.findCompanyByUsernameWithJobs(username);
     }
 
     public Company addCompany(Company company) {
@@ -49,47 +57,69 @@ public class CompanyService {
         return jobRepository.findJobsByCompanyWithApplicants(company);
     }
 
-    public void setAttributes(Company company, String changes, RegisterCompanyForm registerCompanyForm){
+    public void setAttributes(Company company, String changes, CompanySettingsForm companySettingsForm){
         switch (changes) {
             case "description" -> {
-                company.setDescription(registerCompanyForm.getDescription());
+                company.setDescription(companySettingsForm.getDescription());
                 companyRepository.save(company);
             }
             case "mail" -> {
-                company.setMail(registerCompanyForm.getMail());
+                company.setMail(companySettingsForm.getMail());
                 companyRepository.save(company);
             }
             case "phoneNumber" -> {
-                company.setPhoneNumber(registerCompanyForm.getPhoneNumber());
+                company.setPhoneNumber(companySettingsForm.getPhoneNumber());
                 companyRepository.save(company);
             }
             case "website" -> {
-                company.setWebsite(registerCompanyForm.getWebsite());
+                company.setWebsite(companySettingsForm.getWebsite());
                 companyRepository.save(company);
             }
             case "address1" -> {
-                company.setAddress1(registerCompanyForm.getAddress1());
+                company.setAddress1(companySettingsForm.getAddress1());
                 companyRepository.save(company);
             }
             case "address2" -> {
-                company.setAddress2(registerCompanyForm.getAddress2());
+                company.setAddress2(companySettingsForm.getAddress2());
                 companyRepository.save(company);
             }
             case "country" -> {
-                company.setCountry(registerCompanyForm.getCountry());
+                company.setCountry(companySettingsForm.getCountry());
                 companyRepository.save(company);
             }
             case "state" -> {
-                company.setState(registerCompanyForm.getState());
+                company.setState(companySettingsForm.getState());
                 companyRepository.save(company);
             }
             case "zip" -> {
-                company.setZip(registerCompanyForm.getZip());
+                company.setZip(companySettingsForm.getZip());
                 companyRepository.save(company);
             }
             case "name" -> {
-                company.setFirstName(registerCompanyForm.getFirstName());
-                company.setLastName(registerCompanyForm.getLastName());
+                company.setFirstName(companySettingsForm.getFirstName());
+                company.setLastName(companySettingsForm.getLastName());
+                companyRepository.save(company);
+            }
+            case "newJob" -> {
+                Job job = new Job();
+                job.setTitle(companySettingsForm.getJobTitle());
+                job.setSalary(companySettingsForm.getJobSalary());
+                job.setDescription(companySettingsForm.getJobDescription());
+                job.setCompany(company);
+                job.setOpen(true);
+                company.addJob(job);
+                jobRepository.save(job);
+                int i = 0;
+                for(Characteristics skillName : Characteristics.values()) {
+                    Skill skill = new Skill();
+                    skill.setName(skillName.toString());
+                    skill.setLevel(companySettingsForm.getSkillValue().get(i));
+                    skill.setIsHardSkill(companySettingsForm.getSkillHard().get(i));
+                    List<Job> jobs = new ArrayList<>(Collections.singletonList(job));
+                    skill.setJobs(jobs);
+                    skillRepository.save(skill);
+                    i++;
+                }
                 companyRepository.save(company);
             }
         }

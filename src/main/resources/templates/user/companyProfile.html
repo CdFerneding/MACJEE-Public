@@ -139,16 +139,21 @@
 
         <div class="job_in_list" th:each="job: ${company.jobs}">
 
-            <b><span th:text="${job.title}"></span></b>
+            <a th:href="@{/job/viewJob(id=${job.id})}" class="dark">
+                <b><span th:text="${job.title}"></span></b>
+            </a>
             <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
             Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-            Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>
+            <!--Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>-->
 
-            job status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
-            <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">Bewerber</a> <br>
+            Status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
+            <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
+                <!--<span th:text="${job.applicants.size()}"></span>--> Bewerber
+            </a>
 
         </div>
+        <a th:href="@{/company/companySettings(changes='newJob')}"><button type="button">Job hinzufügen</button></a>
     </div>
 
 <!--

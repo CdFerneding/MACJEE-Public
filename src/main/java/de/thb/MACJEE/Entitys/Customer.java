@@ -1,12 +1,8 @@
 package de.thb.MACJEE.Entitys;
 
-import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import jakarta.persistence.*;
-
 import java.util.*;
-
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
 
 @NoArgsConstructor
 @AllArgsConstructor
