@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+  <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+  <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
+
+  <div class="profile">
+
+    <div th:if="${changes == 'name'}">
+      <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+        <div class="row">
+          <div class="col-4">
+            <input type="hidden" name="changes" value="name">
+            <label for="firstName">Neuer Vorname:</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="col-4">
+            <label for="lastName">Neuer Nachname:</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+          <div class="col-4">
+            <button type="submit">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div th:if="${changes == 'doB'}">
+      <form th:action="@{/customer/customerSettings}" method="post">
+        <div class="row">
+          <div class="col-4">
+            <input type="hidden" name="changes" value="doB">
+            <label for="doB">Geburtsdatum:</label>
+          </div>
+          <div class="col-4">
+            <input type="date" id="doB" name="doB" required>
+          </div>
+          <div class="col-4">
+            <button type="submit">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div th:if="${changes == 'mail'}">
+      <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+        <div class="row">
+          <div class="col-4">
+            <input type="hidden" name="changes" value="mail">
+            <label for="mail">Neue Mail:</label>
+          </div>
+          <div class="col-4">
+            <input type="text" id="mail" name="mail" required>
+          </div>
+          <div class="col-4">
+            <button type="submit">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div th:if="${changes == 'newSkill'}">
+      <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
+        <input type="hidden" name="changes" value="newSkill">
+
+        <div th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}">
+          <label for="skill">Skill auswählen:</label> <br>
+          <select id="skill" name="skill">
+            <option th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}"
+                    th:value="${skill}" th:text="${skill}"></option>
+          </select>
+
+          <label for="value">Ausprägung:</label>
+          <input type="number" id="value" name="value" min="0" max="15" required>
+
+          <label for="isHardSkill">Hardskill:</label>
+          <input type="checkbox" id="isHardSkill" name="isHardSkill">
+        </div>
+
+
+
+        <button type="submit">Register</button>
+      </form>
+    </div>
+
+
+
+  </div><br><br><br>
+
+  <!--
+  <div class="_list_">
+    <a th:href="@{'/customer/' + ${customer.id} + '/find-jobs'}">Find me a job</a> <br>
+    <a th:href="@{/job/all}">All Open Jobs</a> <br>
+  </div>-->
+
+  <div th:insert="~{contact :: _contact}"></div>
+  <div th:insert="~{js_libraries :: libs}"></div>
+
+</div>
+</body>
+</html>

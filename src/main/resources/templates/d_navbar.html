@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
@@ -16,12 +16,21 @@
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li class="menu-active"><a href="#">Home</a></li>
+          <li class="menu-active"><a th:href="@{/dashboard}">Home</a></li>
           <li sec:authorize="hasAuthority('ROLE_CUSTOMER')">
-            <a th:href="@{/user/customerProfile.html}">Profil</a>
+            <a th:href="@{/customer/profile}">Profil</a>
           </li>
           <li sec:authorize="hasAuthority('ROLE_COMPANY')">
-            <a th:href="@{/user/companyProfile.html}">Profil</a>
+            <a th:href="@{/company/profile}">Profil</a>
+          </li>
+          <li sec:authorize="hasRole('ROLE_CUSTOMER')">
+            <a th:href="@{/customer/job/perfect}">Perfekter Job</a>
+          </li>
+          <li>
+            <a th:href="@{/job/all}">Alle Jobs</a>
+          </li>
+          <li sec:authorize="hasAuthority('ROLE_COMPANY')">
+            <a th:href="@{/company/jobs}">Meine Jobs</a>
           </li>
 
           <ul>
@@ -37,7 +46,7 @@
             </li>
           </ul>
           </li>
-          <li><a href="#logout">Auslogen</a></li>
+          <li><a href="/logout">Log out</a></li>
           <li><a href="#contact">Kontakt</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->

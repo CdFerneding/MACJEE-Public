@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Company</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link th:href="@{/img/favicon.png}" rel="icon">
+    <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link th:href="@{lib/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/lib/ionicons/css/ionicons.min.css}" rel="stylesheet">
+    <link th:href="@{lib/aos/aos.css}" rel="stylesheet">
+    <link th:href="@{lib/magnific-popup/magnific-popup.css}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div th:insert="~{d_navbar :: d_nav}"></div><br><br><br><br><br><br><br><br>
+
+    <div class="profile">
+
+        <div th:if="${changes == 'name'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="name">
+                        <label for="firstName">Neuer Vorname:</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-4">
+                        <label for="lastName">Neuer Nachname:</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'description'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-6">
+                        <input type="hidden" name="changes" value="description">
+                        <label for="description">Neue Beschreibung:</label>
+                        <input type="text" id="description" name="description" required>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'mail'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="mail">
+                        <label for="mail">Neue Mail:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="mail" name="mail" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div th:if="${changes == 'phoneNumber'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="phoneNumber">
+                        <label for="phoneNumber">Neue Telefonnummer:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div th:if="${changes == 'website'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="website">
+                        <label for="website">Neue Webside:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="website" name="website" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'address1'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="address1">
+                        <label for="address1">Neue Addresse 1:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="address1" name="address1" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'address2'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="address2">
+                        <label for="address2">Neue Addresse 2:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="address2" name="address2" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div th:if="${changes == 'country'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="country">
+                        <label for="country">Neue Country:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="country" name="country" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div th:if="${changes == 'state'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="state">
+                        <label for="state">Neuer State:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    <div class="col-4">
+                        button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div th:if="${changes == 'zip'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="hidden" name="changes" value="zip">
+                        <label for="zip">Neue Zip:</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="number" id="zip" name="zip" required>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div th:if="${changes == 'newJob'}">
+            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+                <input type="hidden" name="changes" value="newJob">
+
+                <label for="jobTitle">Name:</label>
+                <input type="text" id="jobTitle" name="jobTitle" required>
+
+                <label for="jobDescription">Beschreibung:</label>
+                <input type="text" id="jobDescription" name="jobDescription" required>
+
+                <label for="jobSalary">Salary:</label>
+                <input type="number" id="jobSalary" name="jobSalary" required>
+
+                <div th:each="skill : ${characteristics}">
+                    <span th:text="${skill}"></span>
+
+                    <label for="value">Ausprägung:</label>
+                    <input type="number" id="value" name="skillValue" min="0" max="15" required>
+
+                    <label for="isHardSkill">Hardskill:</label>
+                    <input type="hidden" name="skillHard" value="false">
+                    <input type="checkbox" id="isHardSkill" name="skillHard"> <br>
+                </div>
+
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+
+
+
+
+
+
+    <div th:insert="~{contact :: _contact}"></div>
+    <div th:insert="~{js_libraries :: libs}"></div>
+
+</div>
+</body>
+</html>

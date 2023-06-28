@@ -5,11 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class RegisterCompanyForm {
+public class CompanySettingsForm {
     private String username;
     private String password;
     private String companyName;
@@ -24,4 +26,10 @@ public class RegisterCompanyForm {
     private int zip;
     private String website;
     private String phoneNumber;
+    private String jobTitle;
+    private String jobDescription;
+    private int jobSalary;
+    private List<String> skillName;
+    private List<Long> skillValue;
+    private List<Boolean> skillHard;
 }

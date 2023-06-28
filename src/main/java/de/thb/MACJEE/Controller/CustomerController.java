@@ -1,9 +1,12 @@
 package de.thb.MACJEE.Controller;
 
+import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
+import de.thb.MACJEE.Service.JobService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,51 +14,78 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Controller
 @RequestMapping("/customer")
+@Data
 public class CustomerController {
 
     @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
     @Autowired
-    private JobFinder jobFinder;
+    private final JobFinder jobFinder;
+    @Autowired
+    private JobService jobService;
 
-    @GetMapping("")
+    @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!authentication.isAuthenticated()) {
-            model.addAttribute("error", "You are not allowed to access this site!");
-            return "error";
-        }
-        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+        String username = authentication.getName();
+        Customer customer = customerService.getCustomerByUsernameWithSkills(username)
                 .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+        List<Job> applications = customerService.getApplicationsOfCustomer(customer.getId());
+        model.addAttribute("customer", customer);
+        model.addAttribute("applications", applications);
+        return "user/customerProfile";
+    }
+
+    @GetMapping("/customerSettings")
+    public String showCustomerSettings(@RequestParam("changes") String changes, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("changes", changes);
+        model.addAttribute("customer", customer);
+        return "user/customerSettings";
+    }
+
+    @PostMapping("/customerSettings")
+    public String postCustomerSettings(@RequestParam("changes") String changes, CustomerSettingsForm customerSettingsForm, Model model) throws ParseException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Customer customer = customerService.getCustomerByUserName(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        customerService.Settings(customer, changes, customerSettingsForm);
+
         model.addAttribute("customer", customer);
         return "user/customerProfile";
     }
 
-    @PostMapping("/{id}/find-jobs")
-    public String findJobsByCompany(@PathVariable("id") Long id, Model model) {
-        try {
-            Customer customer = customerService.getCustomerById(id)
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-            Long customerId = customer.getId();
-            List<Job> jobs = jobFinder.findPerfectJobs(customerId);
-            model.addAttribute("jobs", jobs);
-            model.addAttribute("customer", customer);
-            return "user/findJob";
-        } catch (Exception e) {
-            // Handle the exception appropriately
-            // You can log the error or show a custom error page
-            return "error";
-        }
-    }
+    @GetMapping("/job/perfect")
+    public String showPerfectJob(Model model, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        try{
+            // fetch customer with his skills
+            Customer customer = customerService.getCustomerByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
+            List<Job> jobs = jobService.getPerfectJob(customer);
+            if (jobs != null) {
+                model.addAttribute("jobs", jobs);
+                redirectAttributes.addFlashAttribute("success", "Es wurde ein perfekter Job für dich gefunden.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Es wurde KEIN perfekter Job für dich gefunden.");
+            }
+        } catch (UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "there is a problem with the currently logged in user.");
+        }
+        return "job/perfect";
+    }
 }

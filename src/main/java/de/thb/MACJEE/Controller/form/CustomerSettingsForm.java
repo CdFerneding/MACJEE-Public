@@ -9,19 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class RegisterCompanyForm {
+public class CustomerSettingsForm {
     private String username;
     private String password;
-    private String companyName;
     private String firstName;
     private String lastName;
+    private String doB;
     private String mail;
-    private String description;
-    private String address1;
-    private String address2;
-    private String country;
-    private String state;
-    private int zip;
-    private String website;
-    private String phoneNumber;
+    private String skill;
+    private int value;
 }

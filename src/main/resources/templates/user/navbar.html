@@ -15,11 +15,11 @@
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li class="menu-active"><a href="#">Home</a></li>
-                    <li sec:authorize="hasAuthority('CUSTOMER')">
-                        <a th:href="@{/user/customerProfile.html}">Profil</a>
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_CUSTOMER'')')}">
+                        <a th:href="@{/user/customerProfile}">Profil</a>
                     </li>
-                    <li sec:authorize="hasAuthority('COMPANY')">
-                        <a th:href="@{/user/companyProfile.html}">Profil</a>
+                    <li th:if="${#authorization.expression('hasRole(''ROLE_COMPANY'')')}">
+                        <a th:href="@{/user/companyProfile}">Profil</a>
                     </li>
 
                     <ul>

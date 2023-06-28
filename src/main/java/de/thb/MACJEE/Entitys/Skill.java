@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -20,14 +23,17 @@ public class Skill {
     private Long id;
 
     private String name;
-    private int level;
+    private Long level;
 
     @ManyToMany(mappedBy = "skills")
-    private Set<Customer> customers = new HashSet<>();
+    @ToString.Exclude
+    private List<Customer> customers = new ArrayList<>();
 
+    // Wrapper class allows attribute to be null
     @Column(name = "is_hard_skill")
-    private boolean isHardSkill;
+    private Boolean isHardSkill;
 
     @ManyToMany(mappedBy = "requiredSkills")
-    private Set<Job> jobs = new HashSet<>();
+    @ToString.Exclude
+    private List<Job> jobs = new ArrayList<>();
 }
