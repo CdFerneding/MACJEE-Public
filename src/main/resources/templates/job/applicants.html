@@ -60,14 +60,14 @@
                 <div th:each="skill: ${applicant.skills}" class="table_boarder">
                     <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15
                 </div>
-                <div class="row">
+                <div class="row mt-2 mb-2">
                     <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post" class="mr-2">
                         <input type="hidden" name="username" th:value="${applicant.username}"/>
-                        <button type="submit">akzeptieren</button>
+                        <button type="submit" class="btn btn-success">akzeptieren</button>
                     </form>
                     <form th:action="@{/company/jobs/{id}/deny(id=${job.id})}" method="post">
                         <input type="hidden" name="username" th:value="${applicant.username}"/>
-                        <button type="submit">ablehnen</button>
+                        <button type="submit" class="btn btn-danger">ablehnen</button>
                     </form>
                 </div>
             </div>
