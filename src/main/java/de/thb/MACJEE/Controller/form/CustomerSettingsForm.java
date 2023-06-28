@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -17,5 +19,5 @@ public class CustomerSettingsForm {
     private String doB;
     private String mail;
     private String skill;
-    private int value;
+    private List<Integer> value;
 }

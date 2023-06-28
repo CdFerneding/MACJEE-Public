@@ -1,6 +1,7 @@
 package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CustomerRepository;
@@ -53,7 +54,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> getCustomerByUsernameWithSkills(String userName) throws UsernameNotFoundException {
-        return customerRepository.findCustomerByUsernameWtihSkills(userName);
+        return customerRepository.findCustomerByUsernameWithSkills(userName);
     }
 
     public void setCustomerWorkingAt(Customer customer, Job job) {
@@ -122,13 +123,20 @@ public class CustomerService {
                 customerRepository.save(customer);
             }
             case "newSkill" -> {
-                Skill skill = new Skill();
                 List<Customer> customers = new ArrayList<>(Collections.singletonList(customer));
-                skill.setName(customerSettingsForm.getSkill());
-                skill.setLevel((long) customerSettingsForm.getValue());
-                skill.setCustomers(customers);
-                customer.addSkill(skill);
-                skillRepository.save(skill);
+
+                List<Skill> skills = new ArrayList<Skill>();
+                int i = 0;
+                for(Characteristics skillName : Characteristics.values()) {
+                    Skill skill = new Skill();
+                    skill.setName(skillName.toString());
+                    skill.setLevel((long) customerSettingsForm.getValue().get(i));
+                    skill.setCustomers(customers);
+                    skillRepository.save(skill);
+                    skills.add(skill);
+                    i++;
+                }
+                customer.setSkills(skills);
                 customerRepository.save(customer);
             }
         }
