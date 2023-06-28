@@ -92,6 +92,10 @@ public class JobService {
         jobRepository.save(job);
     }
 
+    public void deleteJob(Job job) {
+        jobRepository.delete(job);
+    }
+
     public Optional<Job> getJobWithApplicants(Long jobId) {
         return jobRepository.findJobWithApplicants(jobId);
     }
@@ -107,5 +111,15 @@ public class JobService {
             return perfectJobs;
         }
         else return null;
+    }
+
+    public void fireCurrentWorker(Job job) {
+        Customer working = job.getWorking();
+        if(working != null) {
+            job.setWorking(null);
+            working.setCurrentJob(null);
+            jobRepository.save(job);
+            customerRepository.save(working);
+        }
     }
 }

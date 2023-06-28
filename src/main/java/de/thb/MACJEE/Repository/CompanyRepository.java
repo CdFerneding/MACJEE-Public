@@ -10,8 +10,8 @@ import java.util.Optional;
 
 @RepositoryDefinition(domainClass = Company.class, idClass = Long.class)
 public interface CompanyRepository extends CrudRepository<Company, Long> {
-    @Query("SELECT DISTINCT c FROM Company c LEFT JOIN FETCH c.jobs WHERE c.companyName = :companyName")
-    Optional<Company> findCompanyByUsernameWithJobs(String companyName);
+    @Query("SELECT DISTINCT c FROM Company c LEFT JOIN FETCH c.jobs WHERE c.username = :username")
+    Optional<Company> findCompanyByUsernameWithJobs(String username);
 
     Optional<Company> findCompanyByUsername(String username);
 

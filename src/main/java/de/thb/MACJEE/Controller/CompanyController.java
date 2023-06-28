@@ -1,7 +1,6 @@
 package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Controller.form.CompanySettingsForm;
-import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,7 +37,7 @@ public class CompanyController {
     @GetMapping("/profile")
     public String showCompanyProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("company", company);
         return "user/companyProfile";
@@ -48,7 +46,7 @@ public class CompanyController {
     @GetMapping("/companySettings")
     public String showCompanySettings(@RequestParam("changes") String changes, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("changes", changes);
         model.addAttribute("company", company);
@@ -59,7 +57,7 @@ public class CompanyController {
     @PostMapping("/companySettings")
     public String postCompanySettings(@RequestParam("changes") String changes, CompanySettingsForm companySettingsForm, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         companyService.setAttributes(company, changes, companySettingsForm);
@@ -122,6 +120,85 @@ public class CompanyController {
             redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
         }
         return "job/applicants";
+    }
+
+    @GetMapping("/jobs/{id}/fire")
+    public String fireCurrentWorker(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        try {
+            Company company = companyService.getCompanyByUserName(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            if(job.getWorking() != null) {
+                jobService.fireCurrentWorker(job);
+                jobService.setAvailabilityStateOfJob(true, job);
+                redirectAttributes.addFlashAttribute("success", "Arbeiter wurde erfolgreich gekündigt.");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "dieser Job hat keinen Arbeiter");
+            }
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/delete")
+    public String deleteJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.deleteJob(job);
+            String m = "Job '" + job.getTitle() + "' wurde gelöscht";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/close")
+    public String closeJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.setAvailabilityStateOfJob(false, job);
+            String m = "Job '" + job.getTitle() + "' wurde geschlossen. Kunden können sich nun nicht mehr bewerben.";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/open")
+    public String openJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.setAvailabilityStateOfJob(true, job);
+            String m = "Job '" + job.getTitle() + "' wurde geöffnet und Kunden können sich bewerben.";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
     }
 
     @PostMapping("/jobs/{id}/accept")
