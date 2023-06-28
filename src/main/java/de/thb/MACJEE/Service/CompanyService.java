@@ -28,8 +28,8 @@ public class CompanyService {
     @Autowired
     private SkillRepository skillRepository;
 
-    public Optional<Company> getCompanyByCompanyName(String companyName) {
-        return companyRepository.findCompanyByUsernameWithJobs(companyName);
+    public Optional<Company> getCompanyByUsername(String username) {
+        return companyRepository.findCompanyByUsernameWithJobs(username);
     }
 
     public Company addCompany(Company company) {

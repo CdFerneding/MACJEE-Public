@@ -1,7 +1,6 @@
 package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Controller.form.CompanySettingsForm;
-import de.thb.MACJEE.Controller.form.RegisterCompanyForm;
 import de.thb.MACJEE.Entitys.Company;
 import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,7 +36,7 @@ public class CompanyController {
     @GetMapping("/profile")
     public String showCompanyProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("company", company);
         return "user/companyProfile";
@@ -47,7 +45,7 @@ public class CompanyController {
     @GetMapping("/companySettings")
     public String showCompanySettings(@RequestParam("changes") String changes, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         model.addAttribute("changes", changes);
         model.addAttribute("company", company);
@@ -57,7 +55,7 @@ public class CompanyController {
     @PostMapping("/companySettings")
     public String postCompanySettings(@RequestParam("changes") String changes, CompanySettingsForm companySettingsForm, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Company company = companyService.getCompanyByCompanyName(authentication.getName())
+        Company company = companyService.getCompanyByUsername(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         companyService.setAttributes(company, changes, companySettingsForm);
