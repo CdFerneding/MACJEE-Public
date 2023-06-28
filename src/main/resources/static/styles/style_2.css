@@ -1251,11 +1251,26 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .job_in_list{
-  background-color: #d3d3d3;
+  background-color: #fefefe;
+  border: 1px solid #ccc;
   margin-bottom: 2%;
   margin-top: 2%;
   padding: 2%;
   border-radius: 10px;
+}
+
+.job_in_list_short_version{
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 4%;
+  padding-bottom: 5%;
+  border-radius: 10px;
+}
+
+.short_version_container{
+  padding: 1%;
 }
 
 .skill_in_list{
@@ -1264,6 +1279,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 1%;
   margin-top: 1%;
   border-radius: 7px;
+  border: 1px solid #ccc;
 }
 
 .profile{
@@ -1288,6 +1304,26 @@ body.mobile-nav-active #mobile-nav-toggle {
 .mac_button:hover{
   background-color: #0f521f;
   color: white;
+}
+
+.box_shadow{
+  transition: box-shadow .3s;
+  /*width: 300px;
+  height: 500px;
+  margin: 50px;
+  border-radius:10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  float: left;*/
+
+}
+.box_shadow:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+}
+
+.extra_padding{
+  padding-top: 3%;
+  padding-bottom: 3%;
 }
 
 
