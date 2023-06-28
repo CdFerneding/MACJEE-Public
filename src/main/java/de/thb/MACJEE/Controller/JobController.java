@@ -95,19 +95,4 @@ public class JobController {
         return "redirect:/job/all";
     }
 
-    /*@GetMapping("/applicants")
-    public String showCompanyApplicants(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        try {
-            Company company = companyService.getCompanyByUserName(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
-
-            List<Job> companyJobs = companyService.getJobsByCompany(company);
-
-        } catch (UsernameNotFoundException e) {
-            model.addAttribute("error", "Benutzername nicht gefunden");
-        }
-        return "job/applicants";
-    }*/
 }

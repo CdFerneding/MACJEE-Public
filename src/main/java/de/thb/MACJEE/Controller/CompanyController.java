@@ -148,16 +148,49 @@ public class CompanyController {
 
     @GetMapping("/jobs/{id}/delete")
     public String deleteJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
         try {
-            Company company = companyService.getCompanyByUserName(username)
-                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
             Job job = jobService.getJobById(id)
                     .orElseThrow(() -> new JobNotFoundException("job not found."));
 
             jobService.deleteJob(job);
             String m = "Job '" + job.getTitle() + "' wurde gelöscht";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/close")
+    public String closeJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.setAvailabilityStateOfJob(false, job);
+            String m = "Job '" + job.getTitle() + "' wurde geschlossen. Kunden können sich nun nicht mehr bewerben.";
+            redirectAttributes.addFlashAttribute("success", m);
+        } catch(UsernameNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+        } catch(JobNotFoundException e) {
+            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+        }
+        return "redirect:/company/jobs";
+    }
+
+    @GetMapping("/jobs/{id}/open")
+    public String openJob(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            // no test if job belongs to company because only the company can see it's own jobs in the first place
+            Job job = jobService.getJobById(id)
+                    .orElseThrow(() -> new JobNotFoundException("job not found."));
+
+            jobService.setAvailabilityStateOfJob(true, job);
+            String m = "Job '" + job.getTitle() + "' wurde geöffnet und Kunden können sich bewerben.";
             redirectAttributes.addFlashAttribute("success", m);
         } catch(UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
