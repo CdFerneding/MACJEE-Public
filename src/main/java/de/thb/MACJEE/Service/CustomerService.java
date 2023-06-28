@@ -52,6 +52,10 @@ public class CustomerService {
         return customerRepository.findCustomerByUsername(userName);
     }
 
+    public Optional<Customer> getCustomerByUsernameWithSkills(String userName) throws UsernameNotFoundException {
+        return customerRepository.findCustomerByUsernameWtihSkills(userName);
+    }
+
     public void setCustomerWorkingAt(Customer customer, Job job) {
         customer.setCurrentJob(job);
         job.setWorking(customer);

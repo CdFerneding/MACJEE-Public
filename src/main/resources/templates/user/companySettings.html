@@ -224,13 +224,14 @@
                 <label for="jobSalary">Salary:</label>
                 <input type="number" id="jobSalary" name="jobSalary" required>
 
-                <div th:each="skill : ${T(de.thb.MACJEE.Entitys.Enumerations.Characteristics).values()}">
+                <div th:each="skill : ${characteristics}">
                     <span th:text="${skill}"></span>
 
                     <label for="value">Ausprägung:</label>
                     <input type="number" id="value" name="skillValue" min="0" max="15" required>
 
                     <label for="isHardSkill">Hardskill:</label>
+                    <input type="hidden" name="skillHard" value="false">
                     <input type="checkbox" id="isHardSkill" name="skillHard"> <br>
                 </div>
 
