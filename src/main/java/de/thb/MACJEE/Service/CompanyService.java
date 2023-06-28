@@ -109,6 +109,7 @@ public class CompanyService {
                 job.setOpen(true);
                 company.addJob(job);
                 jobRepository.save(job);
+                List<Skill> skills = new ArrayList<Skill>();
                 int i = 0;
                 for(Characteristics skillName : Characteristics.values()) {
                     Skill skill = new Skill();
@@ -118,8 +119,11 @@ public class CompanyService {
                     List<Job> jobs = new ArrayList<>(Collections.singletonList(job));
                     skill.setJobs(jobs);
                     skillRepository.save(skill);
+                    skills.add(skill);
                     i++;
                 }
+                job.setRequiredSkills(skills);
+                jobRepository.save(job);
                 companyRepository.save(company);
             }
         }
