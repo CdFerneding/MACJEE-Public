@@ -71,13 +71,7 @@
         <h2>Skills:</h2>
 
         <div th:each="skill : ${customer.skills}" class="skill_in_list">
-      <span th:if="${skill.isHardSkill}" th:class="danger" style="color:#ff0000;">
-        <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
-      </span>
-
-            <span th:if="${!skill.isHardSkill}" th:class="success" style="color:#00ff00;">
-        <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
-      </span>
+            <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
         </div>
 
 
