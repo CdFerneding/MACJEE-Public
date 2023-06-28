@@ -129,7 +129,7 @@ public class CustomerService {
                 int i = 0;
                 for(Characteristics skillName : Characteristics.values()) {
                     Skill skill = new Skill();
-                    skill.setName(customerSettingsForm.getSkill());
+                    skill.setName(skillName.toString());
                     skill.setLevel((long) customerSettingsForm.getValue().get(i));
                     skill.setCustomers(customers);
                     skillRepository.save(skill);
