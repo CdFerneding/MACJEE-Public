@@ -2,6 +2,7 @@ package de.thb.MACJEE.Controller;
 
 import de.thb.MACJEE.Controller.form.CustomerSettingsForm;
 import de.thb.MACJEE.Entitys.Customer;
+import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
@@ -50,6 +51,7 @@ public class CustomerController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = customerService.getCustomerByUserName(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("characteristics", Characteristics.values());
         model.addAttribute("changes", changes);
         model.addAttribute("customer", customer);
         return "user/customerSettings";
