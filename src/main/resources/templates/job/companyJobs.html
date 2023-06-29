@@ -53,40 +53,72 @@
 
             <b><span th:text="${job.title}"></span></b>
             <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
-            <a th:href="@{/company/jobs/{id}/delete(id=${job.id})}" class="success">
-                <span th:text="'Job löschen'"></span>
-            </a> (aktuelle Bewerber werden gelöscht!)
+
+            <div class="row">
+                <div class="col-lg-4 col-12">
+
+                    Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
+                    <a th:href="@{/company/jobs/{id}/delete(id=${job.id})}" class="success">
+                        <span th:text="'Job löschen'"></span>
+                    </a> <br>
+                </div>
+                <div class="col-lg-8 col-12">
+                    <div th:if="${job.isOpen()}">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                Status: <b><span th:text="offen"/></b>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <a th:href="@{/company/jobs/{id}/close(id=${job.id})}" class="success">
+                                    <span th:text="'job schließen'"/>
+                                </a>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
+                                    <span th:text="${job.applicants.size()}"></span> Bewerber
+                                </a><br>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div th:if="${!job.isOpen()}">
+                        <!-- Job ist geschlossen und es gibt einen Arbeiter-->
+                        <div class="row" th:if="${job.working != null}">
+                            <div class="col-lg-6 col-md-6 col-12">
+                                Job geschlossen<br>
+                                <span th:text="'Arbeiter: ' + ${job.working.firstName} + ' ' +  ${job.working.lastName}"/><br>
+                                Kontakt: <span th:if="${job.working != null}" th:text="${job.working.mail}"></span><br>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <a th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
+                                    <span th:text="'Arbeiter feuern'"></span>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <!-- Job ist geschlossen und es gibt KEINEN Arbeiter -->
+                        <div class="row" th:if="${job.working == null}">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                Job geschlossen<br>
+                                <span th:text="'geschlossen, kein Arbeiter zugewiesen'"/>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <a th:href="@{/company/jobs/{id}/open(id=${job.id})}" class="success">
+                                    <br><span th:text="'Job öffnen'"/>
+                                </a> und neue Bewerber annehmen
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <br>
 
-            Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-            <!--Firma: <b><span th:text="${job.company.getCompanyName()}"></span></b>. <br>-->
-            <div th:if="${job.isOpen()}">
-                Status: <b><span th:text="offen"/></b>
-                <a th:href="@{/company/jobs/{id}/close(id=${job.id})}" class="success">
-                    <br><span th:text="'job schließen'"/>
-                </a> und keine weiteren Bewerber annehmen
-                <a th:href="@{/company/jobs/{id}(id=${job.id})}" class="success">
-                    <br><span th:text="${job.applicants.size()}"></span> Bewerber
-                </a><br>
 
-            </div>
-            <div th:if="${!job.isOpen()}">
-                <!-- Job ist geschlossen und es gibt einen Arbeiter-->
-                <div th:if="${job.working != null}">
-                    <span th:text="'geschlossen, Arbeiter: ' + ${job.working.firstName} + ' ' +  ${job.working.lastName}"/><br>
-                    Kontakt: <span th:if="${job.working != null}" th:text="${job.working.mail}"></span><br>
-                    <a th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
-                        <span th:text="'Arbeiter feuern'"></span>
-                    </a>
-                </div>
-                <!-- Job ist geschlossen und es gibt KEINEN Arbeiter -->
-                <div th:if="${job.working == null}">
-                    <span th:text="'geschlossen, kein Arbeiter zugewiesen'"/>
-                    <a th:href="@{/company/jobs/{id}/open(id=${job.id})}" class="success">
-                        <br><span th:text="'Job öffnen'"/>
-                    </a> und neue Bewerber annehmen
-                </div>
-            </div>
+
 
         </div>
     </div>

@@ -55,11 +55,11 @@
 
                     <div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
 
-                        <span th:if="${skill.isHardSkill}" th:class="danger" style="color:#ff4444;">
+                        <span th:if="${skill.isHardSkill}" class="text-danger" >
                             <span th:text="${skill.name}"></span>: <span th:text="${skill.level}">/15 benötigt</span>
                         </span>
 
-                        <span th:if="${!skill.isHardSkill}" th:class="success" style="color:#66ff66;">
+                        <span th:if="${!skill.isHardSkill}" class="text-success" >
                             <span th:text="${skill.name}"></span>: <span th:text="${skill.level}">/15 benötigt</span>
                         </span>
 

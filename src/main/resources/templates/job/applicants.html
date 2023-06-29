@@ -60,7 +60,7 @@
                 <div th:each="skill: ${applicant.skills}" class="table_boarder">
                     <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15
                 </div>
-                <div class="row mt-2 mb-2">
+                <div class="row mt-5 mb-2">
                     <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post" class="mr-2">
                         <input type="hidden" name="username" th:value="${applicant.username}"/>
                         <button type="submit" class="btn btn-success">akzeptieren</button>
