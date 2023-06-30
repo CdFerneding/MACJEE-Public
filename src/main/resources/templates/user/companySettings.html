@@ -215,28 +215,43 @@
             <form th:action="@{/company/companySettings}" method="post" class="card-text">
                 <input type="hidden" name="changes" value="newJob">
 
-                <label for="jobTitle">Name:</label>
-                <input type="text" id="jobTitle" name="jobTitle" required>
+                <div class="row mb-4">
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <label for="jobTitle">Name:</label>
+                        <input type="text" id="jobTitle" name="jobTitle" required>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <label for="jobDescription">Beschreibung:</label>
+                        <input type="text" id="jobDescription" name="jobDescription" required>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <label for="jobSalary">Salary:</label>
+                        <input type="number" id="jobSalary" name="jobSalary" required>
+                    </div>
 
-                <label for="jobDescription">Beschreibung:</label>
-                <input type="text" id="jobDescription" name="jobDescription" required>
-
-                <label for="jobSalary">Salary:</label>
-                <input type="number" id="jobSalary" name="jobSalary" required>
-
-                <div th:each="skill : ${characteristics}">
-                    <span th:text="${skill}"></span>
-
-                    <label for="value">Ausprägung:</label>
-                    <input type="number" id="value" name="skillValue" min="0" max="15" required>
-
-                    <label for="isHardSkill">Hardskill:</label>
-                    <input type="hidden" name="skillHard" value="false">
-                    <input type="checkbox" id="isHardSkill" name="skillHard"> <br>
                 </div>
 
 
-                <button type="submit">Register</button>
+                <div th:each="skill : ${characteristics}">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <span th:text="${skill}"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <input type="number" id="value" name="skillValue" min="0" max="15" required>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <label for="isHardSkill">Hardskill:</label>
+                            <input type="hidden" name="skillHard" value="false">
+                            <input type="checkbox" id="isHardSkill" name="skillHard">
+                        </div>
+                    </div>
+                    <hr style="height:1px;border-width:0;" class="bg-dark dark mb-2 mt-2">
+
+                </div>
+
+
+                <button type="submit" class="mac_button mt-3">Register</button>
             </form>
         </div>
     </div>

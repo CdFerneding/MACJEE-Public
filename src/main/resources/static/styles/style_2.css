@@ -1259,6 +1259,10 @@ body.mobile-nav-active #mobile-nav-toggle {
   border-radius: 10px;
 }
 
+.card_height{
+  height:300px;
+}
+
 .job_in_list_short_version{
   background-color: #fff;
   border: 1px solid #ccc;
@@ -1285,8 +1289,10 @@ body.mobile-nav-active #mobile-nav-toggle {
 .profile{
   margin-left: 5%;
   margin-right: 5%;
-  background-color: #d3d3d3;
+  background-color: #f2f2f2;/*eeeeee*/
   padding: 2%;
+  border-radius: 7px;
+  border: 2px solid #ccc;
 }
 
 .table_boarder{
@@ -1296,26 +1302,18 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .mac_button{
   background-color: #28a745;
-  padding: 2% 5%;
+  padding: 1% 2%;
   border-radius: 5px;
   border-style: none;
 }
 
 .mac_button:hover{
-  background-color: #0f521f;
+  background-color: #1e7e34;
   color: white;
 }
 
 .box_shadow{
   transition: box-shadow .3s;
-  /*width: 300px;
-  height: 500px;
-  margin: 50px;
-  border-radius:10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  float: left;*/
-
 }
 .box_shadow:hover {
   box-shadow: 0 0 11px rgba(33,33,33,.2);

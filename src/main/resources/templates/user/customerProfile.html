@@ -73,7 +73,7 @@
 
 
         <a th:href="@{/customer/customerSettings(changes='newSkill')}">
-            <button type="button">Skill hinzufügen</button>
+            <button type="button" class="mac_button">Skill hinzufügen</button>
         </a> <br> <br>
 
         <h2>Bewerbungen:</h2>
@@ -81,7 +81,7 @@
             <span th:text="${_application.title}"></span>
         </div>
 
-    </div>
+    </div><br><br><br>
 
     <div th:insert="~{contact :: _contact}"></div>
     <div th:insert="~{js_libraries :: libs}"></div>

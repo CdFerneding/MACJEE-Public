@@ -90,14 +90,20 @@
       <form th:action="@{/customer/customerSettings}" method="post" class="card-text">
         <input type="hidden" name="changes" value="newSkill">
 
-        <div th:each="skill : ${characteristics}">
-          <span th:text="${skill}"></span>
-
-          <label for="value">Ausprägung:</label>
-          <input type="number" id="value" name="value" min="0" max="15" required>
+        <div th:each="skill : ${characteristics}" class="">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+              <span th:text="${skill}"></span>
+              <label for="value"></label>
+            </div>
+            <div class="col-lg-8 col-md-6 col-12">
+              <input type="number" id="value" name="value" min="0" max="15" required>
+            </div>
+          </div>
+          <hr style="height:1px;border-width:0;" class="bg-dark dark mb-2 mt-2">
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" class="mac_button">Register</button>
       </form>
     </div>
 

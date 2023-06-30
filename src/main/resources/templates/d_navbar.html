@@ -17,10 +17,10 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a th:href="@{/dashboard}">Home</a></li>
-          <li sec:authorize="hasAuthority('ROLE_CUSTOMER')">
+          <li sec:authorize="hasRole('ROLE_CUSTOMER')">
             <a th:href="@{/customer/profile}">Profil</a>
           </li>
-          <li sec:authorize="hasAuthority('ROLE_COMPANY')">
+          <li sec:authorize="hasRole('ROLE_COMPANY')">
             <a th:href="@{/company/profile}">Profil</a>
           </li>
           <li sec:authorize="hasRole('ROLE_CUSTOMER')">
@@ -29,7 +29,7 @@
           <li>
             <a th:href="@{/job/all}">Alle Jobs</a>
           </li>
-          <li sec:authorize="hasAuthority('ROLE_COMPANY')">
+          <li sec:authorize="hasRole('ROLE_COMPANY')">
             <a th:href="@{/company/jobs}">Meine Jobs</a>
           </li>
 

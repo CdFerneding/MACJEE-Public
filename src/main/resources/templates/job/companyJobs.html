@@ -86,9 +86,9 @@
                         <!-- Job ist geschlossen und es gibt einen Arbeiter-->
                         <div class="row" th:if="${job.working != null}">
                             <div class="col-lg-6 col-md-6 col-12">
-                                Job geschlossen<br>
-                                <span th:text="'Arbeiter: ' + ${job.working.firstName} + ' ' +  ${job.working.lastName}"/><br>
-                                Kontakt: <span th:if="${job.working != null}" th:text="${job.working.mail}"></span><br>
+                                Status: <b><span th:text="geschlossen"/></b><br>
+                                Arbeiter: <b><span th:text="${job.working.firstName} + ' ' +  ${job.working.lastName}"/></b><br>
+                                Kontakt: <b><span th:if="${job.working != null}" th:text="${job.working.mail}"></span></b><br>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
                                 <a th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
