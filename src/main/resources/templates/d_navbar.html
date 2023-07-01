@@ -52,6 +52,12 @@
       </nav><!-- #nav-menu-container -->
     </div>
   </header><!-- #header -->
+  <div th:if="${success}" class="alert alert-danger">
+    <span th:text="${success}"/>
+  </div>
+  <div th:if="${error}" class="alert alert-danger">
+    <span th:text="${error}">
+  </div>
 </div>
 
 </body>
