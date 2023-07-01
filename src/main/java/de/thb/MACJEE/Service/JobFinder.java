@@ -47,27 +47,39 @@ public class JobFinder {
                 Integer difference = calculateDifference(skills, requiredSkills);
                 if (difference == null) {
                     // if there is a problem with calculating the difference the job is marked as under-qualified
-                    jobDiffMap.put(job, Characteristics.getNumberOfCharacteristics()*15);
-                }
-                jobDiffMap.put(job, difference);
+                    jobDiffMap.put(job, Characteristics.getNumberOfCharacteristics() * 15);
+                } else jobDiffMap.put(job, difference);
             }
         } else return null;
 
         // sort the map entries based on the absolute difference to 0 ...
+        ArrayList<Map.Entry<Job, Integer>> entries = new ArrayList<>(jobDiffMap.entrySet());
+        // reminder: sort is sorting the elements based on the compare method.
+        // a negative return value indicates wrong order.
+        Collections.sort(entries, (o1, o2) -> {
+                    Integer value1 = o1.getValue();
+                    Integer value2 = o2.getValue();
 
+                    // this scenario should not actually occur because the value is tested before written into the map
+                    if (value1 == null || value2 == null) {
+                        return 0;
+                    }
 
-        // add the first 5 jobs to
+                    int diff1 = Math.abs(value1.intValue());
+                    int diff2 = Math.abs(value2.intValue());
+                    return Integer.compare(diff1, diff2);
+                }
+        );
+
+        // add the first 5 jobs to matchingJobs
         List<Job> matchingJobs = new ArrayList<>();
         int count = 0;
-        if(jobDiffMap.size() < 5) {
-            count = jobDiffMap.size();
-        }
+        int limit = Math.min(entries.size(), 5);  // Use Math.min to handle cases where entries size is less than 5
 
-        for (Map.Entry<Job, Integer> entry : jobDiffMap.entrySet()) {
-            if (count >= 5) {
+        for (Map.Entry<Job, Integer> entry : entries) {
+            if (count >= limit) {
                 break;  // Exit the loop once 5 jobs have been added
             }
-
             Job job = entry.getKey();
             matchingJobs.add(job);
 
@@ -75,6 +87,7 @@ public class JobFinder {
         }
 
         return matchingJobs;
+
     }
 
 
@@ -108,8 +121,8 @@ public class JobFinder {
             return null;
         }
         // either the job or the customer skills are not fully initialized
-        int numberOfSkills = Characteristics.getNumberOfCharacteristics();
-        if(skills.size() != numberOfSkills || requiredSkills.size() != numberOfSkills) {
+        Integer numberOfSkills = Characteristics.getNumberOfCharacteristics();
+        if (skills.size() != numberOfSkills || requiredSkills.size() != numberOfSkills) {
             return null;
         }
         int[] skillsDiff = new int[skills.size()];
