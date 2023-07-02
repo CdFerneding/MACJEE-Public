@@ -61,6 +61,10 @@
                 <td><span th:text="${customer.doB}"></span></td>
                 <td><a th:href="@{/customer/customerSettings(changes='doB')}" class="success">Change</a></td>
             </tr>
+            <tr class="table_boarder" th:if="${customer.currentJob != null}">
+                <th scope="row">Arbeitet bei:</th>
+                <td><span th:text="${customer.currentJob.title} + ' von der Firma: ' + ${customer.currentJob.company.companyName}"></span></td>
+            </tr>
             </tbody>
         </table>
 
