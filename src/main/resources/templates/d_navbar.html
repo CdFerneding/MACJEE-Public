@@ -1,63 +1,56 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <body>
 
 <div th:fragment="d_nav">
-  <header id="header" class="" style="background: linear-gradient(45deg, var(--newColor), var(--originalColor2))!important;">
-    <div class="container">
+    <header id="header" class="" style="background: linear-gradient(45deg, var(--newColor), var(--originalColor2))!important; clear: both;">
+        <div class="container">
 
-      <div id="logo" class="pull-left">
-        <h1><a href="#intro" class="scrollto">MACJEE</a></h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!--<a href="#intro"><img src="img/MACJEE_logo.png" alt="" title="" style="width:auto;height:70px;"/></img></a>-->
-      </div>
+            <div id="logo" class="pull-left">
+                <h1><a href="#intro" class="scrollto">MACJEE</a></h1>
+                <!-- Uncomment below if you prefer to use an image logo -->
+                <!--<a href="#intro"><img src="img/MACJEE_logo.png" alt="" title="" style="width:auto;height:70px;"/></img></a>-->
+            </div>
 
-      <nav id="nav-menu-container">
-        <ul class="nav-menu">
-          <li class="menu-active"><a th:href="@{/dashboard}">Home</a></li>
-          <li sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <a th:href="@{/customer/profile}">Profil</a>
-          </li>
-          <li sec:authorize="hasRole('ROLE_COMPANY')">
-            <a th:href="@{/company/profile}">Profil</a>
-          </li>
-          <li sec:authorize="hasRole('ROLE_CUSTOMER')">
-            <a th:href="@{/customer/job/perfect}">Passende Jobs</a>
-          </li>
-          <li>
-            <a th:href="@{/job/all}">Alle Jobs</a>
-          </li>
-          <li sec:authorize="hasRole('ROLE_COMPANY')">
-            <a th:href="@{/company/jobs}">Meine Jobs</a>
-          </li>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li class="menu-active"><a th:href="@{/dashboard}">Home</a></li>
+                    <li sec:authorize="hasRole('ROLE_CUSTOMER')">
+                        <a th:href="@{/customer/profile}">Profil</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_COMPANY')">
+                        <a th:href="@{/company/profile}">Profil</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_CUSTOMER')">
+                        <a th:href="@{/customer/job/perfect}">Passende Jobs</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/job/all}">Alle Jobs</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_COMPANY')">
+                        <a th:href="@{/company/jobs}">Meine Jobs</a>
+                    </li>
 
-          <ul>
-            <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
-            <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
-            <li class="menu-has-children"><a href="#">Drop Down</a>
-              <ul>
-                <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
-                <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
-                <li><a href="#">Deep Drop Down 3</a></li>
-                <li><a href="#">Deep Drop Down 4</a></li>
-              </ul>
-            </li>
-          </ul>
-          </li>
-          <li><a href="/logout">Log out</a></li>
-          <li><a href="#contact">Kontakt</a></li>
-        </ul>
-      </nav><!-- #nav-menu-container -->
-    </div>
-  </header><!-- #header -->
-  <div th:if="${success}" class="alert alert-danger">
-    <span th:text="${success}"/>
-  </div>
-  <div th:if="${error}" class="alert alert-danger">
-    <span th:text="${error}"/>
-  </div>
+                    <ul>
+                        <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
+                        <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
+                        <li class="menu-has-children"><a href="#">Drop Down</a>
+                            <ul>
+                                <li><a th:href="@{/auth/login}" class = "nav-link">Anmelden</a></li>
+                                <li><a th:href="@{/auth/register}" class = "nav-link">Registrieren</a></li>
+                                <li><a href="#">Deep Drop Down 3</a></li>
+                                <li><a href="#">Deep Drop Down 4</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    </li>
+                    <li><a href="/logout">Log out</a></li>
+                    <li><a href="#contact">Kontakt</a></li>
+                </ul>
+            </nav><!-- #nav-menu-container -->
+        </div>
+    </header><!-- #header -->
 </div>
 
 </body>

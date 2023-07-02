@@ -35,7 +35,7 @@ public class JobFinder {
 
     public List<Job> getPerfectJobs(Customer customer) {
         List<Job> openJobs = jobService.getOpenJobs();
-        Map<Job, Integer> jobDiffMap = new HashMap<>();
+        Map<Job, Float> jobDiffMap = new HashMap<>();
 
         if (!openJobs.isEmpty()) {
             List<Skill> skills = customer.getSkills();
@@ -44,30 +44,30 @@ public class JobFinder {
                 List<Skill> requiredSkills = job.getRequiredSkills();
 
                 // calculate difference between skill lists
-                Integer difference = calculateDifference(skills, requiredSkills);
+                Float difference = calculateDifference(skills, requiredSkills);
                 if (difference == null) {
                     // if there is a problem with calculating the difference the job is marked as under-qualified
-                    jobDiffMap.put(job, Characteristics.getNumberOfCharacteristics() * 15);
+                    jobDiffMap.put(job, (float)Characteristics.getNumberOfCharacteristics() * 15);
                 } else jobDiffMap.put(job, difference);
             }
         } else return null;
 
         // sort the map entries based on the absolute difference to 0 ...
-        ArrayList<Map.Entry<Job, Integer>> entries = new ArrayList<>(jobDiffMap.entrySet());
+        ArrayList<Map.Entry<Job, Float>> entries = new ArrayList<>(jobDiffMap.entrySet());
         // reminder: sort is sorting the elements based on the compare method.
         // a negative return value indicates wrong order.
         Collections.sort(entries, (o1, o2) -> {
-                    Integer value1 = o1.getValue();
-                    Integer value2 = o2.getValue();
+                    Float value1 = o1.getValue();
+                    Float value2 = o2.getValue();
 
                     // this scenario should not actually occur because the value is tested before written into the map
                     if (value1 == null || value2 == null) {
                         return 0;
                     }
 
-                    int diff1 = Math.abs(value1.intValue());
-                    int diff2 = Math.abs(value2.intValue());
-                    return Integer.compare(diff1, diff2);
+                    float diff1 = Math.abs(value1.intValue());
+                    float diff2 = Math.abs(value2.intValue());
+                    return Float.compare(diff1, diff2);
                 }
         );
 
@@ -76,18 +76,16 @@ public class JobFinder {
         int count = 0;
         int limit = Math.min(entries.size(), 5);  // Use Math.min to handle cases where entries size is less than 5
 
-        for (Map.Entry<Job, Integer> entry : entries) {
+        for (Map.Entry<Job, Float> entry : entries) {
             if (count >= limit) {
-                break;  // Exit the loop once 5 jobs have been added
+                break;
             }
             Job job = entry.getKey();
             matchingJobs.add(job);
 
             count++;
         }
-
         return matchingJobs;
-
     }
 
 
@@ -99,7 +97,7 @@ public class JobFinder {
      * above zero: under-qualified
      * the closer the value is to zero the more the customer matches the job
      */
-    private Integer calculateDifference(List<Skill> skills, List<Skill> requiredSkills) {
+    private Float calculateDifference(List<Skill> skills, List<Skill> requiredSkills) {
         if (requiredSkills == null || skills == null) {
             return null;
         }
@@ -110,7 +108,7 @@ public class JobFinder {
          */
         if (skills.size() != 0) {
             if (requiredSkills.size() == 0) {
-                int sum = 0;
+                float sum = 0;
                 for (Skill skill : skills) {
                     sum += skill.getLevel();
                 }
@@ -125,14 +123,20 @@ public class JobFinder {
         if (skills.size() != numberOfSkills || requiredSkills.size() != numberOfSkills) {
             return null;
         }
-        int[] skillsDiff = new int[skills.size()];
+        float[] skillsDiff = new float[skills.size()];
         // calculate the difference between individual skills
         for (int i = 0; i < skills.size(); i++) {
-            int differenceOfSkill = (int) (requiredSkills.get(i).getLevel() - skills.get(i).getLevel());
+            float differenceOfSkill = (float) (requiredSkills.get(i).getLevel() - skills.get(i).getLevel());
+            if(!requiredSkills.get(i).getIsHardSkill()) {
+                differenceOfSkill *= 0.25;
+            }
             skillsDiff[i] = differenceOfSkill;
         }
+
+        //TODO: additional check that no hard-skill is e.g. >3 (-> too under-qualified in a field that is important
+
         // add the individual differences to get the overall difference
-        int jobDiff = 0;
+        float jobDiff = 0;
         for (int i = 0; i < skills.size(); i++) {
             /* no differentiation between positive and negative difference!
              * Because if you are over-qualified for one skill the skillDiff will be below zero.

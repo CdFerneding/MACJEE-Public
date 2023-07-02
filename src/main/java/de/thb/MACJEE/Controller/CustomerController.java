@@ -73,12 +73,16 @@ public class CustomerController {
             Customer customer = customerService.getCustomerByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
+            if(customer.getSkills().size() != Characteristics.getNumberOfCharacteristics()) {
+                model.addAttribute("error", "Alle Skills müssen (im Profil) angegeben werden, damit auf deine Fähigkeiten zugeschnittene Jobs gefunden werden können.");
+                return "job/perfect";
+            }
             List<Job> jobs = jobFinder.getPerfectJobs(customer);
             if (jobs != null) {
                 model.addAttribute("jobs", jobs);
-                model.addAttribute("success", "Es wurde ein perfekter Job für dich gefunden.");
+                model.addAttribute("success", "Es wurden passende Jobs für dich gefunden.");
             } else {
-                model.addAttribute("error", "Es wurde KEIN perfekter Job für dich gefunden. ");
+                model.addAttribute("error", "Es wurden leider keine passende Jobs für dich gefunden.");
                 return "/user/dashboard";
             }
         } catch (UsernameNotFoundException e) {
