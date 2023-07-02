@@ -70,7 +70,7 @@ public class CustomerController {
         String username = authentication.getName();
         try{
             // fetch customer with his skills
-            Customer customer = customerService.getCustomerByUserName(username)
+            Customer customer = customerService.getCustomerByUsernameWithSkills(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
             if(customer.getSkills().size() != Characteristics.getNumberOfCharacteristics()) {

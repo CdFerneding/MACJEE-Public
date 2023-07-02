@@ -56,4 +56,9 @@ public class Job {
     @OneToOne
     @ToString.Exclude
     private Customer working;
+
+    @Override
+    public String toString() {
+        return this.getTitle() + " von der Firma: " + this.getCompany().getCompanyName();
+    }
 }

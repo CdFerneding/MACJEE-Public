@@ -11,12 +11,12 @@ import java.util.Optional;
 @RepositoryDefinition(domainClass = Customer.class, idClass = Long.class)
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.skills WHERE c.username = :username")
-    Optional<Customer> findCustomerByUsername(String username);
+    @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.applications WHERE c.username = :username")
+    Optional<Customer> findCustomerByUsernameWithApplications(String username);
 
     @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.skills WHERE c.username = :username")
     Optional<Customer> findCustomerByUsernameWithSkills(String username);
-    Optional<Customer> findByUsername(String username);
+
     Optional<Customer> findCustomerById(Long id);
 
     //Optional<Long> findIdByCustomer(Customer customer);
@@ -29,8 +29,4 @@ public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     @Query("SELECT CASE WHEN (COUNT(c) > 0) THEN true ELSE false END FROM Customer c WHERE c = :customer AND c.currentJob IS NOT NULL")
     boolean customerHasCurrentJob(Customer customer);
-
-    @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.applications WHERE c.username = :username")
-    Optional<Customer> findCustomerWithApplications(String username);
-
 }

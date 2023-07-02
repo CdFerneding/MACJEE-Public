@@ -67,7 +67,7 @@ public class CompanyController {
     }
 
     @GetMapping("/jobs")
-    public String showCompanyJobs(Model model, RedirectAttributes redirectAttributes) {
+    public String showCompanyJobs(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -79,7 +79,7 @@ public class CompanyController {
             model.addAttribute("company", company);
             model.addAttribute("jobs", companyJobs);
         } catch(UsernameNotFoundException e) {
-            redirectAttributes.addFlashAttribute("error", "nutzer nicht gefunden.");
+            model.addAttribute("error", "nutzer nicht gefunden.");
         }
         return "job/companyJobs";
     }
@@ -115,9 +115,9 @@ public class CompanyController {
                 return "error";
             }
         } catch(UsernameNotFoundException e) {
-            redirectAttributes.addFlashAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
+            model.addAttribute("error", "derzeit angemeldete Firma nicht gefunden.");
         } catch(JobNotFoundException e) {
-            redirectAttributes.addFlashAttribute("error", "Job wurde nicht gefunden.");
+            model.addAttribute("error", "Job wurde nicht gefunden.");
         }
         return "job/applicants";
     }

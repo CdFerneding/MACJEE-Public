@@ -50,7 +50,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> getCustomerByUserName(String userName) throws UsernameNotFoundException {
-        return customerRepository.findCustomerByUsername(userName);
+        return customerRepository.findCustomerByUsernameWithApplications(userName);
     }
 
     public Optional<Customer> getCustomerByUsernameWithSkills(String userName) throws UsernameNotFoundException {
@@ -95,7 +95,7 @@ public class CustomerService {
     }
 
     public Optional<Customer> getCustomerWithApplications(String username) {
-        return customerRepository.findCustomerWithApplications(username);
+        return customerRepository.findCustomerByUsernameWithApplications(username);
     }
 
     public void Settings(Customer customer, String changes, CustomerSettingsForm customerSettingsForm){

@@ -9,6 +9,7 @@ import de.thb.MACJEE.Service.CompanyService;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobService;
 import de.thb.MACJEE.Service.UserEntityService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.hibernate.Hibernate;
@@ -60,7 +61,7 @@ public class JobController {
     }
 
     @PostMapping("/apply")
-    public String applyToJob(@RequestParam("jobId") Long jobId, Model model, RedirectAttributes redirectAttributes) {
+    public String applyToJob(@RequestParam("jobId") Long jobId, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         try {
@@ -87,21 +88,13 @@ public class JobController {
             redirectAttributes.addFlashAttribute("error", "Der Job hat keine verlinkte Firma");
         }
 
-        // send an email to the company.mail to link the application review site:
-        /*String companyEmail = company.getMail();
+        //TODO: sending a notification or email to the company
 
-        String subject = "New Job Applicant";
-        String message = "A new applicant has applied for the job:\n" +
-                "Job Title: " + job.getTitle() + "\n" +
-                "Applicant Name: " + applicant.getFirstName() + " "+ applicant.getLastName() + "\n" +
-                "Username on MACJEE: " + applicant.getUsername() + "\n" +
-                "Applicant Email: " + applicant.getMail() + "\n";
-
-        // emailservice does not exist yet
-        emailService.sendEmail(companyEmail, subject, message);*/
-
-        // send a macjee notification to the company to link the application review site:
-        return "redirect:/job/all";
+        String referringURL = request.getHeader("referer");
+        if (referringURL != null && referringURL.contains("/customer/job/perfect")) {
+            return "redirect:/customer/job/perfect";
+        } else {
+            return "redirect:/job/all";
+        }
     }
-
 }
