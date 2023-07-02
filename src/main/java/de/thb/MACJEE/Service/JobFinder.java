@@ -33,8 +33,16 @@ public class JobFinder {
         return matchingJobs;
     }
 
+    /**
+     * compares the required skills of all open job with the skills of the currently logged in customer.
+     * The differences are stored in a map: <Job>;<SkillDifferenceBetweenSkills>
+     * @param customer, that is currently logged in
+     * @return returns a list of openJobs that match the skills of the currently logged in customer
+     */
     public List<Job> getPerfectJobs(Customer customer) {
         List<Job> openJobs = jobService.getOpenJobs();
+        // map where the calculated skill difference is stored in.
+        // The key value is the job (for reference and to remember the job)
         Map<Job, Float> jobDiffMap = new HashMap<>();
 
         if (!openJobs.isEmpty()) {
@@ -52,15 +60,15 @@ public class JobFinder {
             }
         } else return null;
 
-        // sort the map entries based on the absolute difference to 0 ...
+        // sort the map entries based on the absolute difference to 0
         ArrayList<Map.Entry<Job, Float>> entries = new ArrayList<>(jobDiffMap.entrySet());
         // reminder: sort is sorting the elements based on the compare method.
-        // a negative return value indicates wrong order.
+        // a negative return value indicates wrong order and vice versa.
         Collections.sort(entries, (o1, o2) -> {
                     Float value1 = o1.getValue();
                     Float value2 = o2.getValue();
 
-                    // this scenario should not actually occur because the value is tested before written into the map
+                    // this scenario should not actually occur because the values are tested before written into the map
                     if (value1 == null || value2 == null) {
                         return 0;
                     }
@@ -133,7 +141,7 @@ public class JobFinder {
             skillsDiff[i] = differenceOfSkill;
         }
 
-        //TODO: additional check that no hard-skill is e.g. >3 (-> too under-qualified in a field that is important
+        //TODO: additional check that no hard-skill is e.g. >3 (-> too under-qualified in a field that is important)
 
         // add the individual differences to get the overall difference
         float jobDiff = 0;
