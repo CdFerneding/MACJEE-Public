@@ -141,7 +141,7 @@ public class JobFinder {
             skillsDiff[i] = differenceOfSkill;
         }
 
-        //TODO: additional check that no hard-skill is e.g. >3 (-> too under-qualified in a field that is important
+        //TODO: additional check that no hard-skill is e.g. >3 (-> too under-qualified in a field that is important)
 
         // add the individual differences to get the overall difference
         float jobDiff = 0;
