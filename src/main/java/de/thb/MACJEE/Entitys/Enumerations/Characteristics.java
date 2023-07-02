@@ -1,7 +1,10 @@
 package de.thb.MACJEE.Entitys.Enumerations;
 
 public enum Characteristics {
-    MATH, BIOLOGY, PHYSICS, GERMAN, CHEMISTRY, ENGLISH, PE, CS
+    Mathe, Biologie, Physik, Deutsch, Chemie, Englisch, Sport, Informatik;
     // PE = PHYSICAL EDUCATION
     // CS = COMPUTER SCIENCE
+    public static int getNumberOfCharacteristics() {
+        return values().length;
+    }
 }

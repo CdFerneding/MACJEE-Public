@@ -6,7 +6,6 @@ import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Service.CustomerService;
 import de.thb.MACJEE.Service.JobFinder;
-import de.thb.MACJEE.Service.JobService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,8 +30,6 @@ public class CustomerController {
     private final CustomerService customerService;
     @Autowired
     private final JobFinder jobFinder;
-    @Autowired
-    private JobService jobService;
 
     @GetMapping("/profile")
     public String showCustomerProfile (Model model) {
@@ -76,12 +73,17 @@ public class CustomerController {
             Customer customer = customerService.getCustomerByUserName(username)
                     .orElseThrow(() -> new UsernameNotFoundException("username not found."));
 
-            List<Job> jobs = jobService.getPerfectJob(customer);
+            if(customer.getSkills().size() != Characteristics.getNumberOfCharacteristics()) {
+                model.addAttribute("error", "Alle Skills müssen (im Profil) angegeben werden, damit auf deine Fähigkeiten zugeschnittene Jobs gefunden werden können.");
+                return "job/perfect";
+            }
+            List<Job> jobs = jobFinder.getPerfectJobs(customer);
             if (jobs != null) {
                 model.addAttribute("jobs", jobs);
-                redirectAttributes.addFlashAttribute("success", "Es wurde ein perfekter Job für dich gefunden.");
+                model.addAttribute("success", "Es wurden passende Jobs für dich gefunden.");
             } else {
-                redirectAttributes.addFlashAttribute("error", "Es wurde KEIN perfekter Job für dich gefunden.");
+                model.addAttribute("error", "Es wurden leider keine passende Jobs für dich gefunden.");
+                return "/user/dashboard";
             }
         } catch (UsernameNotFoundException e) {
             redirectAttributes.addFlashAttribute("error", "there is a problem with the currently logged in user.");

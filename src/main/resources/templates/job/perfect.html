@@ -36,6 +36,12 @@
         <br><br><br><br><br><br><br>
         <div class="_list_">
             <h1>Passende Jobs für dich sind: </h1>
+            <div th:if="${success}" class="alert alert-success">
+                <span th:text="${success}"/>
+            </div>
+            <div th:if="${error}" class="alert alert-danger">
+                <span th:text="${error}"/>
+            </div>
 
             <div class="job_in_list box_shadow" th:each="job: ${jobs}">
 

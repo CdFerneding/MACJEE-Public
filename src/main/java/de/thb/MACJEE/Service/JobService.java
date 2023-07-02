@@ -102,17 +102,6 @@ public class JobService {
 
     public Optional<Job> getJobWithRequiredSkills(Long jobId) { return jobRepository.findJobWithRequiredSkills(jobId); }
 
-    public List<Job> getPerfectJob(Customer customer) {
-        List<Job> openJobs = getOpenJobs();
-        if(!openJobs.isEmpty()) {
-            List<Job> perfectJobs = new ArrayList<>();
-            perfectJobs.add(openJobs.get(0));
-            perfectJobs.add(openJobs.get(1));
-            return perfectJobs;
-        }
-        else return null;
-    }
-
     public void fireCurrentWorker(Job job) {
         Customer working = job.getWorking();
         if(working != null) {

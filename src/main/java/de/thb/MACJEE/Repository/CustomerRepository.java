@@ -11,7 +11,7 @@ import java.util.Optional;
 @RepositoryDefinition(domainClass = Customer.class, idClass = Long.class)
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.applications WHERE c.username = :username")
+    @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.skills WHERE c.username = :username")
     Optional<Customer> findCustomerByUsername(String username);
 
     @Query("SELECT DISTINCT c FROM Customer c LEFT JOIN FETCH c.skills WHERE c.username = :username")
