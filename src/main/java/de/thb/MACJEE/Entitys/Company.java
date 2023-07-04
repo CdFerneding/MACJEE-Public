@@ -1,12 +1,7 @@
 package de.thb.MACJEE.Entitys;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor

@@ -5,8 +5,6 @@ import de.thb.MACJEE.Repository.RoleRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Data
