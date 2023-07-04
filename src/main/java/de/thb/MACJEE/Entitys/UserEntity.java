@@ -2,12 +2,8 @@ package de.thb.MACJEE.Entitys;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-
 
 @Getter
 @Setter
