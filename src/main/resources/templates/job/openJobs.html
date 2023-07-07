@@ -65,18 +65,6 @@
                                 <div th:if="*{#strings.length(job.description)<63}">
                                     <span th:text="${job.description}"/><br>
                                 </div>
-
-                                <!--<div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
-
-                                    <span th:if="${skill.isHardSkill}" th:class="danger" style="color:#ff4444;">
-                                        <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt
-                                    </span>
-
-                                    <span th:if="${!skill.isHardSkill}" th:class="success" style="color:#44ff44;">
-                                        <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt
-                                    </span>
-
-                                </div>-->
                             </div>
                             <br>
                             <div class="col-lg-12 col-12 d-flex align-items-center">

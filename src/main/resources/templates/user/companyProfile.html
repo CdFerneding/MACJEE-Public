@@ -135,35 +135,6 @@
         <a th:href="@{/company/companySettings(changes='newJob')}"><button type="button" class="btn btn-success">Job hinzufügen</button></a><br><br>
 
     </div><br><br><br>
-<!--
-    <div class="_list_ mt-5">
-
-        <h2>Meine Jobs</h2>
-        <div class="row">
-            <div class="short_version_container col-3" th:each="job: ${company.jobs}">
-                <div class="job_in_list_short_version " >
-
-                    <a th:href="@{/job/viewJob(id=${job.id})}" class="dark">
-                        <b><span th:text="${job.title}"></span></b>
-                    </a>
-                    <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
-
-                    Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-
-
-                    Status: <b><span th:if="${job.isOpen()}" th:text="offen"/><span th:if="${!job.isOpen()}" th:text="geschlossen"/></b> <br>
-
-
-                </div>
-            </div>
-        </div>
-        <a th:href="@{/company/companySettings(changes='newJob')}"><button type="button" class="btn btn-success">Job hinzufügen</button></a><br><br>
-    </div>-->
-
-
-
-
-
 
 
     <div th:insert="~{contact :: _contact}"></div>
