@@ -64,6 +64,7 @@ public class CustomerController {
         return "redirect:/customer/profile";
     }
 
+    //maybe: job/perfect inside the JobController
     @GetMapping("/job/perfect")
     public String showPerfectJob(Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -80,7 +81,6 @@ public class CustomerController {
             List<Job> jobs = jobFinder.getPerfectJobs(customer);
             if (jobs != null) {
                 model.addAttribute("jobs", jobs);
-                model.addAttribute("success", "Es wurden passende Jobs für dich gefunden.");
             } else {
                 model.addAttribute("error", "Es wurden leider keine passende Jobs für dich gefunden.");
                 return "/user/dashboard";
