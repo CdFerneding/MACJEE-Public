@@ -7,7 +7,6 @@ import org.springframework.data.repository.RepositoryDefinition;
 
 import java.util.Optional;
 
-
 @RepositoryDefinition(domainClass = Company.class, idClass = Long.class)
 public interface CompanyRepository extends CrudRepository<Company, Long> {
     @Query("SELECT DISTINCT c FROM Company c LEFT JOIN FETCH c.jobs WHERE c.username = :username")

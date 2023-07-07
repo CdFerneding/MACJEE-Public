@@ -1,11 +1,7 @@
 package de.thb.MACJEE.Entitys;
 
-import de.thb.MACJEE.Entitys.Enumerations.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Data
 @Entity

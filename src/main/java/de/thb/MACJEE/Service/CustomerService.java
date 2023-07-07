@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import de.thb.MACJEE.Entitys.Customer;
-
 
 @Service
 @Data
