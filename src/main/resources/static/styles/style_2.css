@@ -1289,7 +1289,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .profile{
   margin-left: 5%;
   margin-right: 5%;
-  background-color: #f2f2f2;/*eeeeee*/
+  background-color: #fff;/*eeeeee*/
   padding: 2%;
   border-radius: 7px;
   border: 2px solid #ccc;
@@ -1322,6 +1322,26 @@ body.mobile-nav-active #mobile-nav-toggle {
 .extra_padding{
   padding-top: 3%;
   padding-bottom: 3%;
+}
+
+.dashboard{
+  background-color: #fff;
+  margin-top: 60px;
+  padding: 30px;
+
+}
+
+.profile_d{
+  margin: 12px 5px;
+  padding: 2% 2% 10%;
+  background-color: #fff;
+  border-radius: 7px;
+  border: 2px solid #ccc;
+  color: black;
+}
+
+.profile_d:hover{
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 
 

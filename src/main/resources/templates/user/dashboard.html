@@ -33,8 +33,94 @@
 
 <div th:insert="~{d_navbar :: d_nav}"></div>
 
-<br><br><br><br><br><br><br><br>
+<br>
 
+
+
+<div class="dashboard">
+    <div class="row">
+        <div class="col-lg-4 col-12">
+            <a th:href="@{/company/profile}">
+            <div class="profile_d" sec:authorize="hasRole('ROLE_COMPANY')" >
+                <h3>Verwalte dein Profil</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+
+                <div>
+                    Name: <span th:text="${company.getCompanyName()}"></span><br>
+                    <span th:text="${company.getAddress1()}"></span><br>
+                    Mail: <span th:text="${company.getMail()}"></span><br>
+                </div>
+
+            </div>
+            </a>
+            <a th:href="@{/customer/profile}">
+            <div class="profile_d" sec:authorize="hasRole('ROLE_CUSTOMER')" >
+                <h3>Verwalte dein Profil</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+
+                <div>
+                    <span th:text="'Name: ' + ${customer.getFirstName()}"></span><br>
+                    <span th:text="'Benutzername: ' + ${customer.getUsername()}"></span><br>
+                    <span th:text="'Mail: ' + ${customer.getMail()}"></span><br>
+                </div>
+
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-12">
+            <a th:href="@{/company/profile}">
+            <div class="profile_d" sec:authorize="hasRole('ROLE_COMPANY')" th:href="@{/company/profile}">
+                <h3>Inseriere einen Job</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+
+                <div>
+                    Name: Praktikant als Bäcker<br>
+                    Gehalt: <strong>14€</strong><br>
+                    Beschreibung: Lerne wie man Brötchen bäckt<br>
+                </div>
+
+            </div>
+            </a>
+            <a th:href="@{/customer/profile}">
+            <div class="profile_d" sec:authorize="hasRole('ROLE_CUSTOMER')" th:href="@{/customer/profile}">
+                <h3>Verwalte deine Skills</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+
+                <div>
+                    Deutsch: 12<br>
+                    Englisch: 9<br>
+                    Mathe: 13<br>
+                </div>
+
+            </div>
+            </a>
+        </div>
+        <div class="col-lg-4 col-12">
+            <a th:href="@{/job/all}">
+            <div class="profile_d" >
+                <h3>Erkunde offene Jobs</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+                Burgerbrater bei McDonalds<br>
+                Akademischer Mitarbeiter bei der THB<br>
+                Tutur bei myTutor<br>
+            </div>
+            </a>
+        </div>
+        <div class="col-12">
+            <div class="profile_d">
+                <h3>Finde den perfekten Job</h3>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+<!--
 <section id="call-to-action">
     <div class="container">
         <div class="row">
@@ -50,9 +136,8 @@
         </div>
 
     </div>
-</section><!-- #call-to-action -->
+</section>--><!-- #call-to-action -->
 
-<br><br><br>
 
 <div th:insert="~{contact :: _contact}"></div>
 <div th:insert="~{js_libraries :: libs}"></div>
