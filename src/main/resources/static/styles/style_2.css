@@ -1252,7 +1252,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .job_in_list{
   background-color: #fefefe;
-  border: 2px solid #ccc;
+  border: 2px solid #bbb;
   margin-bottom: 2%;
   margin-top: 2%;
   padding: 2%;
@@ -1265,7 +1265,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .job_in_list_short_version{
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #bbb;
   padding-left: 2%;
   padding-right: 2%;
   padding-top: 4%;
@@ -1283,7 +1283,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-bottom: 1%;
   margin-top: 1%;
   border-radius: 7px;
-  border: 2px solid #ccc;
+  border: 2px solid #bbb;
 }
 
 .profile{
@@ -1292,7 +1292,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   background-color: #fff;/*eeeeee*/
   padding: 2%;
   border-radius: 7px;
-  border: 2px solid #ccc;
+  border: 2px solid #bbb;
 }
 
 .table_boarder{
@@ -1332,11 +1332,12 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .profile_d{
-  margin: 12px 5px;
+  margin: 15px 5px;
   padding: 2% 2% 10%;
   background-color: #fff;
   border-radius: 7px;
   border: 2px solid #ccc;
+  border: 2px solid #1dc8cd;
   color: black;
 }
 

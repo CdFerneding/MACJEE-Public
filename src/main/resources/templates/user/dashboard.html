@@ -45,6 +45,8 @@
                 <h3>Verwalte dein Profil</h3>
                 <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
 
+                <strong>Bearbeite dein Profil, damit es immer auf dem neuesten Stand ist!</strong><br><br>
+
                 <div>
                     Name: <span th:text="${company.getCompanyName()}"></span><br>
                     <span th:text="${company.getAddress1()}"></span><br>
@@ -55,11 +57,27 @@
             </a>
             <a th:href="@{/customer/profile}">
             <div class="profile_d" sec:authorize="hasRole('ROLE_CUSTOMER')" >
-                <h3>Verwalte dein Profil</h3>
+                <div>
+                    <h3 th:text="'Hallo ' + ${customer.getFirstName()}"></h3>
+                    <!--<span id="date-time"> </span>
+                    <script>
+                        function refreshTime(){
+                            let dt = new Date().toLocaleString();
+                            const formattedString = dt.replace(", ", " - ");
+                            dt.textContent = formattedString;;
+                            document.getElementById('date-time').innerHTML=dt;
+                        }
+
+                        setInterval(refreshTime, 1000);
+                    </script>-->
+                </div>
+
                 <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
 
+
                 <div>
-                    <span th:text="'Name: ' + ${customer.getFirstName()}"></span><br>
+                    <strong>Bearbeite dein Profil, damit es immer auf dem neuesten Stand ist!</strong><br><br>
+                    <span th:text="'Name: ' + ${customer.getFirstName()} + ${customer.getLastName()}"></span><br>
                     <span th:text="'Benutzername: ' + ${customer.getUsername()}"></span><br>
                     <span th:text="'Mail: ' + ${customer.getMail()}"></span><br>
                 </div>
@@ -72,7 +90,7 @@
             <div class="profile_d" sec:authorize="hasRole('ROLE_COMPANY')" th:href="@{/company/profile}">
                 <h3>Inseriere einen Job</h3>
                 <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
-
+                <strong>Aquiriere neue Mitarbeiter, indem du neue Jobs ausschreibst!</strong><br><br>
                 <div>
                     Name: Praktikant als Bäcker<br>
                     Gehalt: <strong>14€</strong><br>
@@ -85,7 +103,7 @@
             <div class="profile_d" sec:authorize="hasRole('ROLE_CUSTOMER')" th:href="@{/customer/profile}">
                 <h3>Verwalte deine Skills</h3>
                 <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
-
+                <strong>Aktualisiere deine Skills, um den besten Job für dich zu finden!</strong><br><br>
                 <div>
                     Deutsch: 12<br>
                     Englisch: 9<br>
@@ -100,6 +118,7 @@
             <div class="profile_d" >
                 <h3>Erkunde offene Jobs</h3>
                 <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+                <strong>Hier kannst du dir alle aktuellen Jobs ansehen!</strong><br><br>
                 Burgerbrater bei McDonalds<br>
                 Akademischer Mitarbeiter bei der THB<br>
                 Tutur bei myTutor<br>
@@ -109,6 +128,8 @@
         <div class="col-12">
             <div class="profile_d">
                 <h3>Finde den perfekten Job</h3>
+                <hr style="height:1px;border-width:0;" class="bg-success secondary mb-4">
+                <strong>Wir bei MACJEE haben eine einfache, aber sehr wichtige Mission: Den richtigen Job für Jedermann. Erst wenn jeder Mensch und jedes Unternehmen dieselben Möglichkeiten hat, schaffen wir den Schritt zu einer faireren Arbeitswelt. </strong><br>
             </div>
         </div>
     </div>
