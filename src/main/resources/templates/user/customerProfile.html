@@ -33,11 +33,10 @@
     <div th:insert="~{d_navbar :: d_nav}"></div>
     <br><br><br><br><br><br><br><br>
 
-    <div class="profile">
-
+    <div class="_list_">
         <h2 th:text="${customer.username}"></h2>
 
-        <table style="width:100%;" class="mb-5">
+        <table style="width:100%;" class="mb-5 macjee_table">
             <thead>
             <tr>
                 <th style="width:20%;"></th>
@@ -67,25 +66,77 @@
             </tr>
             </tbody>
         </table>
+    </div>
+    <div class="profile">
 
 
         <h2>Skills:</h2>
-
+<!--
         <div th:each="skill : ${customer.skills}" class="skill_in_list">
             <span th:text="${skill.name}"></span> : <span th:text="${skill.level}"></span> <br>
         </div>
+-->
+
+        <div class="_skills">
+            <ul class="lines">
+                <li class="line l--0">
+                    <span class="line__label title">
+                        <!--Skill level:-->
+                    </span>
+                </li>
+                <li class="line l--25">
+                    <span class="line__label">
+                        The basics
+                    </span>
+                </li>
+                <li class="line l--50">
+                    <span class="line__label">
+                        Advanced
+                    </span>
+                </li>
+                <li class="line l--75">
+                  <span class="line__label">
+                    Seasoned
+                  </span>
+                </li>
+                <li class="line l--100">
+                  <span class="line__label">
+                    Expert
+                  </span>
+                </li>
+            </ul>
+
+            <div class="charts">
+                <div class="chart chart--dev">
+                    <ul class="chart--horiz">
+                        <li th:each="skill : ${customer.skills}" class="chart__bar" th:style="'width: ' + ${100 / 16 * skill.level + 6} + '%;'">
+                            <span class="chart__label">
+                                <span th:text="${skill.name} + ' : ' + ${skill.level}"></span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
 
 
         <a th:href="@{/customer/customerSettings(changes='newSkill')}">
             <button type="button" class="mac_button">Skills bearbeiten</button>
         </a> <br> <br>
 
+    </div><br><br>
+
+    <div class="_list_">
         <h2>Bewerbungen:</h2>
         <div th:each="_application : ${applications}" class="skill_in_list">
             <span th:text="${_application.title}"></span>
         </div>
+    </div>
 
-    </div><br><br><br>
+    <br><br><br>
 
     <div th:insert="~{contact :: _contact}"></div>
     <div th:insert="~{js_libraries :: libs}"></div>

@@ -52,7 +52,7 @@
                     Beschreibung: <span th:text="${job.description}"></span><br><br>
 
                     <h2>Skills:</h2>
-
+<!--
                     <div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
 
                         <span th:if="${skill.isHardSkill}" class="text-danger" >
@@ -62,6 +62,51 @@
                         <span th:if="${!skill.isHardSkill}" class="text-success" >
                             <span th:text="${skill.name}"></span>: <span th:text="${skill.level}">/15 benötigt</span>
                         </span>
+
+                    </div>-->
+
+                    <div class="_skills">
+                        <ul class="lines">
+                            <li class="line l--0">
+                                <span class="line__label title">
+                                    <!--Skill level:-->
+                                </span>
+                            </li>
+                            <li class="line l--25">
+                                <span class="line__label">
+                                    The basics
+                                </span>
+                            </li>
+                            <li class="line l--50">
+                                <span class="line__label">
+                                    Advanced
+                                </span>
+                            </li>
+                            <li class="line l--75">
+                                <span class="line__label">
+                                    Seasoned
+                                </span>
+                            </li>
+                            <li class="line l--100">
+                                <span class="line__label">
+                                    Expert
+                                </span>
+                            </li>
+                        </ul>
+
+                        <div class="charts">
+                            <div class="chart chart--dev">
+                                <ul class="chart--horiz">
+                                    <li th:each="skill : ${job.requiredSkills}" class="chart__bar" th:style="'width: ' + ${100 / 16 * skill.level + 6} + '%;'">
+                                        <span class="chart__label">
+                                            <span th:text="${skill.name} + ' : ' + ${skill.level}"></span>
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
