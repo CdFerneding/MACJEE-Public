@@ -25,6 +25,9 @@
 
     <!-- Main Stylesheet File -->
     <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+
+    <!-- confirmation script -->
+    <script th:src="@{/js/confirmation.js}" type="text/javascript"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -34,9 +37,6 @@
     <br><br><br><br><br><br><br><br>
 
     <div class="_list_">
-
-
-
 
 
         <div class="job_in_list">
@@ -66,9 +66,9 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-12 d-flex align-items-center">
-                    <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                    <form onsubmit="return confirmApplication()" th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
                         <input type="hidden" name="jobId" th:value="${job.id}"/>
-                        <button type="submit" class="mac_button d-flex justify-content-end">bewerben</button>
+                        <button style="cursor: pointer;" type="submit" class="mac_button d-flex justify-content-end">bewerben</button>
                     </form>
                 </div>
             </div>

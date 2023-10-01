@@ -25,6 +25,9 @@
 
     <!-- Main Stylesheet File -->
     <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+
+    <!-- confirmation script -->
+    <script th:src="@{/js/confirmation.js}" type="text/javascript"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -48,11 +51,7 @@
                 <div class="job_in_list card_height box_shadow extra_padding" >
 
                     <a th:href="@{/job/viewJob(id=${job.id})}" class="text-dark">
-
-
-
                         <b><span th:text="${job.title}"></span></b>
-
                         <hr style="height:1px;border-width:0;" class="bg-success success mb-4">
 
                         <div class="">
@@ -60,10 +59,10 @@
                                 Gehalt: <b><span th:text="${job.salary}"></span>€/hr</b><br>
                                 Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
                                 <div th:if="*{#strings.length(job.description)>63}">
-                                    <span th:text="${#strings.abbreviate(job.description,60)}"/>...<br>
+                                    <span th:text="${#strings.abbreviate(job.description,60)}"></span>...<br>
                                 </div>
                                 <div th:if="*{#strings.length(job.description)<63}">
-                                    <span th:text="${job.description}"/><br>
+                                    <span th:text="${job.description}"></span><br>
                                 </div>
 
                                 <!--<div th:each="skill: ${job.requiredSkills}" class="skill_in_list">
@@ -80,9 +79,9 @@
                             </div>
                             <br>
                             <div class="col-lg-12 col-12 d-flex align-items-center">
-                                <form th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
+                                <form onsubmit="return confirmApplication()" th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">
                                     <input type="hidden" name="jobId" th:value="${job.id}"/>
-                                    <button type="submit" class="mac_button d-flex justify-content-end">bewerben</button>
+                                    <button style="cursor: pointer;" type="submit" class="mac_button d-flex justify-content-end">bewerben</button>
                                 </form>
                             </div>
                             <br>
