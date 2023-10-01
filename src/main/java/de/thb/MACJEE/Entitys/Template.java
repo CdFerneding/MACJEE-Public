@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Data
 @Entity
-@Table(name = "template")
+@Table(name = "job")
 public class Template {
 
     @Id
@@ -24,9 +24,12 @@ public class Template {
     private String description;
 
     @ManyToMany
-    @JoinTable(name = "template_skill",
-            joinColumns = @JoinColumn(name = "template_id"),
+    @JoinTable(name = "job_skill",
+            joinColumns = @JoinColumn(name = "job_id"),
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     @ToString.Exclude
     private List<Skill> requiredSkills = new ArrayList<>();
+
+    private int salary;
+
 }
