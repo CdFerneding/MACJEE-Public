@@ -26,6 +26,9 @@
 
     <!-- Main Stylesheet File -->
     <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+
+    <!-- confirmation -->
+    <script th:src="@{/js/confirmation.js}" type="text/javascript"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -211,8 +214,10 @@
             </form>
         </div>
 
+
+        <!-- onsubmit link's to the confirmation.js which prompts the user to clarify the intent once more -->
         <div th:if="${changes == 'newJob'}">
-            <form th:action="@{/company/companySettings}" method="post" class="card-text">
+            <form onsubmit="return confirmCreatingJob()" th:action="@{/company/companySettings}" method="post" class="card-text">
                 <input type="hidden" name="changes" value="newJob">
 
                 <div class="row mb-4">
@@ -249,9 +254,7 @@
                     <hr style="height:1px;border-width:0;" class="bg-dark dark mb-2 mt-2">
 
                 </div>
-
-
-                <button type="submit" class="mac_button mt-3">Register</button>
+                <button type="submit" class="mac_button mt-3" id="submitButton">Job erstellen</button>
             </form>
         </div>
     </div>

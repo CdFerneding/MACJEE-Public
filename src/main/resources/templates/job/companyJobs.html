@@ -26,6 +26,9 @@
 
     <!-- Main Stylesheet File -->
     <link th:href="@{/styles/style_2.css}" rel="stylesheet">
+
+    <!-- confirmation script -->
+    <script th:src="@{/js/confirmation.js}" type="text/javascript"></script>
 </head>
 <body>
 
@@ -58,7 +61,7 @@
                 <div class="col-lg-4 col-12">
 
                     Entlohnung: <b><span th:text="${job.salary}"></span>€/hr</b> <br>
-                    <a th:href="@{/company/jobs/{id}/delete(id=${job.id})}" class="success">
+                    <a onclick="return confirmDeleteJob()" th:href="@{/company/jobs/{id}/delete(id=${job.id})}" class="success">
                         <span th:text="'Job löschen'"></span>
                     </a> <br>
                 </div>
@@ -69,8 +72,8 @@
                                 Status: <b><span th:text="offen"/></b>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12">
-                                <a th:href="@{/company/jobs/{id}/close(id=${job.id})}" class="success">
-                                    <span th:text="'job schließen'"/>
+                                <a onclick="return confirmClosingJob()" th:href="@{/company/jobs/{id}/close(id=${job.id})}" class="success">
+                                    <b><span th:text="'job schließen'"></span></b>
                                 </a>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12">
@@ -86,12 +89,12 @@
                         <!-- Job ist geschlossen und es gibt einen Arbeiter-->
                         <div class="row" th:if="${job.working != null}">
                             <div class="col-lg-6 col-md-6 col-12">
-                                Status: <b><span th:text="geschlossen"/></b><br>
-                                Arbeiter: <b><span th:text="${job.working.firstName} + ' ' +  ${job.working.lastName}"/></b><br>
+                                Status: <b><span th:text="geschlossen"></span></b><br>
+                                Arbeiter: <b><span th:text="${job.working.firstName} + ' ' +  ${job.working.lastName}"></span></b><br>
                                 Kontakt: <b><span th:if="${job.working != null}" th:text="${job.working.mail}"></span></b><br>
                             </div>
                             <div class="col-lg-6 col-md-6 col-12">
-                                <a th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
+                                <a onclick="return confirmFireWorking()" th:href="@{/company/jobs/{id}/fire(id=${job.id})}" class="success">
                                     <span th:text="'Arbeiter feuern'"></span>
                                 </a>
                             </div>
@@ -102,11 +105,11 @@
                         <div class="row" th:if="${job.working == null}">
                             <div class="col-lg-4 col-md-6 col-12">
                                 Job geschlossen<br>
-                                <span th:text="'geschlossen, kein Arbeiter zugewiesen'"/>
+                                <span th:text="'geschlossen, kein Arbeiter zugewiesen'"></span>
                             </div>
                             <div class="col-lg-4 col-md-6 col-12">
-                                <a th:href="@{/company/jobs/{id}/open(id=${job.id})}" class="success">
-                                    <br><span th:text="'Job öffnen'"/>
+                                <a onclick="return confirmOpenJob()" th:href="@{/company/jobs/{id}/open(id=${job.id})}" class="success">
+                                    <br><b><span th:text="'Job öffnen'"></span></b>
                                 </a> und neue Bewerber annehmen
                             </div>
 
