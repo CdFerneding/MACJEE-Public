@@ -39,6 +39,10 @@ public class Job {
     @ToString.Exclude
     private Company company;
 
+    @Column(name = "is_template")
+    private boolean isTemplate;
+
+
     @Column(name = "is_open")
     private boolean isOpen;
 
