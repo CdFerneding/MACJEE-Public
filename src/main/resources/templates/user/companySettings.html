@@ -211,7 +211,7 @@
             </form>
         </div>
 
-        <div th:if="${changes == 'newJob'}">
+        <div th:if="${changes == 'newJob' || changes == 'newTemplate'}">
             <form th:action="@{/company/companySettings}" method="post" class="card-text">
                 <input type="hidden" name="changes" value="newJob">
 
@@ -227,6 +227,13 @@
                     <div class="col-lg-4 col-md-6 col-12">
                         <label for="jobSalary">Salary:</label>
                         <input type="number" id="jobSalary" name="jobSalary" required>
+                    </div>
+
+                    <div th:if="${changes == 'newJob'}">
+                        <input type="hidden" name="isTemplate" value='false'>
+                    </div>
+                    <div th:if="${changes == 'newTemplate'}">
+                        <input type="hidden" name="isTemplate" value='true'>
                     </div>
 
                 </div>
@@ -254,6 +261,7 @@
                 <button type="submit" class="mac_button mt-3">Register</button>
             </form>
         </div>
+
     </div>
     <br><br><br>
 

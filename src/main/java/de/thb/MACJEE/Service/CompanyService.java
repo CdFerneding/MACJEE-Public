@@ -1,13 +1,12 @@
 package de.thb.MACJEE.Service;
 
 import de.thb.MACJEE.Controller.form.CompanySettingsForm;
-import de.thb.MACJEE.Entitys.Company;
+import de.thb.MACJEE.Entitys.*;
 import de.thb.MACJEE.Entitys.Enumerations.Characteristics;
-import de.thb.MACJEE.Entitys.Job;
-import de.thb.MACJEE.Entitys.Skill;
 import de.thb.MACJEE.Repository.CompanyRepository;
 import de.thb.MACJEE.Repository.JobRepository;
 import de.thb.MACJEE.Repository.SkillRepository;
+import de.thb.MACJEE.Repository.TemplateRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,8 @@ public class CompanyService {
     private CompanyRepository companyRepository;
     @Autowired
     private JobRepository jobRepository;
+    @Autowired
+    private TemplateRepository templateRepository;
     @Autowired
     private SkillRepository skillRepository;
 
@@ -100,13 +101,22 @@ public class CompanyService {
                 companyRepository.save(company);
             }
             case "newJob" -> {
-                Job job = new Job();
+                /*
+                JobTemplate job;
+                boolean isTemplate = companySettingsForm.getIsTemplate();
+                if (isTemplate) {
+                    job = new Template();
+                } else {
+                    job = new Job();
+                }
                 job.setTitle(companySettingsForm.getJobTitle());
                 job.setSalary(companySettingsForm.getJobSalary());
                 job.setDescription(companySettingsForm.getJobDescription());
-                job.setCompany(company);
                 job.setOpen(true);
-                company.addJob(job);
+                if(job instanceof Job){
+                    ((Job) job).setCompany(company);
+                    company.addJob((Job) job);
+                }
                 jobRepository.save(job);
                 List<Skill> skills = new ArrayList<Skill>();
                 int i = 0;
@@ -124,6 +134,60 @@ public class CompanyService {
                 job.setRequiredSkills(skills);
                 jobRepository.save(job);
                 companyRepository.save(company);
+                */
+                if (isTemplate) {
+                    Template job = new Template();
+                    job.setTitle(companySettingsForm.getJobTitle());
+                    job.setSalary(companySettingsForm.getJobSalary());
+                    job.setDescription(companySettingsForm.getJobDescription());
+                    job.setTemplate(true);
+                    templateRepository.save(job);
+                    List<Skill> skills = new ArrayList<Skill>();
+                    int i = 0;
+                    for(Characteristics skillName : Characteristics.values()) {
+                        Skill skill = new Skill();
+                        skill.setName(skillName.toString());
+                        skill.setLevel(companySettingsForm.getSkillValue().get(i));
+                        skill.setIsHardSkill(companySettingsForm.getSkillHard().get(i));
+                        List<Template> jobs = new ArrayList<>(Collections.singletonList(job));
+                        skill.setJobs(jobs);
+                        skillRepository.save(skill);
+                        skills.add(skill);
+                        i++;
+                    }
+                    job.setRequiredSkills(skills);
+                    templateRepository.save(job);
+                    companyRepository.save(company);
+
+                } else {
+                    Job job = new Job();
+                    job.setTitle(companySettingsForm.getJobTitle());
+                    job.setSalary(companySettingsForm.getJobSalary());
+                    job.setDescription(companySettingsForm.getJobDescription());
+                    job.setOpen(true);
+                    job.setTemplate(false);
+                    job.setCompany(company);
+                    company.addJob(job);
+                    jobRepository.save(job);
+                    List<Skill> skills = new ArrayList<Skill>();
+                    int i = 0;
+                    for(Characteristics skillName : Characteristics.values()) {
+                        Skill skill = new Skill();
+                        skill.setName(skillName.toString());
+                        skill.setLevel(companySettingsForm.getSkillValue().get(i));
+                        skill.setIsHardSkill(companySettingsForm.getSkillHard().get(i));
+                        List<Job> jobs = new ArrayList<>(Collections.singletonList(job));
+                        skill.setJobs(jobs);
+                        skillRepository.save(skill);
+                        skills.add(skill);
+                        i++;
+                    }
+                    job.setRequiredSkills(skills);
+                    jobRepository.save(job);
+                    companyRepository.save(company);
+
+                }
+
             }
         }
     }

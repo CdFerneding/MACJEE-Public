@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "job")
-public class Template {
+public class Template implements JobTemplate{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,5 +31,8 @@ public class Template {
     private List<Skill> requiredSkills = new ArrayList<>();
 
     private int salary;
+
+    @Column(name = "is_template")
+    private boolean isTemplate;
 
 }

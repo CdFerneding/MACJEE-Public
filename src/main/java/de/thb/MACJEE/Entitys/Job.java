@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "job")
-public class Job {
+public class Job implements JobTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,6 @@ public class Job {
 
     @Column(name = "is_template")
     private boolean isTemplate;
-
 
     @Column(name = "is_open")
     private boolean isOpen;
