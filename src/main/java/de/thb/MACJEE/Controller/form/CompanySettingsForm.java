@@ -32,5 +32,5 @@ public class CompanySettingsForm {
     private List<String> skillName;
     private List<Long> skillValue;
     private List<Boolean> skillHard;
-    private boolean isTemplate;
+    private Boolean isTemplate;
 }

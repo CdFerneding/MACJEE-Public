@@ -32,5 +32,5 @@ public class Skill {
 
     @ManyToMany(mappedBy = "requiredSkills")
     @ToString.Exclude
-    private List<JobTemplate> jobs = new ArrayList<>();
+    private List<Job> jobs = new ArrayList<>();
 }
