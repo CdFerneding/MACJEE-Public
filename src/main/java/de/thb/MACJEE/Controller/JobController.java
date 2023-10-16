@@ -5,10 +5,7 @@ import de.thb.MACJEE.Entitys.Customer;
 import de.thb.MACJEE.Entitys.Job;
 import de.thb.MACJEE.Exeption.JobHasNoCompanyException;
 import de.thb.MACJEE.Exeption.JobNotFoundException;
-import de.thb.MACJEE.Service.CompanyService;
-import de.thb.MACJEE.Service.CustomerService;
-import de.thb.MACJEE.Service.JobService;
-import de.thb.MACJEE.Service.UserEntityService;
+import de.thb.MACJEE.Service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +33,8 @@ public class JobController {
     private UserEntityService userEntityService;
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping("/all")
     public String showAllOpenJobs(Model model) {
@@ -50,6 +49,14 @@ public class JobController {
 
     @GetMapping("/viewJob")
     public String showJobs(Long id, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication.getAuthorities().toString().contains(roleService.getRoleByName("ROLE_CUSTOMER").get().getName())) {
+            String username = authentication.getName();
+            Customer customer = customerService.getCustomerByUsernameWithSkills(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("username not found."));
+            model.addAttribute("customer", customer);
+        }
         Job job = jobService.getJobByIdWithSkills(id).get();
 
         model.addAttribute("job", job);

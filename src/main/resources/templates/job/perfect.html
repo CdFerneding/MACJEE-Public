@@ -60,12 +60,6 @@
                             Firma: <b><span th:text="${job.company.companyName}"></span></b>.<br>
                             Beschreibung: <span th:text="${job.description}"/><br>
 
-                            <!--<div th:each="skill: ${job.requiredSkills}">
-                                <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
-                                <span th:if="${skill.isHardSkill}" th:text="'Dieser Skill ist notwendig!'"/>
-                                <span th:if="${!skill.isHardSkill}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
-
-                            </div>-->
                         </div>
                         <div class="col-lg-2 col-12">
                             <form onsubmit="return confirmApplication()" th:action="@{/job/apply}" method="post" sec:authorize="hasRole('ROLE_CUSTOMER')">

@@ -38,12 +38,50 @@
     <div class="_list_">
         <h2>Bewerber für den Job <span th:text="${job.title}"/> von der Firma <span th:text="${company.companyName}"/>
         </h2>
-        benötigten Skills für den Job:
 
-        <div class="job_in_list" th:each="skill: ${job.requiredSkills}">
-            <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15 benötigt;
-            <span th:if="${skill.isHardSkill}" th:text="'Dieser Skill ist notwendig!'"/>
-            <span th:if="${!skill.isHardSkill}" th:text="'Dieser Skill ist nicht zwingend notwendig.'"/>
+        <div class="_skills">
+            <ul class="lines">
+                <li class="line l--0">
+                    <span class="line__label title">
+                        <!--Skill level:-->
+                    </span>
+                </li>
+                <li class="line l--25">
+                    <span class="line__label">
+                        The basics
+                    </span>
+                </li>
+                <li class="line l--50">
+                    <span class="line__label">
+                        Advanced
+                    </span>
+                </li>
+                <li class="line l--75">
+                    <span class="line__label">
+                        Seasoned
+                    </span>
+                </li>
+                <li class="line l--100">
+                    <span class="line__label">
+                        Expert
+                    </span>
+                </li>
+            </ul>
+
+            <div class="charts">
+                <div class="chart chart--dev">
+                    <ul class="chart--horiz">
+                        <li th:each="skill : ${job.requiredSkills}" class="chart__bar" th:style="'width: ' + ${100 / 16 * skill.level + 6} + '%;'">
+                            <span class="chart__label">
+                                <span th:text="${skill.name} + ' : ' + ${skill.level}"></span>
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+
         </div>
 
         <div th:if="${success}" style="color: green;">
@@ -57,9 +95,68 @@
             <div th:if="${applicant != null}">
                 Bewerber: <b><span th:text="${applicant.firstName}"/> <span th:text="${applicant.lastName}"/></b><br>
                 Skills: <!-- Skills der Customer anzeigen (von Customer Profile kopieren--><br>
-                <div th:each="skill: ${applicant.skills}" class="table_boarder">
-                    <span th:text="${skill.name}"/>: <span th:text="${skill.level}"/>/15
+
+                <div class="_skills_comp">
+                    <ul class="lines">
+                        <li class="line l--0">
+                    <span class="line__label title">
+                        <!--Skill level:-->
+                    </span>
+                        </li>
+                        <li class="line l--25">
+                    <span class="line__label">
+                        The basics
+                    </span>
+                        </li>
+                        <li class="line l--50">
+                    <span class="line__label">
+                        Advanced
+                    </span>
+                        </li>
+                        <li class="line l--75">
+                    <span class="line__label">
+                        Seasoned
+                    </span>
+                        </li>
+                        <li class="line l--100">
+                    <span class="line__label">
+                        Expert
+                    </span>
+                        </li>
+                    </ul>
+
+                    <div class="charts">
+                        <div class="chart chart--dev">
+                            <ul class="chart--horiz">
+                                <div th:each="app_skill: ${applicant.skills}">
+                                    <li class="chart__bar" th:style="'width: ' + ${100 / 16 * app_skill.level + 6} + '%;'">
+                                        <span class="chart__label">
+                                            <span th:text="${app_skill.name} + ' : ' + ${app_skill.level}"></span>
+                                        </span>
+                                    </li>
+                                    <!--<div th:each="skill : ${job.requiredSkills}"><!--th:if="${skill.name.equals(app_skill.name)}"--><!--
+                                        <li th:if="${skill.name.equals(app_skill.name)}" class="chart__bar_comp" th:style="'width: ' + ${100 / 16 * skill.level + 6} + '%;'">
+                                            <span class="chart__label">
+                                                <span th:text="${skill.name} + ' : ' + ${skill.level}"></span>
+                                                <!--<span th:text="'required: ' + ${skill.level}"></span>--><!--
+                                            </span>
+                                        </li>
+                                    </div>-->
+                                    <li class="chart__bar_comp" th:style="'width: 66%;'">
+                                        <span class="chart__label">
+                                            <span th:text="'required: X'"></span>
+                                            <!--<span th:text="'required: ' + ${skill.level}"></span>-->
+                                        </span>
+                                    </li>
+                                </div>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
                 </div>
+
                 <div class="row mt-5 mb-2">
                     <form th:action="@{/company/jobs/{id}/accept(id=${job.id})}" method="post" class="mr-2">
                         <input type="hidden" name="username" th:value="${applicant.username}"/>
